@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
@@ -15,9 +13,12 @@ const Footer = () => {
               </span>
               <span className="text-gold">®</span>
             </a>
-            <p className="font-body text-sm text-foreground/60 leading-relaxed max-w-xs">
+            <p className="font-body text-sm text-foreground/60 leading-relaxed max-w-xs mb-4">
               Experiências de mesa únicas que transformam celebrações em 
               memórias inesquecíveis.
+            </p>
+            <p className="font-display text-lg text-foreground/80 italic">
+              Luxo sem ostentação. Beleza sem stress.
             </p>
           </div>
 
@@ -29,9 +30,10 @@ const Footer = () => {
             <nav className="flex flex-col gap-3">
               {[
                 { label: "Experiências", href: "#experiencias" },
+                { label: "Pacotes", href: "#pacotes" },
                 { label: "Galeria", href: "#galeria" },
-                { label: "Sobre", href: "#sobre" },
-                { label: "Contacto", href: "#contacto" },
+                { label: "Como Funciona", href: "#como-funciona" },
+                { label: "Pedir Orçamento", href: "#contacto" },
               ].map((link) => (
                 <a
                   key={link.label}
@@ -47,7 +49,7 @@ const Footer = () => {
           {/* Social & Contact */}
           <div>
             <h4 className="font-body text-xs uppercase tracking-[0.2em] text-gold mb-6">
-              Conecte-se
+              Contactos
             </h4>
             <div className="space-y-3">
               <a
@@ -56,7 +58,15 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="font-body text-sm text-foreground/60 hover:text-gold transition-colors block"
               >
-                Instagram
+                Instagram — @doluxoamesa
+              </a>
+              <a
+                href="https://wa.me/351912345678"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-body text-sm text-foreground/60 hover:text-gold transition-colors block"
+              >
+                WhatsApp — +351 912 345 678
               </a>
               <a
                 href="mailto:hello@doluxoamesa.pt"
@@ -65,7 +75,7 @@ const Footer = () => {
                 hello@doluxoamesa.pt
               </a>
               <p className="font-body text-sm text-foreground/60">
-                Portugal
+                Portugal Continental
               </p>
             </div>
           </div>

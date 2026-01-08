@@ -11,75 +11,77 @@
 
 @layer base {
   :root {
-    /* Core Brand Colors */
-    --background: 40 33% 97%;
-    --foreground: 25 15% 22%;
+    /* Core Brand Colors - Refined Ivory & Warm Charcoal */
+    --background: 40 30% 98%;
+    --foreground: 30 12% 18%;
 
-    /* Warm Ivory - Primary Light */
-    --card: 42 40% 96%;
-    --card-foreground: 25 15% 22%;
+    /* Warm Ivory - Card Background */
+    --card: 42 35% 97%;
+    --card-foreground: 30 12% 18%;
 
-    --popover: 42 40% 96%;
-    --popover-foreground: 25 15% 22%;
+    --popover: 42 35% 97%;
+    --popover-foreground: 30 12% 18%;
 
-    /* Deep Taupe - Primary Dark */
-    --primary: 25 12% 25%;
-    --primary-foreground: 40 33% 97%;
+    /* Deep Warm Charcoal - Primary */
+    --primary: 30 10% 20%;
+    --primary-foreground: 40 30% 98%;
 
-    /* Warm Cream */
-    --secondary: 38 35% 92%;
-    --secondary-foreground: 25 15% 22%;
+    /* Cream Secondary */
+    --secondary: 40 28% 95%;
+    --secondary-foreground: 30 12% 18%;
 
     /* Muted Warm Tones */
-    --muted: 35 20% 90%;
-    --muted-foreground: 25 10% 45%;
+    --muted: 38 22% 93%;
+    --muted-foreground: 30 8% 45%;
 
     /* Dusty Rose Accent */
-    --accent: 10 30% 75%;
-    --accent-foreground: 25 15% 22%;
+    --accent: 12 28% 80%;
+    --accent-foreground: 30 12% 18%;
 
-    /* Luxury Gold */
-    --gold: 42 55% 58%;
-    --gold-light: 42 45% 75%;
-    --gold-dark: 42 50% 42%;
+    /* Chrome Metallic Gold - More reflective and luxurious */
+    --gold: 43 45% 55%;
+    --gold-light: 43 40% 70%;
+    --gold-dark: 43 50% 42%;
+    --gold-chrome: 43 35% 62%;
 
     /* Rose Blush */
-    --rose: 10 40% 80%;
-    --rose-dark: 10 35% 65%;
+    --rose: 10 40% 82%;
+    --rose-dark: 10 32% 68%;
 
     /* Sage Green (subtle accent) */
-    --sage: 120 15% 72%;
+    --sage: 120 12% 75%;
 
     /* System Colors */
     --destructive: 0 65% 55%;
-    --destructive-foreground: 40 33% 97%;
+    --destructive-foreground: 40 30% 98%;
 
-    --border: 35 25% 88%;
-    --input: 35 25% 88%;
-    --ring: 42 55% 58%;
+    --border: 38 22% 90%;
+    --input: 38 22% 90%;
+    --ring: 43 45% 55%;
 
-    --radius: 0.25rem;
+    --radius: 0rem;
 
     /* Sidebar */
-    --sidebar-background: 40 33% 97%;
-    --sidebar-foreground: 25 15% 22%;
-    --sidebar-primary: 25 12% 25%;
-    --sidebar-primary-foreground: 40 33% 97%;
-    --sidebar-accent: 38 35% 92%;
-    --sidebar-accent-foreground: 25 15% 22%;
-    --sidebar-border: 35 25% 88%;
-    --sidebar-ring: 42 55% 58%;
+    --sidebar-background: 40 30% 98%;
+    --sidebar-foreground: 30 12% 18%;
+    --sidebar-primary: 30 10% 20%;
+    --sidebar-primary-foreground: 40 30% 98%;
+    --sidebar-accent: 40 28% 95%;
+    --sidebar-accent-foreground: 30 12% 18%;
+    --sidebar-border: 38 22% 90%;
+    --sidebar-ring: 43 45% 55%;
 
     /* Typography */
     --font-display: 'Cormorant Garamond', serif;
     --font-body: 'Montserrat', sans-serif;
     --font-accent: 'Italiana', serif;
 
-    /* Custom Properties */
-    --gradient-gold: linear-gradient(135deg, hsl(42 55% 58%), hsl(42 45% 75%));
-    --gradient-warm: linear-gradient(180deg, hsl(40 33% 97%) 0%, hsl(38 35% 92%) 100%);
-    --shadow-soft: 0 4px 20px -4px hsl(25 15% 22% / 0.08);
-    --shadow-luxury: 0 8px 40px -8px hsl(42 55% 58% / 0.15);
+    /* Custom Properties - Chrome Gold Gradients */
+    --gradient-gold: linear-gradient(135deg, hsl(43 45% 55%), hsl(43 50% 70%), hsl(43 45% 55%));
+    --gradient-gold-chrome: linear-gradient(135deg, hsl(43 35% 62%), hsl(43 25% 78%), hsl(43 35% 62%));
+    --gradient-warm: linear-gradient(180deg, hsl(40 30% 98%) 0%, hsl(40 28% 95%) 100%);
+    --shadow-soft: 0 4px 20px -4px hsl(30 12% 18% / 0.06);
+    --shadow-luxury: 0 8px 40px -8px hsl(43 45% 55% / 0.18);
   }
 
   .dark {

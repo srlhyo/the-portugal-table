@@ -1,18 +1,26 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import heroImage from "@/assets/hero-table.jpg";
-import brunchImage from "@/assets/brunch.jpg";
-import dinnerImage from "@/assets/dinner.jpg";
-import fingerfoodImage from "@/assets/fingerfood.jpg";
+import tableEaster from "@/assets/table-easter.jpg";
+import brunchCoffee from "@/assets/brunch-coffee.jpg";
+import tablePink from "@/assets/table-pink.jpg";
+import cocktailsTable from "@/assets/cocktails-table.jpg";
+import brunchGold from "@/assets/brunch-gold.jpg";
+import fingerfoodBoard from "@/assets/fingerfood-board.jpg";
+import cheeseBoard from "@/assets/cheese-board.jpg";
+import dinnerFormal from "@/assets/dinner-formal.jpg";
+import videoExperience1 from "@/assets/video-experience-1.mp4";
+import videoExperience2 from "@/assets/video-experience-2.mp4";
 
 const galleryImages = [
-  { src: heroImage, alt: "Mesa elegante com decoração", span: "col-span-2 row-span-2" },
-  { src: brunchImage, alt: "Brunch de luxo", span: "col-span-1 row-span-1" },
-  { src: fingerfoodImage, alt: "Finger food gourmet", span: "col-span-1 row-span-2" },
-  { src: dinnerImage, alt: "Jantar íntimo", span: "col-span-1 row-span-1" },
-  { src: brunchImage, alt: "Mesa de pequeno-almoço", span: "col-span-1 row-span-1" },
-  { src: fingerfoodImage, alt: "Canapés artísticos", span: "col-span-1 row-span-1" },
+  { src: dinnerFormal, alt: "Jantar formal com guardanapos vermelhos", span: "col-span-2 row-span-2" },
+  { src: brunchCoffee, alt: "Mesa de brunch com café", span: "col-span-1 row-span-1" },
+  { src: fingerfoodBoard, alt: "Tábua de finger food gourmet", span: "col-span-1 row-span-2" },
+  { src: tablePink, alt: "Mesa rosa com flores", span: "col-span-1 row-span-1" },
+  { src: brunchGold, alt: "Brunch com louça dourada", span: "col-span-1 row-span-1" },
+  { src: cheeseBoard, alt: "Tábua de queijos e enchidos", span: "col-span-1 row-span-1" },
+  { src: cocktailsTable, alt: "Mesa com cocktails", span: "col-span-1 row-span-1" },
+  { src: tableEaster, alt: "Mesa de Páscoa elegante", span: "col-span-1 row-span-1" },
 ];
 
 const Gallery = () => {
@@ -51,7 +59,7 @@ const Gallery = () => {
               key={index}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 0.6, delay: index * 0.08 }}
               viewport={{ once: true, margin: "-50px" }}
               className={`relative overflow-hidden group cursor-pointer ${image.span}`}
               onMouseEnter={() => setHoveredIndex(index)}
@@ -85,6 +93,41 @@ const Gallery = () => {
           ))}
         </div>
 
+        {/* Video Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="mt-16"
+        >
+          <h3 className="font-display text-2xl md:text-3xl text-foreground text-center mb-8">
+            Em Movimento
+          </h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="aspect-[9/16] md:aspect-video overflow-hidden bg-muted">
+              <video
+                src={videoExperience1}
+                className="w-full h-full object-cover"
+                controls
+                playsInline
+                muted
+                loop
+              />
+            </div>
+            <div className="aspect-[9/16] md:aspect-video overflow-hidden bg-muted">
+              <video
+                src={videoExperience2}
+                className="w-full h-full object-cover"
+                controls
+                playsInline
+                muted
+                loop
+              />
+            </div>
+          </div>
+        </motion.div>
+
         {/* View More Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -94,7 +137,7 @@ const Gallery = () => {
           className="text-center mt-12"
         >
           <a
-            href="https://instagram.com"
+            href="https://instagram.com/doluxoamesa"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block font-body text-xs uppercase tracking-[0.2em] text-gold border border-gold px-8 py-4 hover:bg-gold hover:text-primary transition-all duration-500"

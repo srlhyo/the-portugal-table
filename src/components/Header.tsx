@@ -15,8 +15,9 @@ const Header = () => {
 
   const navItems = [
     { label: "Experiências", href: "#experiencias" },
+    { label: "Pacotes", href: "#pacotes" },
     { label: "Galeria", href: "#galeria" },
-    { label: "Sobre", href: "#sobre" },
+    { label: "Como Funciona", href: "#como-funciona" },
     { label: "Contacto", href: "#contacto" },
   ];
 
@@ -36,7 +37,7 @@ const Header = () => {
               Do Luxo à Mesa
             </span>
             <span className="text-[10px] font-body uppercase tracking-[0.3em] text-gold">
-              Experiências de Mesa
+              Experiências Privadas
             </span>
           </a>
 
@@ -58,7 +59,7 @@ const Header = () => {
             href="#contacto"
             className="hidden lg:block font-body text-xs uppercase tracking-[0.2em] text-gold border border-gold px-6 py-3 hover:bg-gold hover:text-primary transition-all duration-500"
           >
-            Reservar
+            Pedir Orçamento
           </a>
 
           {/* Mobile Menu Button */}
@@ -112,7 +113,7 @@ const Header = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="font-body text-sm uppercase tracking-[0.2em] text-gold border border-gold px-6 py-3 text-center hover:bg-gold hover:text-primary transition-all duration-500 mt-4"
               >
-                Reservar
+                Pedir Orçamento
               </a>
             </div>
           </motion.div>
