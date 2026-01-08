@@ -1,0 +1,99 @@
+import { motion } from "framer-motion";
+
+const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <footer className="bg-background py-16 lg:py-20 border-t border-border">
+      <div className="container mx-auto px-6 lg:px-12">
+        <div className="grid md:grid-cols-3 gap-12 lg:gap-16 mb-16">
+          {/* Brand */}
+          <div>
+            <a href="#" className="inline-block mb-6">
+              <span className="font-display text-2xl lg:text-3xl text-foreground">
+                Do Luxo à Mesa
+              </span>
+              <span className="text-gold">®</span>
+            </a>
+            <p className="font-body text-sm text-foreground/60 leading-relaxed max-w-xs">
+              Experiências de mesa únicas que transformam celebrações em 
+              memórias inesquecíveis.
+            </p>
+          </div>
+
+          {/* Navigation */}
+          <div>
+            <h4 className="font-body text-xs uppercase tracking-[0.2em] text-gold mb-6">
+              Navegação
+            </h4>
+            <nav className="flex flex-col gap-3">
+              {[
+                { label: "Experiências", href: "#experiencias" },
+                { label: "Galeria", href: "#galeria" },
+                { label: "Sobre", href: "#sobre" },
+                { label: "Contacto", href: "#contacto" },
+              ].map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="font-body text-sm text-foreground/60 hover:text-gold transition-colors"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+          </div>
+
+          {/* Social & Contact */}
+          <div>
+            <h4 className="font-body text-xs uppercase tracking-[0.2em] text-gold mb-6">
+              Conecte-se
+            </h4>
+            <div className="space-y-3">
+              <a
+                href="https://instagram.com/doluxoamesa"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-body text-sm text-foreground/60 hover:text-gold transition-colors block"
+              >
+                Instagram
+              </a>
+              <a
+                href="mailto:hello@doluxoamesa.pt"
+                className="font-body text-sm text-foreground/60 hover:text-gold transition-colors block"
+              >
+                hello@doluxoamesa.pt
+              </a>
+              <p className="font-body text-sm text-foreground/60">
+                Portugal
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="font-body text-xs text-foreground/40 uppercase tracking-[0.1em]">
+            © {currentYear} Do Luxo à Mesa®. Todos os direitos reservados.
+          </p>
+          <div className="flex items-center gap-6">
+            <a
+              href="#"
+              className="font-body text-xs text-foreground/40 hover:text-gold transition-colors uppercase tracking-[0.1em]"
+            >
+              Privacidade
+            </a>
+            <a
+              href="#"
+              className="font-body text-xs text-foreground/40 hover:text-gold transition-colors uppercase tracking-[0.1em]"
+            >
+              Termos
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
