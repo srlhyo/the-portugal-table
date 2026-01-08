@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import heroImage from "@/assets/hero-table.jpg";
+import dinnerFormal from "@/assets/dinner-formal.jpg";
 
 const Hero = () => {
   return (
@@ -7,11 +7,11 @@ const Hero = () => {
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
-          src={heroImage}
-          alt="Mesa elegante com decoração luxuosa"
+          src={dinnerFormal}
+          alt="Mesa elegante com decoração dourada"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/50 via-primary/30 to-primary/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/60 via-primary/40 to-primary/80" />
       </div>
 
       {/* Content */}
@@ -29,7 +29,7 @@ const Hero = () => {
             transition={{ delay: 0.3, duration: 0.8 }}
             className="font-body text-xs uppercase tracking-[0.3em] text-gold mb-8"
           >
-            Experiências de Mesa em Portugal
+            Experiências Privadas de Luxo em Portugal
           </motion.p>
 
           {/* Main Headline */}
@@ -66,10 +66,10 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2, duration: 0.8 }}
-            className="font-body text-sm md:text-base text-primary-foreground/80 max-w-2xl mx-auto mb-12 leading-relaxed"
+            className="font-body text-sm md:text-base text-primary-foreground/85 max-w-2xl mx-auto mb-12 leading-relaxed"
           >
-            Transformamos celebrações íntimas em experiências visuais e emocionais. 
-            Finger food de autor e mesas estilizadas para momentos únicos na sua casa.
+            Criamos experiências de mesa únicas na sua casa. 
+            Mesas estilizadas, finger food de luxo e momentos que ficam para sempre.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -80,16 +80,16 @@ const Hero = () => {
             className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
           >
             <a
-              href="#experiencias"
-              className="font-body text-xs uppercase tracking-[0.25em] bg-gold text-primary px-10 py-4 hover:bg-gold-dark transition-all duration-500"
+              href="#contacto"
+              className="font-body text-xs uppercase tracking-[0.25em] bg-gold text-primary px-10 py-4 hover:bg-gold-light transition-all duration-500"
             >
-              Descobrir Experiências
+              Pedir Orçamento
             </a>
             <a
-              href="#galeria"
-              className="font-body text-xs uppercase tracking-[0.2em] text-primary-foreground border-b border-gold pb-2 hover:text-gold transition-all duration-500"
+              href="#pacotes"
+              className="font-body text-xs uppercase tracking-[0.2em] text-primary-foreground border border-gold px-10 py-4 hover:bg-gold hover:text-primary transition-all duration-500"
             >
-              Ver Galeria
+              Ver Pacotes
             </a>
           </motion.div>
         </motion.div>
