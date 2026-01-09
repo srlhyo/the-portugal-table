@@ -9,18 +9,25 @@ import brunchGold from "@/assets/brunch-gold.jpg";
 import fingerfoodBoard from "@/assets/fingerfood-board.jpg";
 import cheeseBoard from "@/assets/cheese-board.jpg";
 import dinnerFormal from "@/assets/dinner-formal.jpg";
-import videoExperience1 from "@/assets/video-experience-1.mp4";
-import videoExperience2 from "@/assets/video-experience-2.mp4";
+import tableCandles from "@/assets/table-candles.jpg";
+import tableChristmas from "@/assets/table-christmas.jpg";
+import tableTea from "@/assets/table-tea.jpg";
+import brunchRoses from "@/assets/brunch-roses.jpg";
+import cocktailsElegant from "@/assets/cocktails-elegant.jpg";
 
 const galleryImages = [
-  { src: dinnerFormal, alt: "Jantar formal com guardanapos vermelhos", span: "col-span-2 row-span-2" },
-  { src: brunchCoffee, alt: "Mesa de brunch com café", span: "col-span-1 row-span-1" },
+  { src: tableCandles, alt: "Mesa elegante com velas e decoração rosa", span: "col-span-2 row-span-2" },
+  { src: brunchRoses, alt: "Brunch com rosas e louça dourada", span: "col-span-1 row-span-1" },
   { src: fingerfoodBoard, alt: "Tábua de finger food gourmet", span: "col-span-1 row-span-2" },
-  { src: tablePink, alt: "Mesa rosa com flores", span: "col-span-1 row-span-1" },
+  { src: tableChristmas, alt: "Mesa de Natal com decoração dourada", span: "col-span-1 row-span-1" },
+  { src: tableTea, alt: "Mesa de chá elegante", span: "col-span-1 row-span-1" },
+  { src: cocktailsElegant, alt: "Cocktails elegantes com canapés", span: "col-span-1 row-span-1" },
+  { src: cocktailsTable, alt: "Mesa com cocktails", span: "col-span-1 row-span-1" },
   { src: brunchGold, alt: "Brunch com louça dourada", span: "col-span-1 row-span-1" },
   { src: cheeseBoard, alt: "Tábua de queijos e enchidos", span: "col-span-1 row-span-1" },
-  { src: cocktailsTable, alt: "Mesa com cocktails", span: "col-span-1 row-span-1" },
+  { src: dinnerFormal, alt: "Jantar formal com guardanapos vermelhos", span: "col-span-1 row-span-1" },
   { src: tableEaster, alt: "Mesa de Páscoa elegante", span: "col-span-1 row-span-1" },
+  { src: tablePink, alt: "Mesa rosa com flores", span: "col-span-1 row-span-1" },
 ];
 
 const Gallery = () => {
@@ -39,14 +46,28 @@ const Gallery = () => {
           transition={{ duration: 0.8 }}
           className="text-center max-w-2xl mx-auto mb-16"
         >
-          <span className="font-body text-xs uppercase tracking-[0.3em] text-gold mb-4 block">
+          <span 
+            className="font-body text-xs uppercase tracking-[0.3em] mb-4 block"
+            style={{
+              background: 'linear-gradient(90deg, hsl(42, 65%, 45%), hsl(43, 55%, 58%), hsl(42, 65%, 45%))',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}
+          >
             Portfolio
           </span>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
             Galeria
           </h2>
-          <div className="w-16 h-px bg-gold mx-auto mb-6" />
-          <p className="font-body text-sm md:text-base text-foreground/70 leading-relaxed">
+          <div 
+            className="w-16 h-px mx-auto mb-6"
+            style={{
+              background: 'linear-gradient(90deg, transparent, hsl(43, 65%, 50%), hsl(45, 50%, 68%), hsl(43, 65%, 50%), transparent)',
+              boxShadow: '0 0 8px hsla(42, 65%, 45%, 0.3)'
+            }}
+          />
+          <p className="font-body text-sm md:text-base text-muted-foreground leading-relaxed">
             Cada fotografia conta uma história de elegância, atenção ao detalhe 
             e momentos transformados em arte.
           </p>
@@ -59,7 +80,7 @@ const Gallery = () => {
               key={index}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: index * 0.08 }}
+              transition={{ duration: 0.6, delay: index * 0.05 }}
               viewport={{ once: true, margin: "-50px" }}
               className={`relative overflow-hidden group cursor-pointer ${image.span}`}
               onMouseEnter={() => setHoveredIndex(index)}
@@ -72,61 +93,37 @@ const Gallery = () => {
               />
               {/* Overlay */}
               <div
-                className={`absolute inset-0 bg-primary/60 transition-opacity duration-500 flex items-center justify-center ${
+                className={`absolute inset-0 transition-opacity duration-500 flex items-center justify-center ${
                   hoveredIndex === index ? "opacity-100" : "opacity-0"
                 }`}
+                style={{
+                  background: 'linear-gradient(135deg, hsla(25, 15%, 10%, 0.7), hsla(25, 15%, 10%, 0.5))'
+                }}
               >
                 <div className="text-center">
-                  <div className="w-12 h-px bg-gold mx-auto mb-4" />
-                  <p className="font-body text-xs uppercase tracking-[0.2em] text-primary-foreground">
+                  <div 
+                    className="w-12 h-px mx-auto mb-4"
+                    style={{
+                      background: 'linear-gradient(90deg, transparent, hsl(43, 65%, 50%), transparent)'
+                    }}
+                  />
+                  <p className="font-body text-xs uppercase tracking-[0.2em] text-white">
                     Ver Detalhe
                   </p>
                 </div>
               </div>
               {/* Gold border on hover */}
               <div
-                className={`absolute inset-0 border-2 border-gold transition-opacity duration-500 ${
+                className={`absolute inset-0 border-2 transition-opacity duration-500 ${
                   hoveredIndex === index ? "opacity-100" : "opacity-0"
                 }`}
+                style={{
+                  borderImage: 'linear-gradient(135deg, hsl(40, 70%, 35%), hsl(43, 65%, 50%), hsl(45, 50%, 68%)) 1'
+                }}
               />
             </motion.div>
           ))}
         </div>
-
-        {/* Video Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mt-16"
-        >
-          <h3 className="font-display text-2xl md:text-3xl text-foreground text-center mb-8">
-            Em Movimento
-          </h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="aspect-[9/16] md:aspect-video overflow-hidden bg-muted">
-              <video
-                src={videoExperience1}
-                className="w-full h-full object-cover"
-                controls
-                playsInline
-                muted
-                loop
-              />
-            </div>
-            <div className="aspect-[9/16] md:aspect-video overflow-hidden bg-muted">
-              <video
-                src={videoExperience2}
-                className="w-full h-full object-cover"
-                controls
-                playsInline
-                muted
-                loop
-              />
-            </div>
-          </div>
-        </motion.div>
 
         {/* View More Button */}
         <motion.div
