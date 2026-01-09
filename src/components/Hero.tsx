@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import dinnerFormal from "@/assets/dinner-formal.jpg";
+import tableCandles from "@/assets/table-candles.jpg";
 
 const Hero = () => {
   return (
@@ -7,11 +7,23 @@ const Hero = () => {
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
-          src={dinnerFormal}
-          alt="Mesa elegante com decoração dourada"
+          src={tableCandles}
+          alt="Mesa elegante com velas e decoração dourada"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/60 via-primary/40 to-primary/80" />
+        {/* Dark overlay for legibility - critical for premium feel */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(
+              to bottom,
+              hsla(25, 15%, 8%, 0.55) 0%,
+              hsla(25, 15%, 8%, 0.35) 40%,
+              hsla(25, 15%, 8%, 0.45) 70%,
+              hsla(25, 15%, 8%, 0.75) 100%
+            )`
+          }}
+        />
       </div>
 
       {/* Content */}
@@ -27,7 +39,14 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="font-body text-xs uppercase tracking-[0.3em] text-gold mb-8"
+            className="font-body text-xs uppercase tracking-[0.35em] mb-8"
+            style={{
+              background: 'linear-gradient(90deg, hsl(43, 55%, 55%), hsl(45, 50%, 70%), hsl(43, 55%, 55%))',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              textShadow: '0 2px 4px hsla(40, 70%, 35%, 0.2)'
+            }}
           >
             Experiências Privadas de Luxo em Portugal
           </motion.p>
@@ -37,18 +56,33 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 1 }}
-            className="font-display text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-primary-foreground leading-[1.1] mb-6"
+            className="font-display text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white leading-[1.1] mb-6"
+            style={{
+              textShadow: '0 2px 20px hsla(25, 15%, 10%, 0.5)'
+            }}
           >
             Do Luxo à Mesa
-            <span className="text-gold">®</span>
+            <span 
+              className="inline-block ml-2"
+              style={{
+                background: 'linear-gradient(135deg, hsl(40, 70%, 35%), hsl(43, 65%, 50%), hsl(45, 50%, 68%), hsl(43, 65%, 50%), hsl(40, 70%, 35%))',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}
+            >®</span>
           </motion.h1>
 
-          {/* Separator */}
+          {/* Separator - Chrome Gold */}
           <motion.div
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="w-24 h-px bg-gold mx-auto mb-8"
+            className="w-24 h-px mx-auto mb-8"
+            style={{
+              background: 'linear-gradient(90deg, transparent, hsl(43, 65%, 50%), hsl(45, 50%, 68%), hsl(43, 65%, 50%), transparent)',
+              boxShadow: '0 0 12px hsla(42, 65%, 45%, 0.4)'
+            }}
           />
 
           {/* Subtitle */}
@@ -56,7 +90,10 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.8 }}
-            className="font-display text-xl md:text-2xl lg:text-3xl text-primary-foreground/95 italic mb-12"
+            className="font-display text-xl md:text-2xl lg:text-3xl text-white/95 italic mb-12"
+            style={{
+              textShadow: '0 2px 8px hsla(25, 15%, 10%, 0.4)'
+            }}
           >
             Luxo sem ostentação. Beleza sem stress.
           </motion.p>
@@ -66,7 +103,10 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2, duration: 0.8 }}
-            className="font-body text-sm md:text-base text-primary-foreground/85 max-w-2xl mx-auto mb-12 leading-relaxed"
+            className="font-body text-sm md:text-base text-white/85 max-w-2xl mx-auto mb-12 leading-relaxed"
+            style={{
+              textShadow: '0 1px 4px hsla(25, 15%, 10%, 0.5)'
+            }}
           >
             Criamos experiências de mesa únicas na sua casa. 
             Mesas estilizadas, finger food de luxo e momentos que ficam para sempre.
@@ -81,13 +121,16 @@ const Hero = () => {
           >
             <a
               href="#contacto"
-              className="font-body text-xs uppercase tracking-[0.25em] bg-gold text-primary px-10 py-4 hover:bg-gold-light transition-all duration-500"
+              className="btn-chrome-gold"
             >
               Pedir Orçamento
             </a>
             <a
               href="#pacotes"
-              className="font-body text-xs uppercase tracking-[0.2em] text-primary-foreground border border-gold px-10 py-4 hover:bg-gold hover:text-primary transition-all duration-500"
+              className="font-body text-xs uppercase tracking-[0.2em] text-white border border-white/60 px-10 py-4 hover:bg-white/10 hover:border-white transition-all duration-500"
+              style={{
+                backdropFilter: 'blur(4px)'
+              }}
             >
               Ver Pacotes
             </a>
@@ -107,10 +150,15 @@ const Hero = () => {
           transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
           className="flex flex-col items-center gap-2"
         >
-          <span className="font-body text-[10px] uppercase tracking-[0.2em] text-primary-foreground/60">
+          <span className="font-body text-[10px] uppercase tracking-[0.2em] text-white/60">
             Scroll
           </span>
-          <div className="w-px h-12 bg-gradient-to-b from-gold to-transparent" />
+          <div 
+            className="w-px h-12"
+            style={{
+              background: 'linear-gradient(to bottom, hsl(43, 65%, 50%), transparent)'
+            }}
+          />
         </motion.div>
       </motion.div>
     </section>
