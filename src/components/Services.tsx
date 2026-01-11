@@ -9,20 +9,20 @@ import tablePink from "@/assets/table-pink.jpg";
 const services = [
   {
     icon: UtensilsCrossed,
-    title: "Buffet de Finger Food",
-    description: "Montagem completa do buffet (mesa, decoração + comida) em qualquer local. Ideal para aniversários, noivados, baby showers, festas privadas e eventos sociais.",
+    title: "Buffet Finger Food Premium",
+    description: "Buffets completos montados no local do cliente, incluindo mesa, comida, apresentação, montagem e desmontagem, reposição e staff (conforme o pacote).",
     image: fingerfoodBoard,
   },
   {
     icon: Flower2,
     title: "Decoração de Mesas",
-    description: "Mesa posta, styling, flores, velas, louça e ambiente. Sem comida. Perfeito para datas especiais, jantares, pedidos de casamento, almoços e celebrações íntimas.",
+    description: "Mesa posta e decoração (sem comida), para pedidos de noivado, jantares especiais, eventos intimistas e datas importantes. Inclui loiças, guardanapos, centros de mesa, flores e styling visual.",
     image: tableCandles,
   },
   {
     icon: Camera,
-    title: "Espaço Fotografável",
-    description: "Criação de cenário decorado para fotos: painéis, balões, flores, luzes, cubos, etc. Ideal para tornar o seu evento ainda mais instagramável.",
+    title: "Cenografia / Espaço Fotográfico",
+    description: "Criação de cenários decorados para fotos, com painéis, flores, cubos, iluminação, balões e estruturas. Ideal para tornar o seu evento instagramável.",
     image: tablePink,
   },
 ];
@@ -64,8 +64,8 @@ const Services = () => {
             }}
           />
           <p className="font-body text-sm md:text-base text-muted-foreground leading-relaxed">
-            Vamos a qualquer local — casa do cliente, quintas, salões, rooftops, espaços ao ar livre. 
-            Montamos experiências visuais e gastronómicas que transformam celebrações em momentos inesquecíveis.
+            Criamos experiências visuais e gastronómicas de luxo em qualquer local — 
+            casa do cliente, quintas, salões, rooftops ou espaços ao ar livre.
           </p>
         </motion.div>
 

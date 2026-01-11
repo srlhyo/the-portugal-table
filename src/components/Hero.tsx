@@ -11,16 +11,16 @@ const Hero = () => {
           alt="Buffet de luxo com rosas e decoração dourada"
           className="w-full h-full object-cover"
         />
-        {/* Warm overlay for legibility without killing vibrancy */}
+        {/* Warm overlay for legibility - stronger contrast */}
         <div 
           className="absolute inset-0"
           style={{
             background: `linear-gradient(
               to bottom,
-              hsla(25, 20%, 8%, 0.45) 0%,
-              hsla(25, 15%, 10%, 0.25) 35%,
-              hsla(25, 15%, 10%, 0.35) 65%,
-              hsla(25, 20%, 8%, 0.65) 100%
+              hsla(25, 20%, 8%, 0.55) 0%,
+              hsla(25, 15%, 10%, 0.35) 40%,
+              hsla(25, 15%, 10%, 0.45) 70%,
+              hsla(25, 20%, 8%, 0.75) 100%
             )`
           }}
         />
@@ -50,7 +50,7 @@ const Hero = () => {
             Experiências Privadas de Luxo em Portugal
           </motion.p>
 
-          {/* Main Headline - Sem ® */}
+          {/* Main Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -63,23 +63,11 @@ const Hero = () => {
             Do Luxo à Mesa
           </motion.h1>
 
-          {/* Chrome Gold Separator */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            className="w-32 h-px mx-auto mb-8"
-            style={{
-              background: 'linear-gradient(90deg, transparent, hsl(43, 65%, 55%), hsl(45, 50%, 72%), hsl(43, 65%, 55%), transparent)',
-              boxShadow: '0 0 16px hsla(42, 65%, 50%, 0.5)'
-            }}
-          />
-
           {/* Value Proposition */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 0.8 }}
+            transition={{ delay: 0.8, duration: 0.8 }}
             className="font-body text-base md:text-lg lg:text-xl text-white/95 max-w-3xl mx-auto mb-12 leading-relaxed"
             style={{
               textShadow: '0 2px 10px hsla(25, 15%, 5%, 0.6)'
@@ -89,11 +77,11 @@ const Hero = () => {
             numa celebração memorável.
           </motion.p>
 
-          {/* CTA Buttons */}
+          {/* CTA Buttons - Solid, modern, no glassy effects */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.3, duration: 0.8 }}
+            transition={{ delay: 1.1, duration: 0.8 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
           >
             <a
@@ -104,10 +92,7 @@ const Hero = () => {
             </a>
             <a
               href="#pacotes"
-              className="font-body text-xs uppercase tracking-[0.2em] text-white border border-white/70 px-10 py-4 hover:bg-white/15 hover:border-white transition-all duration-500"
-              style={{
-                backdropFilter: 'blur(8px)'
-              }}
+              className="font-body text-xs uppercase tracking-[0.2em] text-white bg-white/15 border border-white/50 px-10 py-4 hover:bg-white/25 transition-all duration-500"
             >
               Ver Pacotes
             </a>

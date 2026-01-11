@@ -1,7 +1,15 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Check, Sparkles, Armchair, Lightbulb, PartyPopper, Lamp, Wind, Zap } from "lucide-react";
+import { Check, Users, Ruler, Sparkles } from "lucide-react";
+
+// Import images for extras
+import cocktailsElegant from "@/assets/cocktails-elegant.jpg";
+import tableChristmas from "@/assets/table-christmas.jpg";
+import tableTea from "@/assets/table-tea.jpg";
+import dinnerFormal from "@/assets/dinner-formal.jpg";
+import brunchGold from "@/assets/brunch-gold.jpg";
+import tableEaster from "@/assets/table-easter.jpg";
 
 const packages = [
   {
@@ -11,6 +19,20 @@ const packages = [
     guests: "Até 20 convidados",
     price: "420",
     highlight: false,
+    items: [
+      "Mini salgados",
+      "Mini hambúrgueres",
+      "Mini cachorros",
+      "Mini pizzas",
+      "Mini barquinhos de frango & chips",
+      "Cones de fruta",
+      "Mini sobremesas (brigadeiros, cupcakes)"
+    ],
+    includes: [
+      "Águas aromatizadas / sumos",
+      "Montagem e apresentação",
+      "Montagem e desmontagem"
+    ]
   },
   {
     name: "Supreme",
@@ -19,6 +41,24 @@ const packages = [
     guests: "Até 35 convidados",
     price: "690",
     highlight: true,
+    items: [
+      "Mini salgados",
+      "Mini hambúrgueres",
+      "Mini cachorros",
+      "Mini pizzas",
+      "Mini barquinhos frango & chips",
+      "Cones de fruta",
+      "Crepes chineses",
+      "Copos de salada César",
+      "Mini sobremesas",
+      "Brigadeiros",
+      "Donuts personalizados"
+    ],
+    includes: [
+      "Águas aromatizadas / sumos",
+      "Montagem e apresentação",
+      "Montagem e desmontagem"
+    ]
   },
   {
     name: "Premium",
@@ -27,20 +67,41 @@ const packages = [
     guests: "Até 50 convidados",
     price: "890",
     highlight: false,
+    items: [
+      "Mini salgados",
+      "Mini hambúrgueres",
+      "Mini pizzas",
+      "Barquinhos de frango & chips",
+      "Cones de fruta",
+      "Crepes chineses",
+      "Copos de salada César",
+      "Canudos de camarão",
+      "Tábuas de queijos",
+      "Sobremesas de copo",
+      "Brigadeiros",
+      "Donuts personalizados"
+    ],
+    includes: [
+      "6L águas aromatizadas ou sumos",
+      "Máquina de faíscas",
+      "Gelo seco",
+      "Montagem e desmontagem",
+      "2 elementos de staff para reposição"
+    ]
   },
 ];
 
 const extras = [
-  { name: "Cubos de Exposição", icon: Sparkles },
-  { name: "Jarros Dourados", icon: Lamp },
-  { name: "Cadeiras Acrílicas", icon: Armchair },
-  { name: "Barras VIP", icon: PartyPopper },
-  { name: "Dispensadores", icon: Sparkles },
-  { name: "Luzes Ambiente", icon: Lightbulb },
-  { name: "Luz UV", icon: Zap },
-  { name: "Máquina de Faíscas", icon: Sparkles },
-  { name: "Máquina de Fumo", icon: Wind },
-  { name: "Iluminação Decorativa", icon: Lamp },
+  { name: "Cubos de Exposição", image: cocktailsElegant },
+  { name: "Jarros Dourados", image: tableChristmas },
+  { name: "Cadeiras Acrílicas", image: tableTea },
+  { name: "Barras VIP", image: dinnerFormal },
+  { name: "Dispensadores de Bebidas", image: brunchGold },
+  { name: "Luzes Ambiente", image: tableEaster },
+  { name: "Luz UV", image: cocktailsElegant },
+  { name: "Máquina de Faíscas", image: tableChristmas },
+  { name: "Máquina de Fumo", image: tableTea },
+  { name: "Iluminação Decorativa", image: dinnerFormal },
 ];
 
 const Packages = () => {
@@ -70,7 +131,7 @@ const Packages = () => {
             Buffet de Finger Food
           </span>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
-            Pacotes
+            Pacotes de Buffet
           </h2>
           <div 
             className="w-16 h-px mx-auto mb-6"
@@ -86,7 +147,7 @@ const Packages = () => {
         </motion.div>
 
         {/* Packages Grid */}
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8 mb-24">
+        <div className="grid lg:grid-cols-3 gap-6 lg:gap-8 mb-24">
           {packages.map((pkg, index) => (
             <motion.div
               key={pkg.name}
@@ -119,11 +180,33 @@ const Packages = () => {
               )}
 
               {/* Package Name */}
-              <h3 className={`font-display text-3xl lg:text-4xl mb-2 text-center ${
+              <h3 className={`font-display text-3xl lg:text-4xl mb-4 text-center ${
                 pkg.highlight ? "text-primary-foreground" : "text-foreground"
               }`}>
                 {pkg.name}
               </h3>
+
+              {/* Specs */}
+              <div className="flex justify-center gap-6 mb-6">
+                <div className="flex items-center gap-2 text-xs">
+                  <Ruler className="w-4 h-4" style={{ color: 'hsl(42, 65%, 48%)' }} />
+                  <span className={pkg.highlight ? "text-primary-foreground/80" : "text-muted-foreground"}>
+                    {pkg.size}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-xs">
+                  <Sparkles className="w-4 h-4" style={{ color: 'hsl(42, 65%, 48%)' }} />
+                  <span className={pkg.highlight ? "text-primary-foreground/80" : "text-muted-foreground"}>
+                    {pkg.pieces}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-xs">
+                  <Users className="w-4 h-4" style={{ color: 'hsl(42, 65%, 48%)' }} />
+                  <span className={pkg.highlight ? "text-primary-foreground/80" : "text-muted-foreground"}>
+                    {pkg.guests}
+                  </span>
+                </div>
+              </div>
 
               {/* Separator */}
               <div 
@@ -135,46 +218,55 @@ const Packages = () => {
                 }}
               />
 
-              {/* Details */}
-              <div className="space-y-3 mb-8">
-                <div className="flex items-center justify-center gap-2">
-                  <Check 
-                    className="w-4 h-4 flex-shrink-0"
-                    style={{ color: 'hsl(42, 65%, 48%)' }}
-                  />
-                  <span className={`font-body text-sm ${
-                    pkg.highlight ? "text-primary-foreground/90" : "text-muted-foreground"
-                  }`}>
-                    Buffet de Finger Food — {pkg.size}
-                  </span>
-                </div>
-                <div className="flex items-center justify-center gap-2">
-                  <Check 
-                    className="w-4 h-4 flex-shrink-0"
-                    style={{ color: 'hsl(42, 65%, 48%)' }}
-                  />
-                  <span className={`font-body text-sm ${
-                    pkg.highlight ? "text-primary-foreground/90" : "text-muted-foreground"
-                  }`}>
-                    {pkg.pieces}
-                  </span>
-                </div>
-                <div className="flex items-center justify-center gap-2">
-                  <Check 
-                    className="w-4 h-4 flex-shrink-0"
-                    style={{ color: 'hsl(42, 65%, 48%)' }}
-                  />
-                  <span className={`font-body text-sm ${
-                    pkg.highlight ? "text-primary-foreground/90" : "text-muted-foreground"
-                  }`}>
-                    {pkg.guests}
-                  </span>
-                </div>
+              {/* Items List */}
+              <div className="space-y-2 mb-6">
+                <p className={`font-body text-xs uppercase tracking-[0.15em] mb-3 ${
+                  pkg.highlight ? "text-primary-foreground/70" : "text-muted-foreground"
+                }`}>
+                  Inclui:
+                </p>
+                {pkg.items.map((item, i) => (
+                  <div key={i} className="flex items-start gap-2">
+                    <Check 
+                      className="w-3.5 h-3.5 mt-0.5 flex-shrink-0"
+                      style={{ color: 'hsl(42, 65%, 48%)' }}
+                    />
+                    <span className={`font-body text-xs ${
+                      pkg.highlight ? "text-primary-foreground/90" : "text-muted-foreground"
+                    }`}>
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Includes */}
+              <div className="bg-black/5 p-4 mb-8">
+                <p className={`font-body text-[10px] uppercase tracking-[0.15em] mb-3 ${
+                  pkg.highlight ? "text-primary-foreground/70" : "text-muted-foreground"
+                }`}>
+                  Oferta Incluída:
+                </p>
+                {pkg.includes.map((item, i) => (
+                  <div key={i} className="flex items-start gap-2 mb-1">
+                    <span 
+                      className="w-1.5 h-1.5 mt-1.5 flex-shrink-0"
+                      style={{ background: 'hsl(42, 65%, 48%)' }}
+                    />
+                    <span className={`font-body text-xs ${
+                      pkg.highlight ? "text-primary-foreground/90" : "text-muted-foreground"
+                    }`}>
+                      {item}
+                    </span>
+                  </div>
+                ))}
               </div>
 
               {/* Price - Chrome Gold */}
               <div className="text-center mb-8">
-                <span className="font-body text-xs uppercase tracking-[0.2em] text-muted-foreground block mb-2">
+                <span className={`font-body text-xs uppercase tracking-[0.2em] block mb-2 ${
+                  pkg.highlight ? "text-primary-foreground/60" : "text-muted-foreground"
+                }`}>
                   Desde
                 </span>
                 <span 
@@ -205,13 +297,12 @@ const Packages = () => {
           ))}
         </div>
 
-        {/* Extras Section */}
+        {/* Extras Section - Photo Grid */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="bg-card border border-border p-10 lg:p-16"
         >
           <div className="text-center mb-12">
             <span 
@@ -236,11 +327,12 @@ const Packages = () => {
               }}
             />
             <p className="font-body text-sm text-muted-foreground max-w-xl mx-auto">
-              Material de aluguer disponível para elevar ainda mais o seu evento.
+              Material de aluguer premium disponível para elevar ainda mais o seu evento.
             </p>
           </div>
           
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-8">
+          {/* Photo Grid for Extras */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
             {extras.map((extra, index) => (
               <motion.div
                 key={extra.name}
@@ -248,23 +340,36 @@ const Packages = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.05 }}
                 viewport={{ once: true }}
-                className="text-center group"
+                className="relative group overflow-hidden aspect-square cursor-pointer"
               >
-                {/* Icon */}
+                <img
+                  src={extra.image}
+                  alt={extra.name}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                {/* Overlay */}
                 <div 
-                  className="w-14 h-14 mx-auto mb-4 flex items-center justify-center border transition-all duration-500 group-hover:shadow-gold"
+                  className="absolute inset-0 flex items-end transition-all duration-500"
                   style={{
-                    borderImage: 'linear-gradient(135deg, hsl(40, 70%, 35%), hsl(43, 65%, 50%), hsl(45, 50%, 68%)) 1'
+                    background: 'linear-gradient(to top, hsla(25, 15%, 8%, 0.9) 0%, hsla(25, 15%, 8%, 0.3) 50%, transparent 100%)'
                   }}
                 >
-                  <extra.icon 
-                    className="w-6 h-6 transition-transform duration-500 group-hover:scale-110"
-                    style={{ color: 'hsl(42, 65%, 48%)' }}
-                  />
+                  <div className="p-4 w-full">
+                    <p 
+                      className="font-body text-xs uppercase tracking-[0.1em] text-white text-center"
+                    >
+                      {extra.name}
+                    </p>
+                  </div>
                 </div>
-                <p className="font-body text-xs uppercase tracking-[0.1em] text-foreground">
-                  {extra.name}
-                </p>
+                {/* Gold border on hover */}
+                <div
+                  className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    border: '2px solid',
+                    borderImage: 'linear-gradient(135deg, hsl(40, 70%, 35%), hsl(43, 65%, 50%), hsl(45, 50%, 68%)) 1'
+                  }}
+                />
               </motion.div>
             ))}
           </div>
