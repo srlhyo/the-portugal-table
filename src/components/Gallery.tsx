@@ -16,18 +16,19 @@ import brunchRoses from "@/assets/brunch-roses.jpg";
 import cocktailsElegant from "@/assets/cocktails-elegant.jpg";
 
 const galleryImages = [
-  { src: tableCandles, alt: "Mesa elegante com velas e decoração rosa", span: "col-span-2 row-span-2" },
-  { src: brunchRoses, alt: "Brunch com rosas e louça dourada", span: "col-span-1 row-span-1" },
-  { src: fingerfoodBoard, alt: "Tábua de finger food gourmet", span: "col-span-1 row-span-2" },
-  { src: tableChristmas, alt: "Mesa de Natal com decoração dourada", span: "col-span-1 row-span-1" },
-  { src: tableTea, alt: "Mesa de chá elegante", span: "col-span-1 row-span-1" },
-  { src: cocktailsElegant, alt: "Cocktails elegantes com canapés", span: "col-span-1 row-span-1" },
-  { src: cocktailsTable, alt: "Mesa com cocktails", span: "col-span-1 row-span-1" },
-  { src: brunchGold, alt: "Brunch com louça dourada", span: "col-span-1 row-span-1" },
-  { src: cheeseBoard, alt: "Tábua de queijos e enchidos", span: "col-span-1 row-span-1" },
-  { src: dinnerFormal, alt: "Jantar formal com guardanapos vermelhos", span: "col-span-1 row-span-1" },
-  { src: tableEaster, alt: "Mesa de Páscoa elegante", span: "col-span-1 row-span-1" },
-  { src: tablePink, alt: "Mesa rosa com flores", span: "col-span-1 row-span-1" },
+  { src: brunchRoses, alt: "Buffet com rosas e louça dourada", category: "buffet" },
+  { src: tableCandles, alt: "Mesa decorada com velas", category: "decoração" },
+  { src: fingerfoodBoard, alt: "Tábua de finger food gourmet", category: "buffet" },
+  { src: tableChristmas, alt: "Mesa de Natal com decoração dourada", category: "decoração" },
+  { src: cocktailsElegant, alt: "Cocktails elegantes", category: "buffet" },
+  { src: tableTea, alt: "Mesa de chá elegante", category: "decoração" },
+  { src: brunchGold, alt: "Buffet com louça dourada", category: "buffet" },
+  { src: tablePink, alt: "Mesa rosa com flores", category: "decoração" },
+  { src: cheeseBoard, alt: "Tábua de queijos e enchidos", category: "buffet" },
+  { src: dinnerFormal, alt: "Mesa formal com guardanapos", category: "decoração" },
+  { src: cocktailsTable, alt: "Mesa de cocktails", category: "buffet" },
+  { src: tableEaster, alt: "Mesa de Páscoa elegante", category: "decoração" },
+  { src: brunchCoffee, alt: "Buffet com café", category: "buffet" },
 ];
 
 const Gallery = () => {
@@ -55,7 +56,7 @@ const Gallery = () => {
               backgroundClip: 'text'
             }}
           >
-            Portfolio
+            Os Nossos Trabalhos
           </span>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
             Galeria
@@ -68,56 +69,58 @@ const Gallery = () => {
             }}
           />
           <p className="font-body text-sm md:text-base text-muted-foreground leading-relaxed">
-            Cada fotografia conta uma história de elegância, atenção ao detalhe 
-            e momentos transformados em arte.
+            Buffets, mesas decoradas, ambientes e detalhes que transformamos em experiências memoráveis.
           </p>
         </motion.div>
 
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[200px] md:auto-rows-[250px]">
+        {/* Gallery Grid - Masonry style */}
+        <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
           {galleryImages.map((image, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: index * 0.05 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.03 }}
               viewport={{ once: true, margin: "-50px" }}
-              className={`relative overflow-hidden group cursor-pointer ${image.span}`}
+              className="relative overflow-hidden group cursor-pointer break-inside-avoid"
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
               <img
                 src={image.src}
                 alt={image.alt}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                className="w-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               {/* Overlay */}
               <div
-                className={`absolute inset-0 transition-opacity duration-500 flex items-center justify-center ${
+                className={`absolute inset-0 transition-opacity duration-500 flex items-end ${
                   hoveredIndex === index ? "opacity-100" : "opacity-0"
                 }`}
                 style={{
-                  background: 'linear-gradient(135deg, hsla(25, 15%, 10%, 0.7), hsla(25, 15%, 10%, 0.5))'
+                  background: 'linear-gradient(to top, hsla(25, 15%, 8%, 0.85) 0%, hsla(25, 15%, 8%, 0) 60%)'
                 }}
               >
-                <div className="text-center">
-                  <div 
-                    className="w-12 h-px mx-auto mb-4"
+                <div className="p-4 w-full">
+                  <span 
+                    className="font-body text-[10px] uppercase tracking-[0.2em]"
                     style={{
-                      background: 'linear-gradient(90deg, transparent, hsl(43, 65%, 50%), transparent)'
+                      background: 'linear-gradient(90deg, hsl(43, 55%, 58%), hsl(45, 50%, 72%))',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text'
                     }}
-                  />
-                  <p className="font-body text-xs uppercase tracking-[0.2em] text-white">
-                    Ver Detalhe
-                  </p>
+                  >
+                    {image.category}
+                  </span>
                 </div>
               </div>
               {/* Gold border on hover */}
               <div
-                className={`absolute inset-0 border-2 transition-opacity duration-500 ${
+                className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${
                   hoveredIndex === index ? "opacity-100" : "opacity-0"
                 }`}
                 style={{
+                  border: '2px solid',
                   borderImage: 'linear-gradient(135deg, hsl(40, 70%, 35%), hsl(43, 65%, 50%), hsl(45, 50%, 68%)) 1'
                 }}
               />
@@ -125,7 +128,7 @@ const Gallery = () => {
           ))}
         </div>
 
-        {/* View More Button */}
+        {/* Instagram Link */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

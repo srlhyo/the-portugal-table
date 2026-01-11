@@ -14,7 +14,7 @@ const Header = () => {
   }, []);
 
   const navItems = [
-    { label: "Experiências", href: "#experiencias" },
+    { label: "Serviços", href: "#servicos" },
     { label: "Pacotes", href: "#pacotes" },
     { label: "Galeria", href: "#galeria" },
     { label: "Como Funciona", href: "#como-funciona" },
@@ -25,11 +25,11 @@ const Header = () => {
     <>
       {/* Header gradient overlay for initial legibility */}
       <div 
-        className={`fixed top-0 left-0 right-0 h-32 z-40 pointer-events-none transition-opacity duration-500 ${
+        className={`fixed top-0 left-0 right-0 h-28 z-40 pointer-events-none transition-opacity duration-500 ${
           isScrolled ? "opacity-0" : "opacity-100"
         }`}
         style={{
-          background: 'linear-gradient(to bottom, hsla(25, 15%, 10%, 0.7) 0%, hsla(25, 15%, 10%, 0) 100%)'
+          background: 'linear-gradient(to bottom, hsla(25, 15%, 8%, 0.65) 0%, hsla(25, 15%, 8%, 0) 100%)'
         }}
       />
       
@@ -42,23 +42,28 @@ const Header = () => {
       >
         <div className="container mx-auto px-6 lg:px-12">
           <nav className="flex items-center justify-between">
-            {/* Logo */}
+            {/* Logo - Sem ® */}
             <a href="#" className="flex flex-col items-start">
               <span className={`font-display text-2xl lg:text-3xl tracking-wide transition-colors duration-300 ${
                 isScrolled ? "text-foreground" : "text-white"
               }`}>
                 Do Luxo à Mesa
               </span>
-              <span className={`text-[10px] font-body uppercase tracking-[0.3em] transition-colors duration-300 ${
-                isScrolled ? "text-gold" : "text-gold-light"
-              }`}
-              style={!isScrolled ? {
-                background: 'linear-gradient(90deg, hsl(43, 55%, 58%), hsl(45, 50%, 68%), hsl(43, 55%, 58%))',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              } : {}}>
-                Experiências Privadas
+              <span 
+                className="text-[10px] font-body uppercase tracking-[0.3em] transition-colors duration-300"
+                style={isScrolled ? {
+                  background: 'linear-gradient(90deg, hsl(42, 65%, 45%), hsl(43, 55%, 55%))',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                } : {
+                  background: 'linear-gradient(90deg, hsl(43, 55%, 60%), hsl(45, 50%, 72%), hsl(43, 55%, 60%))',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }}
+              >
+                Experiências Premium
               </span>
             </a>
 

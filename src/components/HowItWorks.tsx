@@ -7,25 +7,25 @@ const steps = [
   {
     number: "01",
     title: "Pedido",
-    description: "Entre em contacto connosco através do formulário ou WhatsApp. Diga-nos a data, o tipo de evento e quantos convidados espera.",
+    description: "Cliente escolhe o que quer: buffet, decoração ou ambos. Contacte-nos por formulário ou WhatsApp.",
     icon: MessageCircle
   },
   {
     number: "02",
     title: "Orçamento",
-    description: "Analisamos o seu pedido e enviamos um orçamento personalizado no prazo de 24 horas, com todas as opções disponíveis.",
+    description: "Recebe proposta personalizada em 24 horas com todas as opções e extras disponíveis.",
     icon: FileText
   },
   {
     number: "03",
     title: "Confirmação",
-    description: "Após aprovação do orçamento, reservamos a sua data com um sinal de 50%. O restante é pago no dia do evento.",
+    description: "Reserva a data com 50% de sinal. O restante é pago no dia do evento.",
     icon: CreditCard
   },
   {
     number: "04",
     title: "O Grande Dia",
-    description: "Chegamos à sua casa, montamos tudo com cuidado e atenção. Depois do evento, tratamos de tudo — você só desfruta.",
+    description: "Chegamos, montamos tudo, criamos o cenário e o buffet. No fim desmontamos. O cliente só desfruta.",
     icon: PartyPopper
   },
 ];
@@ -68,7 +68,6 @@ const HowItWorks = () => {
           />
           <p className="font-body text-sm md:text-base text-muted-foreground leading-relaxed">
             Do primeiro contacto ao último detalhe, tornamos tudo simples para si.
-            Nós tratamos de tudo — você só precisa de desfrutar.
           </p>
         </motion.div>
 
@@ -96,24 +95,10 @@ const HowItWorks = () => {
 
               {/* Step Card */}
               <div className="relative z-10 bg-background border border-border p-8 transition-all duration-500 group-hover:border-gold/50 group-hover:shadow-luxury">
-                {/* Icon */}
-                <div 
-                  className="w-20 h-20 mx-auto mb-6 flex items-center justify-center transition-all duration-500"
-                  style={{
-                    background: 'linear-gradient(135deg, hsla(42, 65%, 45%, 0.1), hsla(45, 50%, 68%, 0.15), hsla(42, 65%, 45%, 0.1))',
-                    border: '1px solid hsla(42, 65%, 45%, 0.3)'
-                  }}
-                >
-                  <step.icon 
-                    className="w-8 h-8"
-                    style={{ color: 'hsl(42, 65%, 45%)' }}
-                  />
-                </div>
-
                 {/* Number - Chrome Gold */}
                 <div className="text-center mb-4">
                   <span 
-                    className="font-display text-4xl"
+                    className="font-display text-5xl"
                     style={{
                       background: 'linear-gradient(135deg, hsl(40, 70%, 35%), hsl(43, 65%, 50%), hsl(45, 50%, 68%), hsl(43, 65%, 50%), hsl(40, 70%, 35%))',
                       WebkitBackgroundClip: 'text',
@@ -125,6 +110,20 @@ const HowItWorks = () => {
                   </span>
                 </div>
 
+                {/* Icon */}
+                <div 
+                  className="w-16 h-16 mx-auto mb-6 flex items-center justify-center transition-all duration-500"
+                  style={{
+                    background: 'linear-gradient(135deg, hsla(42, 65%, 45%, 0.08), hsla(45, 50%, 68%, 0.12), hsla(42, 65%, 45%, 0.08))',
+                    border: '1px solid hsla(42, 65%, 45%, 0.25)'
+                  }}
+                >
+                  <step.icon 
+                    className="w-7 h-7"
+                    style={{ color: 'hsl(42, 65%, 48%)' }}
+                  />
+                </div>
+
                 {/* Title */}
                 <h3 className="font-display text-2xl text-foreground text-center mb-4">
                   {step.title}
@@ -132,7 +131,7 @@ const HowItWorks = () => {
 
                 {/* Separator */}
                 <div 
-                  className="w-12 h-px mx-auto mb-4"
+                  className="w-10 h-px mx-auto mb-4"
                   style={{
                     background: 'linear-gradient(90deg, transparent, hsl(43, 65%, 50%), transparent)',
                   }}
@@ -147,66 +146,15 @@ const HowItWorks = () => {
           ))}
         </div>
 
-        {/* Trust Badge */}
+        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mt-16 pt-16 border-t border-border"
+          className="text-center mt-16"
         >
-          <div className="grid sm:grid-cols-3 gap-8 max-w-3xl mx-auto mb-12">
-            <div className="text-center">
-              <span 
-                className="font-display text-3xl block mb-2"
-                style={{
-                  background: 'linear-gradient(135deg, hsl(40, 70%, 35%), hsl(43, 65%, 50%), hsl(45, 50%, 68%))',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text'
-                }}
-              >
-                24h
-              </span>
-              <p className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground">
-                Resposta Garantida
-              </p>
-            </div>
-            <div className="text-center">
-              <span 
-                className="font-display text-3xl block mb-2"
-                style={{
-                  background: 'linear-gradient(135deg, hsl(40, 70%, 35%), hsl(43, 65%, 50%), hsl(45, 50%, 68%))',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text'
-                }}
-              >
-                50%
-              </span>
-              <p className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground">
-                Sinal Para Reservar
-              </p>
-            </div>
-            <div className="text-center">
-              <span 
-                className="font-display text-3xl block mb-2"
-                style={{
-                  background: 'linear-gradient(135deg, hsl(40, 70%, 35%), hsl(43, 65%, 50%), hsl(45, 50%, 68%))',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text'
-                }}
-              >
-                100%
-              </span>
-              <p className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground">
-                Montagem Incluída
-              </p>
-            </div>
-          </div>
-          
-          <p className="font-body text-sm text-muted-foreground mb-8">
+          <p className="font-body text-sm text-muted-foreground mb-6">
             Pronta para criar o seu momento especial?
           </p>
           <a
