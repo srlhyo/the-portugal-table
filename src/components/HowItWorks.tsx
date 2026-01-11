@@ -7,7 +7,7 @@ const steps = [
   {
     number: "01",
     title: "Pedido",
-    description: "Cliente escolhe o que quer: buffet, decoração ou ambos. Contacte-nos por formulário ou WhatsApp.",
+    description: "Escolha o que pretende: buffet, decoração ou ambos. Contacte-nos por formulário ou WhatsApp.",
     icon: MessageCircle
   },
   {
@@ -24,8 +24,8 @@ const steps = [
   },
   {
     number: "04",
-    title: "O Grande Dia",
-    description: "Chegamos, montamos tudo, criamos o cenário e o buffet. No fim desmontamos. O cliente só desfruta.",
+    title: "Evento",
+    description: "Chegamos, montamos tudo e criamos a experiência. No fim, desmontamos. O cliente só desfruta.",
     icon: PartyPopper
   },
 ];
@@ -71,8 +71,17 @@ const HowItWorks = () => {
           </p>
         </motion.div>
 
-        {/* Steps - Premium Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
+        {/* Steps - Horizontal Timeline */}
+        <div className="grid md:grid-cols-4 gap-8 lg:gap-4 relative">
+          {/* Connecting Line - Desktop */}
+          <div 
+            className="hidden md:block absolute top-16 left-[12.5%] right-[12.5%] h-px z-0"
+            style={{
+              background: 'linear-gradient(90deg, hsl(42, 65%, 45%), hsl(43, 55%, 58%), hsl(42, 65%, 45%))',
+              opacity: 0.4
+            }}
+          />
+
           {steps.map((step, index) => (
             <motion.div
               key={step.number}
@@ -80,68 +89,46 @@ const HowItWorks = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
               viewport={{ once: true, margin: "-50px" }}
-              className="relative group"
+              className="relative z-10 text-center"
             >
-              {/* Connector Line - Desktop */}
-              {index < steps.length - 1 && (
-                <div 
-                  className="hidden lg:block absolute top-12 left-[calc(50%+40px)] w-[calc(100%-60px)] h-px z-0"
-                  style={{
-                    background: 'linear-gradient(90deg, hsl(42, 65%, 45%), hsl(43, 55%, 58%), hsl(42, 65%, 45%))',
-                    opacity: 0.3
-                  }}
-                />
-              )}
-
-              {/* Step Card */}
-              <div className="relative z-10 bg-background border border-border p-8 transition-all duration-500 group-hover:border-gold/50 group-hover:shadow-luxury">
-                {/* Number - Chrome Gold */}
-                <div className="text-center mb-4">
-                  <span 
-                    className="font-display text-5xl"
-                    style={{
-                      background: 'linear-gradient(135deg, hsl(40, 70%, 35%), hsl(43, 65%, 50%), hsl(45, 50%, 68%), hsl(43, 65%, 50%), hsl(40, 70%, 35%))',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      backgroundClip: 'text'
-                    }}
-                  >
-                    {step.number}
-                  </span>
-                </div>
-
-                {/* Icon */}
-                <div 
-                  className="w-16 h-16 mx-auto mb-6 flex items-center justify-center transition-all duration-500"
-                  style={{
-                    background: 'linear-gradient(135deg, hsla(42, 65%, 45%, 0.08), hsla(45, 50%, 68%, 0.12), hsla(42, 65%, 45%, 0.08))',
-                    border: '1px solid hsla(42, 65%, 45%, 0.25)'
-                  }}
+              {/* Number Circle */}
+              <div 
+                className="w-20 h-20 mx-auto mb-8 flex items-center justify-center"
+                style={{
+                  background: 'linear-gradient(135deg, hsl(40, 70%, 35%), hsl(43, 65%, 50%), hsl(45, 50%, 68%), hsl(43, 65%, 50%), hsl(40, 70%, 35%))',
+                  boxShadow: '0 4px 20px hsla(42, 65%, 45%, 0.4)'
+                }}
+              >
+                <span 
+                  className="font-display text-3xl"
+                  style={{ color: 'hsl(25, 15%, 12%)' }}
                 >
-                  <step.icon 
-                    className="w-7 h-7"
-                    style={{ color: 'hsl(42, 65%, 48%)' }}
-                  />
-                </div>
-
-                {/* Title */}
-                <h3 className="font-display text-2xl text-foreground text-center mb-4">
-                  {step.title}
-                </h3>
-
-                {/* Separator */}
-                <div 
-                  className="w-10 h-px mx-auto mb-4"
-                  style={{
-                    background: 'linear-gradient(90deg, transparent, hsl(43, 65%, 50%), transparent)',
-                  }}
-                />
-
-                {/* Description */}
-                <p className="font-body text-sm text-muted-foreground leading-relaxed text-center">
-                  {step.description}
-                </p>
+                  {step.number}
+                </span>
               </div>
+
+              {/* Icon */}
+              <div 
+                className="w-12 h-12 mx-auto mb-6 flex items-center justify-center border"
+                style={{
+                  borderImage: 'linear-gradient(135deg, hsl(40, 70%, 35%), hsl(43, 65%, 50%), hsl(45, 50%, 68%)) 1'
+                }}
+              >
+                <step.icon 
+                  className="w-5 h-5"
+                  style={{ color: 'hsl(42, 65%, 48%)' }}
+                />
+              </div>
+
+              {/* Title */}
+              <h3 className="font-display text-2xl text-foreground mb-4">
+                {step.title}
+              </h3>
+
+              {/* Description */}
+              <p className="font-body text-sm text-muted-foreground leading-relaxed max-w-xs mx-auto">
+                {step.description}
+              </p>
             </motion.div>
           ))}
         </div>
@@ -152,7 +139,7 @@ const HowItWorks = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mt-16"
+          className="text-center mt-20"
         >
           <p className="font-body text-sm text-muted-foreground mb-6">
             Pronta para criar o seu momento especial?

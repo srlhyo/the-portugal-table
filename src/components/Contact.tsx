@@ -19,7 +19,7 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    // Form submission logic will be added later
     alert("Obrigada pelo seu contacto! Responderemos em breve.");
   };
 
@@ -249,7 +249,7 @@ const Contact = () => {
                       backgroundClip: 'text'
                     }}
                   >
-                    Data
+                    Data do Evento
                   </label>
                   <input
                     type="date"
@@ -319,7 +319,7 @@ const Contact = () => {
                       backgroundClip: 'text'
                     }}
                   >
-                    Quer Buffet?
+                    Buffet
                   </label>
                   <select
                     name="wantsBuffet"
@@ -334,10 +334,7 @@ const Contact = () => {
                       Sim, quero buffet
                     </option>
                     <option value="nao" className="bg-primary text-primary-foreground">
-                      Não, apenas decoração
-                    </option>
-                    <option value="talvez" className="bg-primary text-primary-foreground">
-                      Ainda não sei
+                      Não
                     </option>
                   </select>
                 </div>
@@ -351,7 +348,7 @@ const Contact = () => {
                       backgroundClip: 'text'
                     }}
                   >
-                    Quer Decoração?
+                    Decoração
                   </label>
                   <select
                     name="wantsDecoration"
@@ -366,10 +363,7 @@ const Contact = () => {
                       Sim, quero decoração
                     </option>
                     <option value="nao" className="bg-primary text-primary-foreground">
-                      Não, apenas buffet
-                    </option>
-                    <option value="talvez" className="bg-primary text-primary-foreground">
-                      Ainda não sei
+                      Não
                     </option>
                   </select>
                 </div>
@@ -394,15 +388,15 @@ const Contact = () => {
                   onChange={handleChange}
                   rows={4}
                   className="w-full bg-transparent border-b border-primary-foreground/40 py-3 font-body text-primary-foreground placeholder:text-primary-foreground/50 focus:border-gold focus:outline-none transition-colors resize-none"
-                  placeholder="Conte-nos mais sobre o seu evento, tipo de celebração, preferências..."
+                  placeholder="Conte-nos mais sobre o seu evento..."
                 />
               </div>
 
-              {/* Submit Button */}
-              <div className="pt-4">
+              {/* Submit */}
+              <div className="pt-6">
                 <button
                   type="submit"
-                  className="w-full btn-chrome-gold"
+                  className="w-full btn-chrome-gold text-sm py-5"
                 >
                   Pedir Orçamento
                 </button>

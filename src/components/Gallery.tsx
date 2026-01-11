@@ -14,21 +14,25 @@ import tableChristmas from "@/assets/table-christmas.jpg";
 import tableTea from "@/assets/table-tea.jpg";
 import brunchRoses from "@/assets/brunch-roses.jpg";
 import cocktailsElegant from "@/assets/cocktails-elegant.jpg";
+import fingerfood from "@/assets/fingerfood.jpg";
+import heroTable from "@/assets/hero-table.jpg";
 
 const galleryImages = [
-  { src: brunchRoses, alt: "Buffet com rosas e louça dourada", category: "buffet" },
-  { src: tableCandles, alt: "Mesa decorada com velas", category: "decoração" },
-  { src: fingerfoodBoard, alt: "Tábua de finger food gourmet", category: "buffet" },
-  { src: tableChristmas, alt: "Mesa de Natal com decoração dourada", category: "decoração" },
-  { src: cocktailsElegant, alt: "Cocktails elegantes", category: "buffet" },
-  { src: tableTea, alt: "Mesa de chá elegante", category: "decoração" },
-  { src: brunchGold, alt: "Buffet com louça dourada", category: "buffet" },
-  { src: tablePink, alt: "Mesa rosa com flores", category: "decoração" },
-  { src: cheeseBoard, alt: "Tábua de queijos e enchidos", category: "buffet" },
-  { src: dinnerFormal, alt: "Mesa formal com guardanapos", category: "decoração" },
-  { src: cocktailsTable, alt: "Mesa de cocktails", category: "buffet" },
-  { src: tableEaster, alt: "Mesa de Páscoa elegante", category: "decoração" },
-  { src: brunchCoffee, alt: "Buffet com café", category: "buffet" },
+  { src: brunchRoses, alt: "Buffet elegante com rosas", category: "buffet", size: "large" },
+  { src: tableCandles, alt: "Mesa decorada com velas", category: "decoração", size: "medium" },
+  { src: fingerfoodBoard, alt: "Tábua de finger food gourmet", category: "comida", size: "medium" },
+  { src: tableChristmas, alt: "Mesa de Natal com decoração dourada", category: "decoração", size: "large" },
+  { src: cocktailsElegant, alt: "Cocktails elegantes", category: "buffet", size: "medium" },
+  { src: tableTea, alt: "Mesa de chá elegante", category: "decoração", size: "medium" },
+  { src: brunchGold, alt: "Buffet com louça dourada", category: "buffet", size: "large" },
+  { src: tablePink, alt: "Mesa rosa com flores", category: "flores", size: "medium" },
+  { src: cheeseBoard, alt: "Tábua de queijos e enchidos", category: "comida", size: "medium" },
+  { src: dinnerFormal, alt: "Mesa formal elegante", category: "decoração", size: "large" },
+  { src: cocktailsTable, alt: "Mesa de cocktails", category: "buffet", size: "medium" },
+  { src: tableEaster, alt: "Mesa de Páscoa elegante", category: "decoração", size: "medium" },
+  { src: brunchCoffee, alt: "Buffet com café", category: "buffet", size: "medium" },
+  { src: fingerfood, alt: "Finger food premium", category: "comida", size: "large" },
+  { src: heroTable, alt: "Mesa de luxo decorada", category: "ambiente", size: "medium" },
 ];
 
 const Gallery = () => {
@@ -69,11 +73,11 @@ const Gallery = () => {
             }}
           />
           <p className="font-body text-sm md:text-base text-muted-foreground leading-relaxed">
-            Buffets, mesas decoradas, ambientes e detalhes que transformamos em experiências memoráveis.
+            Buffets, mesas decoradas, ambientes, comida, flores e detalhes que transformamos em experiências memoráveis.
           </p>
         </motion.div>
 
-        {/* Gallery Grid - Masonry style */}
+        {/* Gallery Grid - Masonry style with varied sizes */}
         <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
           {galleryImages.map((image, index) => (
             <motion.div
