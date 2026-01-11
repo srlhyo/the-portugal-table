@@ -1,80 +1,46 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Check, Sparkles, Crown, Wine, Gift } from "lucide-react";
+import { Check, Sparkles, Armchair, Lightbulb, PartyPopper, Lamp, Wind, Zap } from "lucide-react";
 
 const packages = [
   {
     name: "Essence",
+    size: "180 cm",
+    pieces: "180 peças",
+    guests: "Até 20 convidados",
     price: "420",
-    advance: "10 dias",
-    description: "A essência da elegância para momentos especiais.",
-    features: [
-      "Mesa decorada até 6 pessoas",
-      "Finger food selecionado",
-      "Louça e talheres premium",
-      "Decoração floral simples",
-      "Montagem e desmontagem",
-    ],
     highlight: false,
   },
   {
     name: "Supreme",
-    price: "680",
-    advance: "14 dias",
-    description: "Uma experiência elevada com todos os detalhes.",
-    features: [
-      "Mesa decorada até 10 pessoas",
-      "Finger food gourmet variado",
-      "Louça premium com detalhes dourados",
-      "Arranjos florais completos",
-      "Velas e iluminação ambiente",
-      "Montagem e desmontagem",
-      "Acompanhamento durante o evento",
-    ],
+    size: "360 cm",
+    pieces: "300 peças",
+    guests: "Até 35 convidados",
+    price: "690",
     highlight: true,
   },
   {
     name: "Premium",
+    size: "360 cm",
+    pieces: "500 peças",
+    guests: "Até 50 convidados",
     price: "890",
-    advance: "21 dias",
-    description: "O máximo do luxo para celebrações memoráveis.",
-    features: [
-      "Mesa decorada até 16 pessoas",
-      "Menu finger food de autor",
-      "Louça de porcelana exclusiva",
-      "Decoração floral luxuosa",
-      "Elementos decorativos especiais",
-      "Iluminação e velas perfumadas",
-      "Equipa presente durante o evento",
-      "Bebidas de boas-vindas",
-      "Fotografia do setup",
-    ],
     highlight: false,
   },
 ];
 
 const extras = [
-  { 
-    name: "Bubble Deluxe", 
-    description: "Espumante premium e taças de cristal",
-    icon: Wine
-  },
-  { 
-    name: "Mesas Temáticas", 
-    description: "Decoração personalizada para o seu tema",
-    icon: Sparkles
-  },
-  { 
-    name: "Aluguer de Material", 
-    description: "Louça, talheres e decoração extra",
-    icon: Crown
-  },
-  { 
-    name: "Detalhes Especiais", 
-    description: "Lembranças personalizadas para convidados",
-    icon: Gift
-  },
+  { name: "Cubos de Exposição", icon: Sparkles },
+  { name: "Jarros Dourados", icon: Lamp },
+  { name: "Cadeiras Acrílicas", icon: Armchair },
+  { name: "Barras VIP", icon: PartyPopper },
+  { name: "Dispensadores", icon: Sparkles },
+  { name: "Luzes Ambiente", icon: Lightbulb },
+  { name: "Luz UV", icon: Zap },
+  { name: "Máquina de Faíscas", icon: Sparkles },
+  { name: "Máquina de Fumo", icon: Wind },
+  { name: "Iluminação Decorativa", icon: Lamp },
 ];
 
 const Packages = () => {
@@ -101,7 +67,7 @@ const Packages = () => {
               backgroundClip: 'text'
             }}
           >
-            Investimento
+            Buffet de Finger Food
           </span>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
             Pacotes
@@ -114,13 +80,13 @@ const Packages = () => {
             }}
           />
           <p className="font-body text-sm md:text-base text-muted-foreground leading-relaxed">
-            Escolha a experiência que melhor se adapta ao seu momento especial.
-            Cada pacote inclui toda a magia que merece.
+            Escolha o pacote ideal para o seu evento. Cada um inclui montagem completa do buffet 
+            com decoração e finger food premium.
           </p>
         </motion.div>
 
         {/* Packages Grid */}
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8 mb-20">
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8 mb-24">
           {packages.map((pkg, index) => (
             <motion.div
               key={pkg.name}
@@ -153,14 +119,64 @@ const Packages = () => {
               )}
 
               {/* Package Name */}
-              <h3 className={`font-display text-3xl mb-2 ${
+              <h3 className={`font-display text-3xl lg:text-4xl mb-2 text-center ${
                 pkg.highlight ? "text-primary-foreground" : "text-foreground"
               }`}>
                 {pkg.name}
               </h3>
 
+              {/* Separator */}
+              <div 
+                className="w-12 h-px mx-auto mb-6"
+                style={{
+                  background: pkg.highlight 
+                    ? 'linear-gradient(90deg, transparent, hsl(43, 55%, 60%), transparent)'
+                    : 'linear-gradient(90deg, transparent, hsl(43, 65%, 50%), transparent)'
+                }}
+              />
+
+              {/* Details */}
+              <div className="space-y-3 mb-8">
+                <div className="flex items-center justify-center gap-2">
+                  <Check 
+                    className="w-4 h-4 flex-shrink-0"
+                    style={{ color: 'hsl(42, 65%, 48%)' }}
+                  />
+                  <span className={`font-body text-sm ${
+                    pkg.highlight ? "text-primary-foreground/90" : "text-muted-foreground"
+                  }`}>
+                    Buffet de Finger Food — {pkg.size}
+                  </span>
+                </div>
+                <div className="flex items-center justify-center gap-2">
+                  <Check 
+                    className="w-4 h-4 flex-shrink-0"
+                    style={{ color: 'hsl(42, 65%, 48%)' }}
+                  />
+                  <span className={`font-body text-sm ${
+                    pkg.highlight ? "text-primary-foreground/90" : "text-muted-foreground"
+                  }`}>
+                    {pkg.pieces}
+                  </span>
+                </div>
+                <div className="flex items-center justify-center gap-2">
+                  <Check 
+                    className="w-4 h-4 flex-shrink-0"
+                    style={{ color: 'hsl(42, 65%, 48%)' }}
+                  />
+                  <span className={`font-body text-sm ${
+                    pkg.highlight ? "text-primary-foreground/90" : "text-muted-foreground"
+                  }`}>
+                    {pkg.guests}
+                  </span>
+                </div>
+              </div>
+
               {/* Price - Chrome Gold */}
-              <div className="mb-4">
+              <div className="text-center mb-8">
+                <span className="font-body text-xs uppercase tracking-[0.2em] text-muted-foreground block mb-2">
+                  Desde
+                </span>
                 <span 
                   className="font-display text-5xl lg:text-6xl"
                   style={{
@@ -174,44 +190,6 @@ const Packages = () => {
                 </span>
               </div>
 
-              {/* Advance Notice */}
-              <p className={`font-body text-xs uppercase tracking-[0.15em] mb-6 ${
-                pkg.highlight ? "text-primary-foreground/70" : "text-muted-foreground"
-              }`}>
-                Reserva com {pkg.advance} de antecedência
-              </p>
-
-              {/* Description */}
-              <p className={`font-body text-sm mb-8 leading-relaxed ${
-                pkg.highlight ? "text-primary-foreground/80" : "text-muted-foreground"
-              }`}>
-                {pkg.description}
-              </p>
-
-              {/* Separator */}
-              <div className={`w-full h-px mb-8 ${
-                pkg.highlight ? "bg-primary-foreground/20" : "bg-border"
-              }`} />
-
-              {/* Features */}
-              <ul className="space-y-4 mb-10">
-                {pkg.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3">
-                    <Check 
-                      className="w-4 h-4 mt-0.5 flex-shrink-0"
-                      style={{
-                        color: 'hsl(42, 65%, 45%)'
-                      }}
-                    />
-                    <span className={`font-body text-sm ${
-                      pkg.highlight ? "text-primary-foreground/90" : "text-muted-foreground"
-                    }`}>
-                      {feature}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
               {/* CTA */}
               <a
                 href="#contacto"
@@ -221,13 +199,13 @@ const Packages = () => {
                     : "border border-gold text-gold hover:bg-gold hover:text-primary"
                 }`}
               >
-                Reservar Data
+                Reservar
               </a>
             </motion.div>
           ))}
         </div>
 
-        {/* Extras Section - Premium Upgrade Style */}
+        {/* Extras Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -245,65 +223,51 @@ const Packages = () => {
                 backgroundClip: 'text'
               }}
             >
-              Eleve a Sua Experiência
+              Adicionar ao Evento
             </span>
             <h3 className="font-display text-2xl md:text-3xl lg:text-4xl text-foreground mb-4">
-              Extras Disponíveis
+              Extras & Aluguer
             </h3>
             <div 
-              className="w-12 h-px mx-auto"
+              className="w-12 h-px mx-auto mb-6"
               style={{
                 background: 'linear-gradient(90deg, transparent, hsl(43, 65%, 50%), transparent)',
                 boxShadow: '0 0 8px hsla(42, 65%, 45%, 0.3)'
               }}
             />
+            <p className="font-body text-sm text-muted-foreground max-w-xl mx-auto">
+              Material de aluguer disponível para elevar ainda mais o seu evento.
+            </p>
           </div>
           
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 lg:gap-8">
             {extras.map((extra, index) => (
               <motion.div
                 key={extra.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
                 viewport={{ once: true }}
                 className="text-center group"
               >
-                {/* Icon with chrome gold effect */}
+                {/* Icon */}
                 <div 
-                  className="w-16 h-16 mx-auto mb-6 flex items-center justify-center border transition-all duration-500 group-hover:shadow-gold"
+                  className="w-14 h-14 mx-auto mb-4 flex items-center justify-center border transition-all duration-500 group-hover:shadow-gold"
                   style={{
                     borderImage: 'linear-gradient(135deg, hsl(40, 70%, 35%), hsl(43, 65%, 50%), hsl(45, 50%, 68%)) 1'
                   }}
                 >
                   <extra.icon 
-                    className="w-7 h-7 transition-transform duration-500 group-hover:scale-110"
-                    style={{
-                      stroke: 'url(#gold-gradient)',
-                      color: 'hsl(42, 65%, 45%)'
-                    }}
+                    className="w-6 h-6 transition-transform duration-500 group-hover:scale-110"
+                    style={{ color: 'hsl(42, 65%, 48%)' }}
                   />
                 </div>
-                <h4 className="font-display text-xl text-foreground mb-3">
+                <p className="font-body text-xs uppercase tracking-[0.1em] text-foreground">
                   {extra.name}
-                </h4>
-                <p className="font-body text-sm text-muted-foreground leading-relaxed">
-                  {extra.description}
                 </p>
               </motion.div>
             ))}
           </div>
-          
-          {/* SVG Gradient Definition */}
-          <svg width="0" height="0" className="absolute">
-            <defs>
-              <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="hsl(40, 70%, 35%)" />
-                <stop offset="50%" stopColor="hsl(45, 50%, 68%)" />
-                <stop offset="100%" stopColor="hsl(40, 70%, 35%)" />
-              </linearGradient>
-            </defs>
-          </svg>
         </motion.div>
       </div>
     </section>

@@ -8,11 +8,12 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
-    event: "",
-    guests: "",
+    whatsapp: "",
     date: "",
-    package: "",
+    location: "",
+    guests: "",
+    wantsBuffet: "",
+    wantsDecoration: "",
     message: "",
   });
 
@@ -42,7 +43,7 @@ const Contact = () => {
             <span 
               className="font-body text-xs uppercase tracking-[0.3em] mb-8 block"
               style={{
-                background: 'linear-gradient(90deg, hsl(43, 55%, 55%), hsl(45, 50%, 70%), hsl(43, 55%, 55%))',
+                background: 'linear-gradient(90deg, hsl(43, 55%, 58%), hsl(45, 50%, 72%), hsl(43, 55%, 58%))',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text'
@@ -66,12 +67,12 @@ const Contact = () => {
             </p>
 
             {/* Contact Details */}
-            <div className="space-y-6">
+            <div className="space-y-6 mb-12">
               <div>
                 <p 
                   className="font-body text-xs uppercase tracking-[0.2em] mb-2"
                   style={{
-                    background: 'linear-gradient(90deg, hsl(43, 55%, 55%), hsl(45, 50%, 70%))',
+                    background: 'linear-gradient(90deg, hsl(43, 55%, 58%), hsl(45, 50%, 72%))',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text'
@@ -81,7 +82,7 @@ const Contact = () => {
                 </p>
                 <a
                   href="mailto:hello@doluxoamesa.pt"
-                  className="font-display text-xl text-primary-foreground hover:text-gold-light transition-colors"
+                  className="font-display text-xl text-primary-foreground hover:opacity-80 transition-opacity"
                 >
                   hello@doluxoamesa.pt
                 </a>
@@ -90,7 +91,7 @@ const Contact = () => {
                 <p 
                   className="font-body text-xs uppercase tracking-[0.2em] mb-2"
                   style={{
-                    background: 'linear-gradient(90deg, hsl(43, 55%, 55%), hsl(45, 50%, 70%))',
+                    background: 'linear-gradient(90deg, hsl(43, 55%, 58%), hsl(45, 50%, 72%))',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text'
@@ -102,7 +103,7 @@ const Contact = () => {
                   href="https://wa.me/351912345678"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-display text-xl text-primary-foreground hover:text-gold-light transition-colors"
+                  className="font-display text-xl text-primary-foreground hover:opacity-80 transition-opacity"
                 >
                   +351 912 345 678
                 </a>
@@ -111,7 +112,7 @@ const Contact = () => {
                 <p 
                   className="font-body text-xs uppercase tracking-[0.2em] mb-2"
                   style={{
-                    background: 'linear-gradient(90deg, hsl(43, 55%, 55%), hsl(45, 50%, 70%))',
+                    background: 'linear-gradient(90deg, hsl(43, 55%, 58%), hsl(45, 50%, 72%))',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text'
@@ -123,7 +124,7 @@ const Contact = () => {
                   href="https://instagram.com/doluxoamesa"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-display text-xl text-primary-foreground hover:text-gold-light transition-colors"
+                  className="font-display text-xl text-primary-foreground hover:opacity-80 transition-opacity"
                 >
                   @doluxoamesa
                 </a>
@@ -132,7 +133,7 @@ const Contact = () => {
                 <p 
                   className="font-body text-xs uppercase tracking-[0.2em] mb-2"
                   style={{
-                    background: 'linear-gradient(90deg, hsl(43, 55%, 55%), hsl(45, 50%, 70%))',
+                    background: 'linear-gradient(90deg, hsl(43, 55%, 58%), hsl(45, 50%, 72%))',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text'
@@ -147,19 +148,17 @@ const Contact = () => {
             </div>
 
             {/* WhatsApp CTA */}
-            <div className="mt-12">
-              <a
-                href="https://wa.me/351912345678?text=Olá! Gostaria de pedir um orçamento para um evento."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 btn-chrome-gold"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                </svg>
-                Contactar por WhatsApp
-              </a>
-            </div>
+            <a
+              href="https://wa.me/351912345678?text=Olá! Gostaria de pedir um orçamento para um evento."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 btn-chrome-gold"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              Contactar por WhatsApp
+            </a>
           </motion.div>
 
           {/* Right: Contact Form */}
@@ -169,12 +168,13 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Name & Email */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label 
                     className="font-body text-xs uppercase tracking-[0.15em] block mb-3"
                     style={{
-                      background: 'linear-gradient(90deg, hsl(43, 55%, 55%), hsl(45, 50%, 70%))',
+                      background: 'linear-gradient(90deg, hsl(43, 55%, 58%), hsl(45, 50%, 72%))',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text'
@@ -196,7 +196,7 @@ const Contact = () => {
                   <label 
                     className="font-body text-xs uppercase tracking-[0.15em] block mb-3"
                     style={{
-                      background: 'linear-gradient(90deg, hsl(43, 55%, 55%), hsl(45, 50%, 70%))',
+                      background: 'linear-gradient(90deg, hsl(43, 55%, 58%), hsl(45, 50%, 72%))',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text'
@@ -216,23 +216,24 @@ const Contact = () => {
                 </div>
               </div>
 
+              {/* WhatsApp & Date */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label 
                     className="font-body text-xs uppercase tracking-[0.15em] block mb-3"
                     style={{
-                      background: 'linear-gradient(90deg, hsl(43, 55%, 55%), hsl(45, 50%, 70%))',
+                      background: 'linear-gradient(90deg, hsl(43, 55%, 58%), hsl(45, 50%, 72%))',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text'
                     }}
                   >
-                    Telefone / WhatsApp
+                    WhatsApp
                   </label>
                   <input
                     type="tel"
-                    name="phone"
-                    value={formData.phone}
+                    name="whatsapp"
+                    value={formData.whatsapp}
                     onChange={handleChange}
                     className="w-full bg-transparent border-b border-primary-foreground/40 py-3 font-body text-primary-foreground placeholder:text-primary-foreground/50 focus:border-gold focus:outline-none transition-colors"
                     placeholder="+351 900 000 000"
@@ -242,7 +243,52 @@ const Contact = () => {
                   <label 
                     className="font-body text-xs uppercase tracking-[0.15em] block mb-3"
                     style={{
-                      background: 'linear-gradient(90deg, hsl(43, 55%, 55%), hsl(45, 50%, 70%))',
+                      background: 'linear-gradient(90deg, hsl(43, 55%, 58%), hsl(45, 50%, 72%))',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text'
+                    }}
+                  >
+                    Data
+                  </label>
+                  <input
+                    type="date"
+                    name="date"
+                    value={formData.date}
+                    onChange={handleChange}
+                    className="w-full bg-transparent border-b border-primary-foreground/40 py-3 font-body text-primary-foreground focus:border-gold focus:outline-none transition-colors"
+                  />
+                </div>
+              </div>
+
+              {/* Location & Guests */}
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <label 
+                    className="font-body text-xs uppercase tracking-[0.15em] block mb-3"
+                    style={{
+                      background: 'linear-gradient(90deg, hsl(43, 55%, 58%), hsl(45, 50%, 72%))',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text'
+                    }}
+                  >
+                    Local
+                  </label>
+                  <input
+                    type="text"
+                    name="location"
+                    value={formData.location}
+                    onChange={handleChange}
+                    className="w-full bg-transparent border-b border-primary-foreground/40 py-3 font-body text-primary-foreground placeholder:text-primary-foreground/50 focus:border-gold focus:outline-none transition-colors"
+                    placeholder="Lisboa, Cascais, etc."
+                  />
+                </div>
+                <div>
+                  <label 
+                    className="font-body text-xs uppercase tracking-[0.15em] block mb-3"
+                    style={{
+                      background: 'linear-gradient(90deg, hsl(43, 55%, 58%), hsl(45, 50%, 72%))',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text'
@@ -256,56 +302,42 @@ const Contact = () => {
                     value={formData.guests}
                     onChange={handleChange}
                     className="w-full bg-transparent border-b border-primary-foreground/40 py-3 font-body text-primary-foreground placeholder:text-primary-foreground/50 focus:border-gold focus:outline-none transition-colors"
-                    placeholder="Ex: 8 pessoas"
+                    placeholder="Ex: 25 pessoas"
                   />
                 </div>
               </div>
 
+              {/* Service Type */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label 
                     className="font-body text-xs uppercase tracking-[0.15em] block mb-3"
                     style={{
-                      background: 'linear-gradient(90deg, hsl(43, 55%, 55%), hsl(45, 50%, 70%))',
+                      background: 'linear-gradient(90deg, hsl(43, 55%, 58%), hsl(45, 50%, 72%))',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text'
                     }}
                   >
-                    Tipo de Evento
+                    Quer Buffet?
                   </label>
                   <select
-                    name="event"
-                    value={formData.event}
+                    name="wantsBuffet"
+                    value={formData.wantsBuffet}
                     onChange={handleChange}
                     className="w-full bg-transparent border-b border-primary-foreground/40 py-3 font-body text-primary-foreground focus:border-gold focus:outline-none transition-colors cursor-pointer"
                   >
                     <option value="" className="bg-primary text-primary-foreground">
-                      Selecione uma opção
+                      Selecione
                     </option>
-                    <option value="jantar" className="bg-primary text-primary-foreground">
-                      Jantar Íntimo
+                    <option value="sim" className="bg-primary text-primary-foreground">
+                      Sim, quero buffet
                     </option>
-                    <option value="brunch" className="bg-primary text-primary-foreground">
-                      Brunch Privado
+                    <option value="nao" className="bg-primary text-primary-foreground">
+                      Não, apenas decoração
                     </option>
-                    <option value="aniversario" className="bg-primary text-primary-foreground">
-                      Aniversário
-                    </option>
-                    <option value="babyshower" className="bg-primary text-primary-foreground">
-                      Baby Shower
-                    </option>
-                    <option value="cha-revelacao" className="bg-primary text-primary-foreground">
-                      Chá Revelação
-                    </option>
-                    <option value="noivado" className="bg-primary text-primary-foreground">
-                      Noivado
-                    </option>
-                    <option value="cocktail" className="bg-primary text-primary-foreground">
-                      Cocktail Party
-                    </option>
-                    <option value="outro" className="bg-primary text-primary-foreground">
-                      Outro
+                    <option value="talvez" className="bg-primary text-primary-foreground">
+                      Ainda não sei
                     </option>
                   </select>
                 </div>
@@ -313,65 +345,42 @@ const Contact = () => {
                   <label 
                     className="font-body text-xs uppercase tracking-[0.15em] block mb-3"
                     style={{
-                      background: 'linear-gradient(90deg, hsl(43, 55%, 55%), hsl(45, 50%, 70%))',
+                      background: 'linear-gradient(90deg, hsl(43, 55%, 58%), hsl(45, 50%, 72%))',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text'
                     }}
                   >
-                    Data Pretendida
+                    Quer Decoração?
                   </label>
-                  <input
-                    type="date"
-                    name="date"
-                    value={formData.date}
+                  <select
+                    name="wantsDecoration"
+                    value={formData.wantsDecoration}
                     onChange={handleChange}
-                    className="w-full bg-transparent border-b border-primary-foreground/40 py-3 font-body text-primary-foreground focus:border-gold focus:outline-none transition-colors"
-                  />
+                    className="w-full bg-transparent border-b border-primary-foreground/40 py-3 font-body text-primary-foreground focus:border-gold focus:outline-none transition-colors cursor-pointer"
+                  >
+                    <option value="" className="bg-primary text-primary-foreground">
+                      Selecione
+                    </option>
+                    <option value="sim" className="bg-primary text-primary-foreground">
+                      Sim, quero decoração
+                    </option>
+                    <option value="nao" className="bg-primary text-primary-foreground">
+                      Não, apenas buffet
+                    </option>
+                    <option value="talvez" className="bg-primary text-primary-foreground">
+                      Ainda não sei
+                    </option>
+                  </select>
                 </div>
               </div>
 
+              {/* Message */}
               <div>
                 <label 
                   className="font-body text-xs uppercase tracking-[0.15em] block mb-3"
                   style={{
-                    background: 'linear-gradient(90deg, hsl(43, 55%, 55%), hsl(45, 50%, 70%))',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text'
-                  }}
-                >
-                  Pacote de Interesse
-                </label>
-                <select
-                  name="package"
-                  value={formData.package}
-                  onChange={handleChange}
-                  className="w-full bg-transparent border-b border-primary-foreground/40 py-3 font-body text-primary-foreground focus:border-gold focus:outline-none transition-colors cursor-pointer"
-                >
-                  <option value="" className="bg-primary text-primary-foreground">
-                    Selecione um pacote
-                  </option>
-                  <option value="essence" className="bg-primary text-primary-foreground">
-                    Essence — 420€
-                  </option>
-                  <option value="supreme" className="bg-primary text-primary-foreground">
-                    Supreme — 680€
-                  </option>
-                  <option value="premium" className="bg-primary text-primary-foreground">
-                    Premium — 890€
-                  </option>
-                  <option value="personalizado" className="bg-primary text-primary-foreground">
-                    Orçamento Personalizado
-                  </option>
-                </select>
-              </div>
-
-              <div>
-                <label 
-                  className="font-body text-xs uppercase tracking-[0.15em] block mb-3"
-                  style={{
-                    background: 'linear-gradient(90deg, hsl(43, 55%, 55%), hsl(45, 50%, 70%))',
+                    background: 'linear-gradient(90deg, hsl(43, 55%, 58%), hsl(45, 50%, 72%))',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text'
@@ -385,14 +394,15 @@ const Contact = () => {
                   onChange={handleChange}
                   rows={4}
                   className="w-full bg-transparent border-b border-primary-foreground/40 py-3 font-body text-primary-foreground placeholder:text-primary-foreground/50 focus:border-gold focus:outline-none transition-colors resize-none"
-                  placeholder="Conte-nos mais sobre o seu evento, preferências, tema..."
+                  placeholder="Conte-nos mais sobre o seu evento, tipo de celebração, preferências..."
                 />
               </div>
 
-              <div className="pt-6">
+              {/* Submit Button */}
+              <div className="pt-4">
                 <button
                   type="submit"
-                  className="w-full md:w-auto btn-chrome-gold"
+                  className="w-full btn-chrome-gold"
                 >
                   Pedir Orçamento
                 </button>

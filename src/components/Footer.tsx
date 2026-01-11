@@ -5,31 +5,38 @@ const Footer = () => {
     <footer className="bg-background py-16 lg:py-20 border-t border-border">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="grid md:grid-cols-3 gap-12 lg:gap-16 mb-16">
-          {/* Brand */}
+          {/* Brand - Sem ® */}
           <div>
             <a href="#" className="inline-block mb-6">
               <span className="font-display text-2xl lg:text-3xl text-foreground">
                 Do Luxo à Mesa
               </span>
-              <span className="text-gold">®</span>
             </a>
             <p className="font-body text-sm text-foreground/60 leading-relaxed max-w-xs mb-4">
-              Experiências de mesa únicas que transformam celebrações em 
-              memórias inesquecíveis.
+              Experiências premium de buffet e decoração que transformam 
+              qualquer espaço numa celebração memorável.
             </p>
             <p className="font-display text-lg text-foreground/80 italic">
-              Luxo sem ostentação. Beleza sem stress.
+              Luxo com vida. Glamour moderno.
             </p>
           </div>
 
           {/* Navigation */}
           <div>
-            <h4 className="font-body text-xs uppercase tracking-[0.2em] text-gold mb-6">
+            <h4 
+              className="font-body text-xs uppercase tracking-[0.2em] mb-6"
+              style={{
+                background: 'linear-gradient(90deg, hsl(42, 65%, 45%), hsl(43, 55%, 55%))',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}
+            >
               Navegação
             </h4>
             <nav className="flex flex-col gap-3">
               {[
-                { label: "Experiências", href: "#experiencias" },
+                { label: "Serviços", href: "#servicos" },
                 { label: "Pacotes", href: "#pacotes" },
                 { label: "Galeria", href: "#galeria" },
                 { label: "Como Funciona", href: "#como-funciona" },
@@ -48,7 +55,15 @@ const Footer = () => {
 
           {/* Social & Contact */}
           <div>
-            <h4 className="font-body text-xs uppercase tracking-[0.2em] text-gold mb-6">
+            <h4 
+              className="font-body text-xs uppercase tracking-[0.2em] mb-6"
+              style={{
+                background: 'linear-gradient(90deg, hsl(42, 65%, 45%), hsl(43, 55%, 55%))',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}
+            >
               Contactos
             </h4>
             <div className="space-y-3">
@@ -81,10 +96,10 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Bar */}
+        {/* Bottom Bar - Sem ® */}
         <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="font-body text-xs text-foreground/40 uppercase tracking-[0.1em]">
-            © {currentYear} Do Luxo à Mesa®. Todos os direitos reservados.
+            © {currentYear} Do Luxo à Mesa. Todos os direitos reservados.
           </p>
           <div className="flex items-center gap-6">
             <a
