@@ -23,14 +23,17 @@ const Hero = () => {
           transition={{ duration: 1, ease: "easeOut" }}
           className="max-w-4xl mx-auto"
         >
-          {/* Tagline */}
+          {/* Tagline - with subtle backdrop for readability */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="font-body text-[11px] uppercase tracking-[0.35em] mb-8 text-white/90"
+            className="font-body text-[11px] uppercase tracking-[0.35em] mb-8 inline-block px-5 py-2 rounded-sm"
             style={{
-              textShadow: '0 2px 10px hsla(30, 15%, 5%, 0.3)'
+              color: 'hsl(45, 35%, 98%)',
+              textShadow: '0 1px 3px hsla(30, 15%, 5%, 0.4), 0 4px 12px hsla(30, 15%, 5%, 0.2)',
+              backgroundColor: 'hsla(30, 15%, 10%, 0.25)',
+              backdropFilter: 'blur(4px)',
             }}
           >
             Experiências Privadas de Luxo em Portugal
@@ -41,9 +44,10 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 1 }}
-            className="font-display text-5xl md:text-7xl lg:text-8xl xl:text-9xl text-white leading-[0.95] mb-10"
+            className="font-display text-5xl md:text-7xl lg:text-8xl xl:text-9xl leading-[0.95] mb-10"
             style={{
-              textShadow: '0 4px 30px hsla(30, 15%, 5%, 0.25)',
+              color: 'hsl(45, 40%, 99%)',
+              textShadow: '0 2px 4px hsla(30, 15%, 5%, 0.3), 0 8px 30px hsla(30, 15%, 5%, 0.2)',
               fontWeight: 300,
               letterSpacing: '0.02em'
             }}
@@ -51,21 +55,24 @@ const Hero = () => {
             Do Luxo à Mesa
           </motion.h1>
 
-          {/* Value Proposition */}
+          {/* Value Proposition - with subtle backdrop */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="font-body text-base md:text-lg text-white/95 max-w-2xl mx-auto mb-14 leading-relaxed font-light"
+            className="font-body text-base md:text-lg max-w-2xl mx-auto mb-14 leading-relaxed font-light inline-block px-6 py-3 rounded-sm"
             style={{
-              textShadow: '0 2px 10px hsla(30, 15%, 5%, 0.3)'
+              color: 'hsl(45, 35%, 98%)',
+              textShadow: '0 1px 3px hsla(30, 15%, 5%, 0.4), 0 4px 12px hsla(30, 15%, 5%, 0.2)',
+              backgroundColor: 'hsla(30, 15%, 10%, 0.2)',
+              backdropFilter: 'blur(3px)',
             }}
           >
             Buffets premium e mesas decoradas que transformam qualquer espaço 
             numa celebração memorável.
           </motion.p>
 
-          {/* CTA Buttons - Modern Luxury Style */}
+          {/* CTA Buttons - Modern Luxury Style (Flat, No Gradients) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -74,13 +81,28 @@ const Hero = () => {
           >
             <a
               href="#contacto"
-              className="btn-chrome-gold"
+              className="btn-gold-flat font-body text-[11px] uppercase tracking-[0.18em] px-10 py-4"
             >
               Pedir Orçamento
             </a>
             <a
               href="#pacotes"
-              className="font-body text-[11px] uppercase tracking-[0.18em] text-white border border-white/60 px-10 py-4 hover:bg-white hover:text-foreground transition-all duration-400"
+              className="font-body text-[11px] uppercase tracking-[0.18em] px-10 py-4 transition-all duration-300 border"
+              style={{
+                color: 'hsl(45, 40%, 99%)',
+                borderColor: 'hsla(45, 35%, 98%, 0.7)',
+                textShadow: '0 1px 3px hsla(30, 15%, 5%, 0.3)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'hsl(45, 35%, 98%)';
+                e.currentTarget.style.color = 'hsl(30, 15%, 18%)';
+                e.currentTarget.style.textShadow = 'none';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+                e.currentTarget.style.color = 'hsl(45, 40%, 99%)';
+                e.currentTarget.style.textShadow = '0 1px 3px hsla(30, 15%, 5%, 0.3)';
+              }}
             >
               Ver Pacotes
             </a>
@@ -100,7 +122,13 @@ const Hero = () => {
           transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
           className="flex flex-col items-center gap-3"
         >
-          <span className="font-body text-[10px] uppercase tracking-[0.2em] text-white/70">
+          <span 
+            className="font-body text-[10px] uppercase tracking-[0.2em]"
+            style={{
+              color: 'hsla(45, 35%, 98%, 0.8)',
+              textShadow: '0 1px 3px hsla(30, 15%, 5%, 0.3)',
+            }}
+          >
             Scroll
           </span>
           <div 

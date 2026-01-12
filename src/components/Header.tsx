@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Header = () => {
@@ -21,13 +21,37 @@ const Header = () => {
     { label: "Contacto", href: "#contacto" },
   ];
 
+  // Smooth scroll handler that accounts for navbar height
+  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    
+    // Close mobile menu first
+    setIsMobileMenuOpen(false);
+    
+    const targetId = href.replace('#', '');
+    const targetElement = document.getElementById(targetId);
+    
+    if (targetElement) {
+      // Small delay to allow mobile menu to close
+      setTimeout(() => {
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }, isMobileMenuOpen ? 150 : 0);
+    }
+  }, [isMobileMenuOpen]);
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-background shadow-soft py-3"
-          : "bg-background py-4"
+          ? "shadow-soft py-3"
+          : "py-4"
       }`}
+      style={{
+        backgroundColor: 'hsl(45, 35%, 97%)',
+      }}
     >
       <div className="container mx-auto px-6 lg:px-12">
         <nav className="flex items-center justify-between">
@@ -49,6 +73,7 @@ const Header = () => {
               <a
                 key={item.label}
                 href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
                 className="font-body text-[11px] uppercase tracking-[0.18em] text-foreground/75 hover:text-gold transition-colors duration-300 link-underline"
               >
                 {item.label}
@@ -59,6 +84,7 @@ const Header = () => {
           {/* CTA Button - Desktop */}
           <a
             href="#contacto"
+            onClick={(e) => handleNavClick(e, '#contacto')}
             className="hidden lg:block btn-outline-gold text-[10px] py-3 px-8"
           >
             Pedir Orçamento
@@ -94,7 +120,10 @@ const Header = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-background border-t border-border"
+            className="lg:hidden border-t border-border"
+            style={{
+              backgroundColor: 'hsl(45, 35%, 97%)',
+            }}
           >
             <div className="container mx-auto px-6 py-8 flex flex-col gap-6">
               {navItems.map((item, index) => (
@@ -104,7 +133,7 @@ const Header = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => handleNavClick(e, item.href)}
                   className="font-body text-sm uppercase tracking-[0.15em] text-foreground/80 hover:text-gold transition-colors"
                 >
                   {item.label}
@@ -112,7 +141,7 @@ const Header = () => {
               ))}
               <a
                 href="#contacto"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={(e) => handleNavClick(e, '#contacto')}
                 className="font-body text-sm uppercase tracking-[0.15em] text-center mt-4 btn-outline-gold py-3"
               >
                 Pedir Orçamento

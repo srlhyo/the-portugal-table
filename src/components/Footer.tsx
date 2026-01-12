@@ -1,11 +1,30 @@
+// WhatsApp configuration
+const WHATSAPP_NUMBER = "351912345678";
+const WHATSAPP_MESSAGE = "Olá, gostaria de um orçamento para um evento.";
+const WHATSAPP_URL = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+const PHONE_DISPLAY = "+351 912 345 678";
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+
+  // Smooth scroll handler
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
 
   return (
     <footer className="bg-background py-16 lg:py-20 border-t border-border">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="grid md:grid-cols-3 gap-12 lg:gap-16 mb-16">
-          {/* Brand - Sem ® */}
+          {/* Brand */}
           <div>
             <a href="#" className="inline-block mb-6">
               <span className="font-display text-2xl lg:text-3xl text-foreground">
@@ -37,6 +56,7 @@ const Footer = () => {
                 <a
                   key={link.label}
                   href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className="font-body text-sm text-foreground/60 hover:text-gold transition-colors"
                 >
                   {link.label}
@@ -60,12 +80,12 @@ const Footer = () => {
                 Instagram — @doluxoamesa
               </a>
               <a
-                href="https://wa.me/351912345678"
+                href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-body text-sm text-foreground/60 hover:text-gold transition-colors block"
               >
-                WhatsApp — +351 912 345 678
+                WhatsApp — {PHONE_DISPLAY}
               </a>
               <a
                 href="mailto:hello@doluxoamesa.pt"
@@ -80,7 +100,7 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Bar - Sem ® */}
+        {/* Bottom Bar */}
         <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="font-body text-xs text-foreground/40 uppercase tracking-[0.1em]">
             © {currentYear} Do Luxo à Mesa. Todos os direitos reservados.

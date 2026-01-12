@@ -118,7 +118,7 @@ const Gallery = () => {
             href="https://instagram.com/doluxoamesa"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block btn-outline-gold"
+            className="inline-block btn-outline-gold focus:outline-none focus:ring-2 focus:ring-gold/40"
           >
             Ver Mais no Instagram
           </a>
