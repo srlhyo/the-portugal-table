@@ -25,8 +25,8 @@ const Header = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-background shadow-soft py-4"
-          : "bg-background/95 py-5"
+          ? "bg-background shadow-soft py-3"
+          : "bg-background py-4"
       }`}
     >
       <div className="container mx-auto px-6 lg:px-12">
@@ -37,13 +37,7 @@ const Header = () => {
               Do Luxo à Mesa
             </span>
             <span 
-              className="text-[10px] font-body uppercase tracking-[0.3em]"
-              style={{
-                background: 'linear-gradient(90deg, hsl(42, 65%, 45%), hsl(43, 55%, 55%))',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}
+              className="text-[10px] font-body uppercase tracking-[0.25em] text-gold"
             >
               Experiências Premium
             </span>
@@ -55,7 +49,7 @@ const Header = () => {
               <a
                 key={item.label}
                 href={item.href}
-                className="font-body text-xs uppercase tracking-[0.2em] text-foreground/80 hover:text-gold transition-colors duration-300 link-underline"
+                className="font-body text-[11px] uppercase tracking-[0.18em] text-foreground/75 hover:text-gold transition-colors duration-300 link-underline"
               >
                 {item.label}
               </a>
@@ -65,7 +59,7 @@ const Header = () => {
           {/* CTA Button - Desktop */}
           <a
             href="#contacto"
-            className="hidden lg:block btn-chrome-gold text-[11px]"
+            className="hidden lg:block btn-outline-gold text-[10px] py-3 px-8"
           >
             Pedir Orçamento
           </a>
@@ -111,7 +105,7 @@ const Header = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="font-body text-sm uppercase tracking-[0.2em] text-foreground/80 hover:text-gold transition-colors"
+                  className="font-body text-sm uppercase tracking-[0.15em] text-foreground/80 hover:text-gold transition-colors"
                 >
                   {item.label}
                 </motion.a>
@@ -119,7 +113,7 @@ const Header = () => {
               <a
                 href="#contacto"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="font-body text-sm uppercase tracking-[0.2em] text-center mt-4 btn-chrome-gold"
+                className="font-body text-sm uppercase tracking-[0.15em] text-center mt-4 btn-outline-gold py-3"
               >
                 Pedir Orçamento
               </a>

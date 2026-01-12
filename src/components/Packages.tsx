@@ -109,7 +109,7 @@ const Packages = () => {
   const isHeaderInView = useInView(headerRef, { once: true, margin: "-100px" });
 
   return (
-    <section id="pacotes" className="py-24 lg:py-32 bg-background">
+    <section id="pacotes" className="py-28 lg:py-36 bg-background">
       <div className="container mx-auto px-6 lg:px-12">
         {/* Section Header */}
         <motion.div
@@ -119,35 +119,21 @@ const Packages = () => {
           transition={{ duration: 0.8 }}
           className="text-center max-w-2xl mx-auto mb-16"
         >
-          <span 
-            className="font-body text-xs uppercase tracking-[0.3em] mb-4 block"
-            style={{
-              background: 'linear-gradient(90deg, hsl(42, 65%, 45%), hsl(43, 55%, 58%), hsl(42, 65%, 45%))',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}
-          >
+          <span className="font-body text-[11px] uppercase tracking-[0.25em] mb-5 block text-gold">
             Buffet de Finger Food
           </span>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mb-6 font-light">
             Pacotes de Buffet
           </h2>
-          <div 
-            className="w-16 h-px mx-auto mb-6"
-            style={{
-              background: 'linear-gradient(90deg, transparent, hsl(43, 65%, 50%), hsl(45, 50%, 68%), hsl(43, 65%, 50%), transparent)',
-              boxShadow: '0 0 8px hsla(42, 65%, 45%, 0.3)'
-            }}
-          />
-          <p className="font-body text-sm md:text-base text-muted-foreground leading-relaxed">
+          <div className="separator-gold mx-auto mb-8" />
+          <p className="font-body text-sm md:text-base text-muted-foreground leading-relaxed font-light">
             Escolha o pacote ideal para o seu evento. Cada um inclui montagem completa do buffet 
             com decoração e finger food premium.
           </p>
         </motion.div>
 
         {/* Packages Grid */}
-        <div className="grid lg:grid-cols-3 gap-6 lg:gap-8 mb-24">
+        <div className="grid lg:grid-cols-3 gap-8 lg:gap-10 mb-28">
           {packages.map((pkg, index) => (
             <motion.div
               key={pkg.name}
@@ -157,82 +143,62 @@ const Packages = () => {
               viewport={{ once: true, margin: "-50px" }}
               className={`relative p-8 lg:p-10 transition-all duration-500 ${
                 pkg.highlight
-                  ? "bg-primary text-primary-foreground border-2"
-                  : "bg-card border border-border hover:border-gold/50"
+                  ? "bg-foreground text-background"
+                  : "bg-card border border-border hover:border-gold/40"
               }`}
-              style={pkg.highlight ? {
-                borderImage: 'linear-gradient(135deg, hsl(40, 70%, 35%), hsl(43, 65%, 50%), hsl(45, 50%, 68%), hsl(43, 65%, 50%), hsl(40, 70%, 35%)) 1'
-              } : {}}
             >
               {pkg.highlight && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <span 
-                    className="font-body text-[10px] uppercase tracking-[0.2em] px-4 py-2"
-                    style={{
-                      background: 'linear-gradient(135deg, hsl(40, 70%, 35%), hsl(43, 65%, 50%), hsl(45, 50%, 68%), hsl(43, 65%, 50%), hsl(40, 70%, 35%))',
-                      color: 'hsl(25, 15%, 12%)',
-                      boxShadow: '0 2px 8px hsla(42, 65%, 45%, 0.4)'
-                    }}
-                  >
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                  <span className="font-body text-[10px] uppercase tracking-[0.15em] px-4 py-1.5 bg-gold text-white">
                     Mais Popular
                   </span>
                 </div>
               )}
 
               {/* Package Name */}
-              <h3 className={`font-display text-3xl lg:text-4xl mb-4 text-center ${
-                pkg.highlight ? "text-primary-foreground" : "text-foreground"
+              <h3 className={`font-display text-3xl lg:text-4xl mb-5 text-center font-light ${
+                pkg.highlight ? "text-background" : "text-foreground"
               }`}>
                 {pkg.name}
               </h3>
 
               {/* Specs */}
-              <div className="flex justify-center gap-6 mb-6">
+              <div className="flex justify-center gap-5 mb-6">
                 <div className="flex items-center gap-2 text-xs">
-                  <Ruler className="w-4 h-4" style={{ color: 'hsl(42, 65%, 48%)' }} />
-                  <span className={pkg.highlight ? "text-primary-foreground/80" : "text-muted-foreground"}>
+                  <Ruler className="w-4 h-4 text-gold" />
+                  <span className={pkg.highlight ? "text-background/70" : "text-muted-foreground"}>
                     {pkg.size}
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-xs">
-                  <Sparkles className="w-4 h-4" style={{ color: 'hsl(42, 65%, 48%)' }} />
-                  <span className={pkg.highlight ? "text-primary-foreground/80" : "text-muted-foreground"}>
+                  <Sparkles className="w-4 h-4 text-gold" />
+                  <span className={pkg.highlight ? "text-background/70" : "text-muted-foreground"}>
                     {pkg.pieces}
                   </span>
                 </div>
                 <div className="flex items-center gap-2 text-xs">
-                  <Users className="w-4 h-4" style={{ color: 'hsl(42, 65%, 48%)' }} />
-                  <span className={pkg.highlight ? "text-primary-foreground/80" : "text-muted-foreground"}>
+                  <Users className="w-4 h-4 text-gold" />
+                  <span className={pkg.highlight ? "text-background/70" : "text-muted-foreground"}>
                     {pkg.guests}
                   </span>
                 </div>
               </div>
 
               {/* Separator */}
-              <div 
-                className="w-12 h-px mx-auto mb-6"
-                style={{
-                  background: pkg.highlight 
-                    ? 'linear-gradient(90deg, transparent, hsl(43, 55%, 60%), transparent)'
-                    : 'linear-gradient(90deg, transparent, hsl(43, 65%, 50%), transparent)'
-                }}
-              />
+              <div className="w-10 h-px mx-auto mb-6 bg-gold/40" />
 
               {/* Items List */}
               <div className="space-y-2 mb-6">
-                <p className={`font-body text-xs uppercase tracking-[0.15em] mb-3 ${
-                  pkg.highlight ? "text-primary-foreground/70" : "text-muted-foreground"
+                <p className={`font-body text-[10px] uppercase tracking-[0.15em] mb-3 ${
+                  pkg.highlight ? "text-background/60" : "text-muted-foreground"
                 }`}>
                   Inclui:
                 </p>
                 {pkg.items.map((item, i) => (
                   <div key={i} className="flex items-start gap-2">
-                    <Check 
-                      className="w-3.5 h-3.5 mt-0.5 flex-shrink-0"
-                      style={{ color: 'hsl(42, 65%, 48%)' }}
-                    />
-                    <span className={`font-body text-xs ${
-                      pkg.highlight ? "text-primary-foreground/90" : "text-muted-foreground"
+                    <Check className="w-3.5 h-3.5 mt-0.5 flex-shrink-0 text-gold" />
+                    <span className={`font-body text-xs font-light ${
+                      pkg.highlight ? "text-background/85" : "text-muted-foreground"
                     }`}>
                       {item}
                     </span>
@@ -241,20 +207,17 @@ const Packages = () => {
               </div>
 
               {/* Includes */}
-              <div className="bg-black/5 p-4 mb-8">
+              <div className={`p-4 mb-8 ${pkg.highlight ? "bg-white/5" : "bg-muted/50"}`}>
                 <p className={`font-body text-[10px] uppercase tracking-[0.15em] mb-3 ${
-                  pkg.highlight ? "text-primary-foreground/70" : "text-muted-foreground"
+                  pkg.highlight ? "text-background/60" : "text-muted-foreground"
                 }`}>
                   Oferta Incluída:
                 </p>
                 {pkg.includes.map((item, i) => (
                   <div key={i} className="flex items-start gap-2 mb-1">
-                    <span 
-                      className="w-1.5 h-1.5 mt-1.5 flex-shrink-0"
-                      style={{ background: 'hsl(42, 65%, 48%)' }}
-                    />
-                    <span className={`font-body text-xs ${
-                      pkg.highlight ? "text-primary-foreground/90" : "text-muted-foreground"
+                    <span className="w-1 h-1 mt-1.5 flex-shrink-0 rounded-full bg-gold" />
+                    <span className={`font-body text-xs font-light ${
+                      pkg.highlight ? "text-background/85" : "text-muted-foreground"
                     }`}>
                       {item}
                     </span>
@@ -262,22 +225,14 @@ const Packages = () => {
                 ))}
               </div>
 
-              {/* Price - Chrome Gold */}
+              {/* Price */}
               <div className="text-center mb-8">
-                <span className={`font-body text-xs uppercase tracking-[0.2em] block mb-2 ${
-                  pkg.highlight ? "text-primary-foreground/60" : "text-muted-foreground"
+                <span className={`font-body text-[10px] uppercase tracking-[0.15em] block mb-2 ${
+                  pkg.highlight ? "text-background/50" : "text-muted-foreground"
                 }`}>
                   Desde
                 </span>
-                <span 
-                  className="font-display text-5xl lg:text-6xl"
-                  style={{
-                    background: 'linear-gradient(135deg, hsl(40, 70%, 35%), hsl(43, 65%, 50%), hsl(45, 50%, 68%), hsl(43, 65%, 50%), hsl(40, 70%, 35%))',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text'
-                  }}
-                >
+                <span className="font-display text-5xl lg:text-6xl text-gold font-light">
                   {pkg.price}€
                 </span>
               </div>
@@ -285,10 +240,10 @@ const Packages = () => {
               {/* CTA */}
               <a
                 href="#contacto"
-                className={`block text-center font-body text-xs uppercase tracking-[0.2em] py-4 transition-all duration-500 ${
+                className={`block text-center font-body text-[11px] uppercase tracking-[0.15em] py-4 transition-all duration-400 ${
                   pkg.highlight
-                    ? "btn-chrome-gold"
-                    : "border border-gold text-gold hover:bg-gold hover:text-primary"
+                    ? "bg-gold text-white hover:bg-gold-dark"
+                    : "border border-gold text-gold hover:bg-gold hover:text-white"
                 }`}
               >
                 Reservar
@@ -297,41 +252,27 @@ const Packages = () => {
           ))}
         </div>
 
-        {/* Extras Section - Photo Grid */}
+        {/* Extras Section - Luxury Photo Gallery */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <div className="text-center mb-12">
-            <span 
-              className="font-body text-xs uppercase tracking-[0.3em] mb-4 block"
-              style={{
-                background: 'linear-gradient(90deg, hsl(42, 65%, 45%), hsl(43, 55%, 58%), hsl(42, 65%, 45%))',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}
-            >
+          <div className="text-center mb-14">
+            <span className="font-body text-[11px] uppercase tracking-[0.25em] mb-5 block text-gold">
               Adicionar ao Evento
             </span>
-            <h3 className="font-display text-2xl md:text-3xl lg:text-4xl text-foreground mb-4">
+            <h3 className="font-display text-3xl md:text-4xl lg:text-5xl text-foreground mb-4 font-light">
               Extras & Aluguer
             </h3>
-            <div 
-              className="w-12 h-px mx-auto mb-6"
-              style={{
-                background: 'linear-gradient(90deg, transparent, hsl(43, 65%, 50%), transparent)',
-                boxShadow: '0 0 8px hsla(42, 65%, 45%, 0.3)'
-              }}
-            />
-            <p className="font-body text-sm text-muted-foreground max-w-xl mx-auto">
+            <div className="separator-gold mx-auto mb-8" />
+            <p className="font-body text-sm text-muted-foreground max-w-xl mx-auto font-light">
               Material de aluguer premium disponível para elevar ainda mais o seu evento.
             </p>
           </div>
           
-          {/* Photo Grid for Extras */}
+          {/* Luxury Photo Grid for Extras */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
             {extras.map((extra, index) => (
               <motion.div
@@ -351,25 +292,17 @@ const Packages = () => {
                 <div 
                   className="absolute inset-0 flex items-end transition-all duration-500"
                   style={{
-                    background: 'linear-gradient(to top, hsla(25, 15%, 8%, 0.9) 0%, hsla(25, 15%, 8%, 0.3) 50%, transparent 100%)'
+                    background: 'linear-gradient(to top, hsla(30, 15%, 8%, 0.85) 0%, hsla(30, 15%, 8%, 0.2) 50%, transparent 100%)'
                   }}
                 >
                   <div className="p-4 w-full">
-                    <p 
-                      className="font-body text-xs uppercase tracking-[0.1em] text-white text-center"
-                    >
+                    <p className="font-body text-[10px] uppercase tracking-[0.12em] text-white text-center font-light">
                       {extra.name}
                     </p>
                   </div>
                 </div>
-                {/* Gold border on hover */}
-                <div
-                  className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{
-                    border: '2px solid',
-                    borderImage: 'linear-gradient(135deg, hsl(40, 70%, 35%), hsl(43, 65%, 50%), hsl(45, 50%, 68%)) 1'
-                  }}
-                />
+                {/* Subtle border on hover */}
+                <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 border-2 border-gold/60" />
               </motion.div>
             ))}
           </div>

@@ -2,153 +2,154 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Do Luxo à Mesa® - Premium Editorial Design System
+/* Do Luxo à Mesa - Modern European Luxury Editorial Design System
    Archetype: The Lover × The Creator
-   Mood: Boutique, Editorial, Warm, Feminine, Luxury
+   Mood: Bright, Glamorous, Aspirational, Modern Luxury
+   Think: Vogue, Net-a-Porter, Luxury Wedding Magazines
 */
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&family=Italiana&display=swap');
 
 @layer base {
   :root {
-    /* Core Brand Colors - Ivory & Warm Charcoal with high contrast */
-    --background: 40 30% 97%;
-    --foreground: 25 15% 15%;
+    /* Core Brand Colors - Light, Warm, Luxurious */
+    --background: 45 35% 98%;
+    --foreground: 30 15% 18%;
 
     /* Warm Ivory - Card Background */
-    --card: 42 35% 96%;
-    --card-foreground: 25 15% 15%;
+    --card: 44 40% 96%;
+    --card-foreground: 30 15% 18%;
 
-    --popover: 42 35% 96%;
-    --popover-foreground: 25 15% 15%;
+    --popover: 44 40% 96%;
+    --popover-foreground: 30 15% 18%;
 
     /* Deep Warm Charcoal - Primary */
-    --primary: 25 15% 15%;
-    --primary-foreground: 40 30% 97%;
+    --primary: 30 15% 18%;
+    --primary-foreground: 45 35% 98%;
 
-    /* Cream Secondary */
-    --secondary: 40 28% 94%;
-    --secondary-foreground: 25 15% 15%;
+    /* Light Cream Secondary */
+    --secondary: 43 38% 95%;
+    --secondary-foreground: 30 15% 18%;
 
     /* Muted Warm Tones */
-    --muted: 38 22% 92%;
-    --muted-foreground: 25 12% 40%;
+    --muted: 42 30% 93%;
+    --muted-foreground: 30 12% 45%;
 
-    /* Dusty Rose Accent */
-    --accent: 12 28% 80%;
-    --accent-foreground: 25 15% 15%;
+    /* Soft Rose Accent */
+    --accent: 15 35% 88%;
+    --accent-foreground: 30 15% 18%;
 
-    /* Chrome Metallic Gold - Real reflective gradient system */
-    --gold: 42 65% 45%;
-    --gold-light: 43 55% 58%;
-    --gold-chrome: 43 50% 52%;
-    --gold-dark: 40 70% 35%;
-    --gold-highlight: 45 45% 72%;
+    /* Champagne Gold - Soft, Elegant, Not Yellow */
+    --gold: 38 40% 55%;
+    --gold-light: 40 35% 68%;
+    --gold-chrome: 39 38% 58%;
+    --gold-dark: 36 45% 45%;
+    --gold-highlight: 42 30% 75%;
 
-    /* Rose Blush */
-    --rose: 10 40% 82%;
-    --rose-dark: 10 32% 68%;
+    /* Champagne Blush */
+    --rose: 15 40% 90%;
+    --rose-dark: 12 30% 75%;
 
     /* Sage Green (subtle accent) */
-    --sage: 120 12% 75%;
+    --sage: 120 12% 82%;
 
     /* System Colors */
     --destructive: 0 65% 55%;
-    --destructive-foreground: 40 30% 97%;
+    --destructive-foreground: 45 35% 98%;
 
-    --border: 38 22% 88%;
-    --input: 38 22% 88%;
-    --ring: 42 65% 45%;
+    --border: 40 28% 90%;
+    --input: 40 28% 88%;
+    --ring: 38 40% 55%;
 
     --radius: 0rem;
 
     /* Sidebar */
-    --sidebar-background: 40 30% 97%;
-    --sidebar-foreground: 25 15% 15%;
-    --sidebar-primary: 25 15% 15%;
-    --sidebar-primary-foreground: 40 30% 97%;
-    --sidebar-accent: 40 28% 94%;
-    --sidebar-accent-foreground: 25 15% 15%;
-    --sidebar-border: 38 22% 88%;
-    --sidebar-ring: 42 65% 45%;
+    --sidebar-background: 45 35% 98%;
+    --sidebar-foreground: 30 15% 18%;
+    --sidebar-primary: 30 15% 18%;
+    --sidebar-primary-foreground: 45 35% 98%;
+    --sidebar-accent: 43 38% 95%;
+    --sidebar-accent-foreground: 30 15% 18%;
+    --sidebar-border: 40 28% 90%;
+    --sidebar-ring: 38 40% 55%;
 
     /* Typography */
     --font-display: 'Cormorant Garamond', serif;
     --font-body: 'Montserrat', sans-serif;
     --font-accent: 'Italiana', serif;
 
-    /* Chrome Gold Gradient System - Metallic Reflective */
-    --gradient-gold-chrome: linear-gradient(
+    /* Champagne Gold Gradient System - Soft Metallic */
+    --gradient-gold-champagne: linear-gradient(
       135deg,
-      hsl(40 70% 35%) 0%,
-      hsl(43 65% 50%) 25%,
-      hsl(45 50% 68%) 50%,
-      hsl(43 65% 50%) 75%,
-      hsl(40 70% 35%) 100%
+      hsl(36 45% 48%) 0%,
+      hsl(38 40% 58%) 35%,
+      hsl(42 32% 72%) 50%,
+      hsl(38 40% 58%) 65%,
+      hsl(36 45% 48%) 100%
     );
     --gradient-gold-shine: linear-gradient(
       90deg,
-      hsl(40 65% 40%) 0%,
-      hsl(44 60% 55%) 30%,
-      hsl(45 45% 70%) 50%,
-      hsl(44 60% 55%) 70%,
-      hsl(40 65% 40%) 100%
+      hsl(36 42% 52%) 0%,
+      hsl(39 38% 62%) 30%,
+      hsl(42 30% 74%) 50%,
+      hsl(39 38% 62%) 70%,
+      hsl(36 42% 52%) 100%
     );
     --gradient-gold-subtle: linear-gradient(
       135deg,
-      hsl(42 55% 48%) 0%,
-      hsl(43 50% 58%) 50%,
-      hsl(42 55% 48%) 100%
+      hsl(38 38% 55%) 0%,
+      hsl(40 35% 65%) 50%,
+      hsl(38 38% 55%) 100%
     );
-    --gradient-warm: linear-gradient(180deg, hsl(40 30% 97%) 0%, hsl(40 28% 94%) 100%);
+    --gradient-warm: linear-gradient(180deg, hsl(45 35% 98%) 0%, hsl(43 38% 95%) 100%);
     
-    /* Shadows */
-    --shadow-soft: 0 4px 20px -4px hsl(25 15% 15% / 0.08);
-    --shadow-luxury: 0 8px 40px -8px hsl(42 65% 45% / 0.25);
-    --shadow-gold: 0 4px 20px -4px hsl(42 65% 45% / 0.35);
+    /* Shadows - Soft and Elegant */
+    --shadow-soft: 0 4px 24px -6px hsl(30 15% 18% / 0.06);
+    --shadow-luxury: 0 8px 40px -10px hsl(38 40% 55% / 0.18);
+    --shadow-gold: 0 4px 20px -6px hsl(38 40% 55% / 0.25);
   }
 
   .dark {
-    --background: 25 15% 8%;
-    --foreground: 40 33% 95%;
+    --background: 30 15% 8%;
+    --foreground: 45 33% 95%;
 
-    --card: 25 12% 12%;
-    --card-foreground: 40 33% 95%;
+    --card: 30 12% 12%;
+    --card-foreground: 45 33% 95%;
 
-    --popover: 25 12% 12%;
-    --popover-foreground: 40 33% 95%;
+    --popover: 30 12% 12%;
+    --popover-foreground: 45 33% 95%;
 
-    --primary: 40 33% 95%;
-    --primary-foreground: 25 15% 8%;
+    --primary: 45 33% 95%;
+    --primary-foreground: 30 15% 8%;
 
-    --secondary: 25 12% 18%;
-    --secondary-foreground: 40 33% 95%;
+    --secondary: 30 12% 18%;
+    --secondary-foreground: 45 33% 95%;
 
-    --muted: 25 12% 18%;
-    --muted-foreground: 35 15% 65%;
+    --muted: 30 12% 18%;
+    --muted-foreground: 40 15% 65%;
 
-    --accent: 10 25% 35%;
-    --accent-foreground: 40 33% 95%;
+    --accent: 15 25% 35%;
+    --accent-foreground: 45 33% 95%;
 
-    --gold: 42 60% 52%;
-    --gold-light: 42 50% 62%;
-    --gold-dark: 42 65% 40%;
+    --gold: 38 45% 55%;
+    --gold-light: 40 40% 65%;
+    --gold-dark: 36 50% 42%;
 
     --destructive: 0 62% 40%;
-    --destructive-foreground: 40 33% 95%;
+    --destructive-foreground: 45 33% 95%;
 
-    --border: 25 12% 22%;
-    --input: 25 12% 22%;
-    --ring: 42 60% 52%;
+    --border: 30 12% 22%;
+    --input: 30 12% 22%;
+    --ring: 38 45% 55%;
     
-    --sidebar-background: 25 15% 8%;
-    --sidebar-foreground: 40 33% 95%;
-    --sidebar-primary: 42 60% 52%;
-    --sidebar-primary-foreground: 25 15% 8%;
-    --sidebar-accent: 25 12% 18%;
-    --sidebar-accent-foreground: 40 33% 95%;
-    --sidebar-border: 25 12% 22%;
-    --sidebar-ring: 42 60% 52%;
+    --sidebar-background: 30 15% 8%;
+    --sidebar-foreground: 45 33% 95%;
+    --sidebar-primary: 38 45% 55%;
+    --sidebar-primary-foreground: 30 15% 8%;
+    --sidebar-accent: 30 12% 18%;
+    --sidebar-accent-foreground: 45 33% 95%;
+    --sidebar-border: 30 12% 22%;
+    --sidebar-ring: 38 45% 55%;
   }
 }
 
@@ -169,7 +170,7 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     font-weight: 400;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.01em;
   }
 
   /* Luxury Typography Utilities */
@@ -187,7 +188,7 @@
 
   /* Editorial Spacing */
   .tracking-editorial {
-    letter-spacing: 0.15em;
+    letter-spacing: 0.18em;
   }
 
   .tracking-luxury {
@@ -196,54 +197,86 @@
 }
 
 @layer components {
-  /* Chrome Gold Button - Metallic reflective effect */
+  /* Premium Luxury Button - Clean, Modern, No Glass */
+  .btn-luxury {
+    @apply relative font-body uppercase tracking-[0.2em] text-xs py-4 px-10 transition-all duration-300;
+    background: transparent;
+    border: 1px solid hsl(38 40% 55%);
+    color: hsl(38 40% 50%);
+  }
+
+  .btn-luxury:hover {
+    background: hsl(38 40% 55% / 0.08);
+    border-color: hsl(38 40% 52%);
+  }
+
+  /* Premium Gold Button - Solid, Elegant */
+  .btn-gold-solid {
+    @apply relative font-body uppercase tracking-[0.2em] text-xs py-4 px-10 transition-all duration-300;
+    background: hsl(38 40% 55%);
+    border: 1px solid hsl(38 40% 55%);
+    color: hsl(45 35% 98%);
+  }
+
+  .btn-gold-solid:hover {
+    background: hsl(36 42% 50%);
+    border-color: hsl(36 42% 50%);
+  }
+
+  /* Chrome Gold Button - Subtle Metallic */
   .btn-chrome-gold {
-    @apply relative overflow-hidden font-body uppercase tracking-[0.2em] text-xs py-4 px-10 transition-all duration-500;
-    background: var(--gradient-gold-chrome);
-    color: hsl(25 15% 12%);
-    text-shadow: 0 1px 0 hsl(45 50% 75% / 0.3);
-    box-shadow: 
-      0 2px 4px hsl(40 70% 35% / 0.3),
-      0 4px 12px hsl(40 70% 35% / 0.2),
-      inset 0 1px 0 hsl(45 50% 75% / 0.4);
+    @apply relative overflow-hidden font-body uppercase tracking-[0.2em] text-xs py-4 px-10 transition-all duration-300;
+    background: var(--gradient-gold-champagne);
+    color: hsl(45 40% 99%);
+    border: none;
   }
 
   .btn-chrome-gold:hover {
     background: var(--gradient-gold-shine);
-    box-shadow: 
-      0 4px 8px hsl(40 70% 35% / 0.4),
-      0 8px 24px hsl(40 70% 35% / 0.3),
-      inset 0 1px 0 hsl(45 50% 80% / 0.5);
     transform: translateY(-1px);
+  }
+
+  /* Outline Button - Refined */
+  .btn-outline-gold {
+    @apply relative font-body uppercase tracking-[0.2em] text-xs py-4 px-10 transition-all duration-300;
+    background: transparent;
+    border: 1px solid hsl(38 40% 60%);
+    color: hsl(38 40% 48%);
+  }
+
+  .btn-outline-gold:hover {
+    background: hsl(38 40% 55%);
+    color: hsl(45 35% 98%);
+    border-color: hsl(38 40% 55%);
   }
 
   /* Chrome Gold Text */
   .text-chrome-gold {
-    background: var(--gradient-gold-chrome);
+    background: var(--gradient-gold-champagne);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
+  /* Champagne Gold Text */
+  .text-champagne {
+    color: hsl(38 40% 55%);
+  }
+
   /* Chrome Gold Border */
   .border-chrome-gold {
-    border-image: var(--gradient-gold-chrome) 1;
+    border-color: hsl(38 40% 58%);
   }
 
   /* Chrome Gold Divider */
   .divider-chrome-gold {
     height: 1px;
-    background: var(--gradient-gold-shine);
-    box-shadow: 0 1px 2px hsl(42 65% 45% / 0.3);
+    background: linear-gradient(90deg, transparent, hsl(38 40% 58%), transparent);
   }
 
   /* Chrome Gold Icon */
   .icon-chrome-gold {
-    background: var(--gradient-gold-chrome);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 1px 1px hsl(40 70% 35% / 0.3));
+    color: hsl(38 40% 55%);
   }
 
   /* Elegant Underline */
@@ -254,18 +287,17 @@
   .link-underline::after {
     content: '';
     @apply absolute bottom-0 left-0 w-0 h-px transition-all duration-500;
-    background: var(--gradient-gold-subtle);
+    background: hsl(38 40% 55%);
   }
 
   .link-underline:hover::after {
     @apply w-full;
   }
 
-  /* Gold Separator - Chrome effect */
+  /* Gold Separator - Soft and elegant */
   .separator-gold {
     @apply w-16 h-px;
-    background: var(--gradient-gold-shine);
-    box-shadow: 0 0 8px hsl(42 65% 45% / 0.3);
+    background: linear-gradient(90deg, transparent, hsl(38 40% 62%), transparent);
   }
 
   /* Editorial Image Container */
@@ -283,32 +315,34 @@
 
   /* Luxury Card */
   .card-luxury {
-    @apply bg-card border border-border/50 transition-all duration-500;
+    @apply bg-card border border-border/60 transition-all duration-500;
     box-shadow: var(--shadow-soft);
   }
 
   .card-luxury:hover {
     box-shadow: var(--shadow-luxury);
-    border-color: hsl(42 65% 45% / 0.3);
+    border-color: hsl(38 40% 65% / 0.4);
   }
 
-  /* Hero Overlay for legibility */
+  /* Hero Overlay - Very subtle, bright feel */
   .hero-overlay {
     background: linear-gradient(
       to bottom,
-      hsl(25 15% 10% / 0.5) 0%,
-      hsl(25 15% 10% / 0.3) 30%,
-      hsl(25 15% 10% / 0.4) 70%,
-      hsl(25 15% 10% / 0.7) 100%
+      hsl(30 15% 10% / 0.2) 0%,
+      hsl(30 15% 10% / 0.1) 40%,
+      hsl(30 15% 10% / 0.15) 70%,
+      hsl(30 15% 10% / 0.4) 100%
     );
   }
 
-  /* Header overlay for readability on load */
-  .header-gradient {
+  /* Light overlay for bright heroes */
+  .hero-overlay-light {
     background: linear-gradient(
       to bottom,
-      hsl(25 15% 10% / 0.6) 0%,
-      hsl(25 15% 10% / 0) 100%
+      hsl(45 30% 98% / 0.1) 0%,
+      transparent 30%,
+      transparent 60%,
+      hsl(30 15% 10% / 0.35) 100%
     );
   }
 }
@@ -328,8 +362,8 @@
   }
 
   /* Gradient Utilities */
-  .gradient-gold-chrome {
-    background: var(--gradient-gold-chrome);
+  .gradient-gold-champagne {
+    background: var(--gradient-gold-champagne);
   }
 
   .gradient-gold-shine {
