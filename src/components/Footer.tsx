@@ -23,15 +23,7 @@ const Footer = () => {
 
           {/* Navigation */}
           <div>
-            <h4 
-              className="font-body text-xs uppercase tracking-[0.2em] mb-6"
-              style={{
-                background: 'linear-gradient(90deg, hsl(42, 65%, 45%), hsl(43, 55%, 55%))',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}
-            >
+            <h4 className="font-body text-[11px] uppercase tracking-[0.2em] mb-6 text-gold">
               Navegação
             </h4>
             <nav className="flex flex-col gap-3">
@@ -55,15 +47,7 @@ const Footer = () => {
 
           {/* Social & Contact */}
           <div>
-            <h4 
-              className="font-body text-xs uppercase tracking-[0.2em] mb-6"
-              style={{
-                background: 'linear-gradient(90deg, hsl(42, 65%, 45%), hsl(43, 55%, 55%))',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}
-            >
+            <h4 className="font-body text-[11px] uppercase tracking-[0.2em] mb-6 text-gold">
               Contactos
             </h4>
             <div className="space-y-3">

@@ -40,27 +40,13 @@ const Contact = () => {
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.8 }}
           >
-            <span 
-              className="font-body text-xs uppercase tracking-[0.3em] mb-8 block"
-              style={{
-                background: 'linear-gradient(90deg, hsl(43, 55%, 58%), hsl(45, 50%, 72%), hsl(43, 55%, 58%))',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}
-            >
+            <span className="font-body text-[11px] uppercase tracking-[0.25em] mb-8 block text-gold">
               Vamos Conversar
             </span>
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-primary-foreground mb-6">
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-primary-foreground mb-6 font-light">
               Pedir Orçamento
             </h2>
-            <div 
-              className="w-16 h-px mb-8"
-              style={{
-                background: 'linear-gradient(90deg, hsl(43, 65%, 50%), hsl(45, 50%, 68%), transparent)',
-                boxShadow: '0 0 8px hsla(42, 65%, 45%, 0.3)'
-              }}
-            />
+            <div className="w-16 h-px mb-8 bg-gold/50" />
             <p className="font-body text-sm md:text-base text-primary-foreground/80 leading-relaxed mb-12">
               Partilhe connosco os detalhes do seu evento e receba um orçamento 
               personalizado em 24 horas. Sem compromisso.
