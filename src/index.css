@@ -78,35 +78,14 @@
     --font-body: 'Montserrat', sans-serif;
     --font-accent: 'Italiana', serif;
 
-    /* Champagne Gold Gradient System - Soft Metallic */
-    --gradient-gold-champagne: linear-gradient(
-      135deg,
-      hsl(36 45% 48%) 0%,
-      hsl(38 40% 58%) 35%,
-      hsl(42 32% 72%) 50%,
-      hsl(38 40% 58%) 65%,
-      hsl(36 45% 48%) 100%
-    );
-    --gradient-gold-shine: linear-gradient(
-      90deg,
-      hsl(36 42% 52%) 0%,
-      hsl(39 38% 62%) 30%,
-      hsl(42 30% 74%) 50%,
-      hsl(39 38% 62%) 70%,
-      hsl(36 42% 52%) 100%
-    );
-    --gradient-gold-subtle: linear-gradient(
-      135deg,
-      hsl(38 38% 55%) 0%,
-      hsl(40 35% 65%) 50%,
-      hsl(38 38% 55%) 100%
-    );
-    --gradient-warm: linear-gradient(180deg, hsl(45 35% 98%) 0%, hsl(43 38% 95%) 100%);
-    
+    /* Navbar height for scroll offset */
+    --navbar-height: 80px;
+
     /* Shadows - Soft and Elegant */
     --shadow-soft: 0 4px 24px -6px hsl(30 15% 18% / 0.06);
     --shadow-luxury: 0 8px 40px -10px hsl(38 40% 55% / 0.18);
     --shadow-gold: 0 4px 20px -6px hsl(38 40% 55% / 0.25);
+    --shadow-button: 0 2px 8px -2px hsl(30 15% 18% / 0.12);
   }
 
   .dark {
@@ -173,6 +152,11 @@
     letter-spacing: 0.01em;
   }
 
+  /* Scroll margin for anchor navigation - accounts for sticky header */
+  section[id] {
+    scroll-margin-top: calc(var(--navbar-height) + 24px);
+  }
+
   /* Luxury Typography Utilities */
   .font-display {
     font-family: var(--font-display);
@@ -197,65 +181,107 @@
 }
 
 @layer components {
-  /* Premium Luxury Button - Clean, Modern, No Glass */
-  .btn-luxury {
-    @apply relative font-body uppercase tracking-[0.2em] text-xs py-4 px-10 transition-all duration-300;
-    background: transparent;
-    border: 1px solid hsl(38 40% 55%);
-    color: hsl(38 40% 50%);
+  /* ========================================
+     FLAT LUXURY BUTTONS - No Gradients
+     ======================================== */
+  
+  /* Primary Gold Button - Flat, Solid */
+  .btn-gold-flat {
+    @apply relative font-body uppercase tracking-[0.18em] text-xs py-4 px-10 transition-all duration-300;
+    background: hsl(38 40% 52%);
+    border: 1px solid hsl(38 40% 52%);
+    color: hsl(30 15% 15%);
+    box-shadow: var(--shadow-button);
   }
 
-  .btn-luxury:hover {
-    background: hsl(38 40% 55% / 0.08);
-    border-color: hsl(38 40% 52%);
+  .btn-gold-flat:hover {
+    background: hsl(36 42% 48%);
+    border-color: hsl(36 42% 48%);
+    box-shadow: 0 4px 12px -3px hsl(38 40% 45% / 0.35);
   }
 
-  /* Premium Gold Button - Solid, Elegant */
-  .btn-gold-solid {
-    @apply relative font-body uppercase tracking-[0.2em] text-xs py-4 px-10 transition-all duration-300;
-    background: hsl(38 40% 55%);
-    border: 1px solid hsl(38 40% 55%);
-    color: hsl(45 35% 98%);
+  .btn-gold-flat:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px hsl(38 40% 55% / 0.4);
   }
 
-  .btn-gold-solid:hover {
-    background: hsl(36 42% 50%);
-    border-color: hsl(36 42% 50%);
-  }
-
-  /* Chrome Gold Button - Subtle Metallic */
-  .btn-chrome-gold {
-    @apply relative overflow-hidden font-body uppercase tracking-[0.2em] text-xs py-4 px-10 transition-all duration-300;
-    background: var(--gradient-gold-champagne);
-    color: hsl(45 40% 99%);
-    border: none;
-  }
-
-  .btn-chrome-gold:hover {
-    background: var(--gradient-gold-shine);
-    transform: translateY(-1px);
-  }
-
-  /* Outline Button - Refined */
+  /* Outline Gold Button - Flat */
   .btn-outline-gold {
-    @apply relative font-body uppercase tracking-[0.2em] text-xs py-4 px-10 transition-all duration-300;
+    @apply relative font-body uppercase tracking-[0.18em] text-xs py-4 px-10 transition-all duration-300;
     background: transparent;
-    border: 1px solid hsl(38 40% 60%);
-    color: hsl(38 40% 48%);
+    border: 1px solid hsl(38 40% 58%);
+    color: hsl(38 40% 45%);
+    box-shadow: none;
   }
 
   .btn-outline-gold:hover {
-    background: hsl(38 40% 55%);
-    color: hsl(45 35% 98%);
-    border-color: hsl(38 40% 55%);
+    background: hsl(38 40% 52%);
+    color: hsl(30 15% 15%);
+    border-color: hsl(38 40% 52%);
+    box-shadow: var(--shadow-button);
   }
 
-  /* Chrome Gold Text */
-  .text-chrome-gold {
-    background: var(--gradient-gold-champagne);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .btn-outline-gold:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px hsl(38 40% 55% / 0.4);
+  }
+
+  /* Legacy button classes - updated to flat style */
+  .btn-luxury {
+    @apply relative font-body uppercase tracking-[0.18em] text-xs py-4 px-10 transition-all duration-300;
+    background: transparent;
+    border: 1px solid hsl(38 40% 55%);
+    color: hsl(38 40% 45%);
+  }
+
+  .btn-luxury:hover {
+    background: hsl(38 40% 55% / 0.1);
+    border-color: hsl(38 40% 50%);
+  }
+
+  .btn-luxury:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px hsl(38 40% 55% / 0.4);
+  }
+
+  /* Solid Gold Button - Flat */
+  .btn-gold-solid {
+    @apply relative font-body uppercase tracking-[0.18em] text-xs py-4 px-10 transition-all duration-300;
+    background: hsl(38 40% 52%);
+    border: 1px solid hsl(38 40% 52%);
+    color: hsl(30 15% 15%);
+    box-shadow: var(--shadow-button);
+  }
+
+  .btn-gold-solid:hover {
+    background: hsl(36 42% 48%);
+    border-color: hsl(36 42% 48%);
+  }
+
+  .btn-gold-solid:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px hsl(38 40% 55% / 0.4);
+  }
+
+  /* Chrome Gold Button - NOW FLAT (removed gradient) */
+  .btn-chrome-gold {
+    @apply relative font-body uppercase tracking-[0.18em] text-xs py-4 px-10 transition-all duration-300;
+    background: hsl(38 40% 52%);
+    color: hsl(30 15% 15%);
+    border: 1px solid hsl(38 40% 52%);
+    box-shadow: var(--shadow-button);
+  }
+
+  .btn-chrome-gold:hover {
+    background: hsl(36 42% 48%);
+    border-color: hsl(36 42% 48%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px -3px hsl(38 40% 45% / 0.35);
+  }
+
+  .btn-chrome-gold:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px hsl(38 40% 55% / 0.4);
   }
 
   /* Champagne Gold Text */
@@ -345,6 +371,13 @@
       hsl(30 15% 10% / 0.35) 100%
     );
   }
+
+  /* Gold Step Number - Flat, no gradient */
+  .step-number-gold {
+    background: hsl(38 40% 52%);
+    color: hsl(30 15% 15%);
+    box-shadow: var(--shadow-button);
+  }
 }
 
 @layer utilities {
@@ -361,17 +394,8 @@
     box-shadow: var(--shadow-gold);
   }
 
-  /* Gradient Utilities */
-  .gradient-gold-champagne {
-    background: var(--gradient-gold-champagne);
-  }
-
-  .gradient-gold-shine {
-    background: var(--gradient-gold-shine);
-  }
-
-  .gradient-warm {
-    background: var(--gradient-warm);
+  .shadow-button {
+    box-shadow: var(--shadow-button);
   }
 
   /* Fade Animations */

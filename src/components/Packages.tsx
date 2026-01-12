@@ -237,13 +237,13 @@ const Packages = () => {
                 </span>
               </div>
 
-              {/* CTA */}
+              {/* CTA - Flat buttons */}
               <a
                 href="#contacto"
-                className={`block text-center font-body text-[11px] uppercase tracking-[0.15em] py-4 transition-all duration-400 ${
+                className={`block text-center font-body text-[11px] uppercase tracking-[0.15em] py-4 transition-all duration-300 ${
                   pkg.highlight
-                    ? "bg-gold text-white hover:bg-gold-dark"
-                    : "border border-gold text-gold hover:bg-gold hover:text-white"
+                    ? "btn-gold-flat"
+                    : "btn-outline-gold"
                 }`}
               >
                 Reservar

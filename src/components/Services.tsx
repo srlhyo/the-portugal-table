@@ -32,7 +32,7 @@ const Services = () => {
   const isHeaderInView = useInView(headerRef, { once: true, margin: "-100px" });
 
   return (
-    <section id="servicos" className="py-28 lg:py-36 bg-secondary">
+    <section id="servicos" className="py-28 lg:py-36 bg-secondary" style={{ scrollMarginTop: 'calc(var(--navbar-height) + 24px)' }}>
       <div className="container mx-auto px-6 lg:px-12">
         {/* Section Header */}
         <motion.div

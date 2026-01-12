@@ -61,7 +61,7 @@ const HowItWorks = () => {
         <div className="grid md:grid-cols-4 gap-10 lg:gap-6 relative">
           {/* Connecting Line - Desktop */}
           <div 
-            className="hidden md:block absolute top-12 left-[12.5%] right-[12.5%] h-px z-0 bg-gold/25"
+            className="hidden md:block absolute top-8 left-[12.5%] right-[12.5%] h-px z-0 bg-gold/25"
           />
 
           {steps.map((step, index) => (
@@ -73,9 +73,11 @@ const HowItWorks = () => {
               viewport={{ once: true, margin: "-50px" }}
               className="relative z-10 text-center"
             >
-              {/* Number Circle */}
-              <div className="w-16 h-16 mx-auto mb-8 flex items-center justify-center bg-gold">
-                <span className="font-display text-2xl text-white font-light">
+              {/* Number Square - Flat, no gradient */}
+              <div 
+                className="w-16 h-16 mx-auto mb-8 flex items-center justify-center step-number-gold"
+              >
+                <span className="font-display text-2xl font-light">
                   {step.number}
                 </span>
               </div>
@@ -111,7 +113,7 @@ const HowItWorks = () => {
           </p>
           <a
             href="#contacto"
-            className="inline-block btn-chrome-gold"
+            className="inline-block btn-gold-flat"
           >
             Pedir Orçamento
           </a>
