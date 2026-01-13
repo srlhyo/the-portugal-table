@@ -1,11 +1,12 @@
-// WhatsApp configuration
-const WHATSAPP_NUMBER = "351912345678";
-const WHATSAPP_MESSAGE = "Olá gostaria de um orçamento";
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
-const PHONE_DISPLAY = "+351 912 345 678";
-const PHONE_TEL = "tel:+351912345678";
+import { 
+  useWhatsAppUrl, 
+  PHONE_DISPLAY, 
+  PHONE_TEL,
+  whatsappLinkProps 
+} from "@/hooks/use-whatsapp";
 
 const Footer = () => {
+  const whatsappUrl = useWhatsAppUrl();
   const currentYear = new Date().getFullYear();
 
   // Smooth scroll handler
@@ -88,9 +89,8 @@ const Footer = () => {
                 WhatsApp — {PHONE_DISPLAY}
               </a>
               <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={whatsappUrl}
+                {...whatsappLinkProps}
                 className="font-body text-sm text-foreground/60 hover:text-gold transition-colors hidden md:block"
               >
                 WhatsApp — {PHONE_DISPLAY}

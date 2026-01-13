@@ -1,17 +1,17 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-
-// WhatsApp configuration
-const WHATSAPP_NUMBER = "351912345678"; // Digits only, with country code
-const WHATSAPP_MESSAGE = "Olá gostaria de um orçamento";
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
-const PHONE_DISPLAY = "+351 912 345 678";
-const PHONE_TEL = "tel:+351912345678";
+import { 
+  useWhatsAppUrl, 
+  PHONE_DISPLAY, 
+  PHONE_TEL,
+  whatsappLinkProps 
+} from "@/hooks/use-whatsapp";
 
 const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const whatsappUrl = useWhatsAppUrl();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -84,9 +84,8 @@ const Contact = () => {
                   {PHONE_DISPLAY}
                 </a>
                 <a
-                  href={WHATSAPP_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={whatsappUrl}
+                  {...whatsappLinkProps}
                   className="font-display text-xl text-primary-foreground hover:opacity-80 transition-opacity hidden md:inline"
                 >
                   {PHONE_DISPLAY}
@@ -115,11 +114,10 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* WhatsApp CTA - Correct URL format */}
+            {/* WhatsApp CTA - Smart URL based on device */}
             <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+              href={whatsappUrl}
+              {...whatsappLinkProps}
               className="inline-flex items-center gap-3 btn-gold-flat"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
