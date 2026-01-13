@@ -4,8 +4,8 @@ import { useRef, useState } from "react";
 
 // WhatsApp configuration
 const WHATSAPP_NUMBER = "351912345678"; // Digits only, with country code
-const WHATSAPP_MESSAGE = "Olá, gostaria de um orçamento para um evento.";
-const WHATSAPP_URL = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+const WHATSAPP_MESSAGE = "Olá gostaria de um orçamento";
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 const PHONE_DISPLAY = "+351 912 345 678";
 const PHONE_TEL = "tel:+351912345678";
 
@@ -76,19 +76,18 @@ const Contact = () => {
                 <p className="font-body text-xs uppercase tracking-[0.2em] mb-2 text-gold">
                   WhatsApp
                 </p>
-                {/* Phone number clickable as tel: link on mobile */}
+                {/* Phone number: tel on mobile, WhatsApp on tablet/desktop */}
                 <a
                   href={PHONE_TEL}
-                  className="font-display text-xl text-primary-foreground hover:opacity-80 transition-opacity sm:hidden"
+                  className="font-display text-xl text-primary-foreground hover:opacity-80 transition-opacity md:hidden"
                 >
                   {PHONE_DISPLAY}
                 </a>
-                {/* On desktop, link to WhatsApp */}
                 <a
                   href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-display text-xl text-primary-foreground hover:opacity-80 transition-opacity hidden sm:inline"
+                  className="font-display text-xl text-primary-foreground hover:opacity-80 transition-opacity hidden md:inline"
                 >
                   {PHONE_DISPLAY}
                 </a>

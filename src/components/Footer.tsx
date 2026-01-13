@@ -1,8 +1,9 @@
 // WhatsApp configuration
 const WHATSAPP_NUMBER = "351912345678";
-const WHATSAPP_MESSAGE = "Olá, gostaria de um orçamento para um evento.";
-const WHATSAPP_URL = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+const WHATSAPP_MESSAGE = "Olá gostaria de um orçamento";
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 const PHONE_DISPLAY = "+351 912 345 678";
+const PHONE_TEL = "tel:+351912345678";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -79,11 +80,18 @@ const Footer = () => {
               >
                 Instagram — @doluxoamesa
               </a>
+              {/* Phone number: tel on mobile, WhatsApp on tablet/desktop */}
+              <a
+                href={PHONE_TEL}
+                className="font-body text-sm text-foreground/60 hover:text-gold transition-colors block md:hidden"
+              >
+                WhatsApp — {PHONE_DISPLAY}
+              </a>
               <a
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-body text-sm text-foreground/60 hover:text-gold transition-colors block"
+                className="font-body text-sm text-foreground/60 hover:text-gold transition-colors hidden md:block"
               >
                 WhatsApp — {PHONE_DISPLAY}
               </a>
