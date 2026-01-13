@@ -76,17 +76,10 @@ const Contact = () => {
                 <p className="font-body text-xs uppercase tracking-[0.2em] mb-2 text-gold">
                   WhatsApp
                 </p>
-                {/* Phone number: tel on mobile, WhatsApp on tablet/desktop */}
+                {/* Phone number: always tel link */}
                 <a
                   href={PHONE_TEL}
-                  className="font-display text-xl text-primary-foreground hover:opacity-80 transition-opacity md:hidden"
-                >
-                  {PHONE_DISPLAY}
-                </a>
-                <a
-                  href={whatsappUrl}
-                  {...whatsappLinkProps}
-                  className="font-display text-xl text-primary-foreground hover:opacity-80 transition-opacity hidden md:inline"
+                  className="font-display text-xl text-primary-foreground hover:opacity-80 transition-opacity"
                 >
                   {PHONE_DISPLAY}
                 </a>
@@ -114,7 +107,7 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* WhatsApp CTA - Smart URL based on device */}
+            {/* WhatsApp CTA - Official wa.me deep-link */}
             <a
               href={whatsappUrl}
               {...whatsappLinkProps}

@@ -1,13 +1,8 @@
-import { 
-  useWhatsAppUrl, 
-  PHONE_DISPLAY, 
-  PHONE_TEL,
-  whatsappLinkProps 
-} from "@/hooks/use-whatsapp";
+import { PHONE_DISPLAY, PHONE_TEL } from "@/hooks/use-whatsapp";
 
 const Footer = () => {
-  const whatsappUrl = useWhatsAppUrl();
   const currentYear = new Date().getFullYear();
+
 
   // Smooth scroll handler
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -81,17 +76,10 @@ const Footer = () => {
               >
                 Instagram — @doluxoamesa
               </a>
-              {/* Phone number: tel on mobile, WhatsApp on tablet/desktop */}
+              {/* Phone number: always tel link */}
               <a
                 href={PHONE_TEL}
-                className="font-body text-sm text-foreground/60 hover:text-gold transition-colors block md:hidden"
-              >
-                WhatsApp — {PHONE_DISPLAY}
-              </a>
-              <a
-                href={whatsappUrl}
-                {...whatsappLinkProps}
-                className="font-body text-sm text-foreground/60 hover:text-gold transition-colors hidden md:block"
+                className="font-body text-sm text-foreground/60 hover:text-gold transition-colors block"
               >
                 WhatsApp — {PHONE_DISPLAY}
               </a>
