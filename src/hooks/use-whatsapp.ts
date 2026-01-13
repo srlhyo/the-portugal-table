@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { useIsMobile } from "./use-mobile";
 
 // WhatsApp configuration - centralized constants
 export const WHATSAPP_NUMBER = "351912345678"; // Digits only, with country code
@@ -10,21 +9,19 @@ export const PHONE_TEL = "tel:+351912345678";
 // URL-encoded message
 const ENCODED_MESSAGE = encodeURIComponent(WHATSAPP_MESSAGE);
 
-// Smart WhatsApp URL based on device
-// Mobile: wa.me (opens WhatsApp app)
-// Desktop/Tablet: web.whatsapp.com (opens WhatsApp Web)
-export const getWhatsAppUrl = (isMobile: boolean): string => {
-  if (isMobile) {
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${ENCODED_MESSAGE}`;
-  }
-  return `https://web.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${ENCODED_MESSAGE}`;
+/**
+ * Official WhatsApp website deep-link.
+ * NOTE: We intentionally do NOT use web.whatsapp.com because it can be blocked (COOP/ERR_BLOCKED_BY_RESPONSE).
+ */
+export const getWhatsAppUrl = (): string => {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${ENCODED_MESSAGE}`;
 };
 
-// Hook to get the appropriate WhatsApp URL
+export const WHATSAPP_URL = getWhatsAppUrl();
+
+// Hook to get the WhatsApp URL (kept as a hook for convenience/consistency)
 export const useWhatsAppUrl = (): string => {
-  const isMobile = useIsMobile();
-  
-  return useMemo(() => getWhatsAppUrl(isMobile), [isMobile]);
+  return useMemo(() => WHATSAPP_URL, []);
 };
 
 // Link props for WhatsApp anchors
@@ -33,3 +30,4 @@ export const whatsappLinkProps = {
   rel: "noopener noreferrer" as const,
   referrerPolicy: "no-referrer" as const,
 };
+
