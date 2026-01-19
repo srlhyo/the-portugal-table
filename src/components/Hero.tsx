@@ -1,144 +1,120 @@
 import { motion } from "framer-motion";
-import brunchRoses from "@/assets/brunch-roses.jpg";
+import tableCandles from "@/assets/table-candles.jpg";
 
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image - Bright, Vibrant, Glamorous */}
+      {/* Background Image */}
       <div className="absolute inset-0">
         <img
-          src={brunchRoses}
-          alt="Buffet de luxo com rosas e decoração elegante"
+          src={tableCandles}
+          alt="Mesa elegante com velas e decoração de luxo"
           className="w-full h-full object-cover"
         />
-        {/* Very subtle overlay - keeping the image bright and alive */}
-        <div className="absolute inset-0 hero-overlay-light" />
+        {/* Light overlay to soften background */}
+        <div className="absolute inset-0 bg-background/40" />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 lg:px-12 text-center pt-20">
+      {/* Content - Centered Overlay Panel */}
+      <div className="relative z-10 container mx-auto px-6 lg:px-12 pt-20">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="max-w-4xl mx-auto"
+          className="max-w-2xl mx-auto"
         >
-          {/* Tagline - with subtle backdrop for readability */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="font-body text-[11px] uppercase tracking-[0.35em] mb-8 inline-block px-5 py-2 rounded-sm"
-            style={{
-              color: 'hsl(45, 35%, 98%)',
-              textShadow: '0 1px 3px hsla(30, 15%, 5%, 0.4), 0 4px 12px hsla(30, 15%, 5%, 0.2)',
-              backgroundColor: 'hsla(30, 15%, 10%, 0.25)',
-              backdropFilter: 'blur(4px)',
-            }}
-          >
-            Experiências Privadas de Luxo em Portugal
-          </motion.p>
-
-          {/* Main Headline - Magazine Cover Style */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 1 }}
-            className="font-display text-5xl md:text-7xl lg:text-8xl xl:text-9xl leading-[0.95] mb-10"
-            style={{
-              color: 'hsl(45, 40%, 99%)',
-              textShadow: '0 2px 4px hsla(30, 15%, 5%, 0.3), 0 8px 30px hsla(30, 15%, 5%, 0.2)',
-              fontWeight: 300,
-              letterSpacing: '0.02em'
-            }}
-          >
-            Do Luxo à Mesa
-          </motion.h1>
-
-          {/* Value Proposition - with subtle backdrop */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            className="font-body text-base md:text-lg max-w-2xl mx-auto mb-14 leading-relaxed font-light inline-block px-6 py-3 rounded-sm"
-            style={{
-              color: 'hsl(45, 35%, 98%)',
-              textShadow: '0 1px 3px hsla(30, 15%, 5%, 0.4), 0 4px 12px hsla(30, 15%, 5%, 0.2)',
-              backgroundColor: 'hsla(30, 15%, 10%, 0.2)',
-              backdropFilter: 'blur(3px)',
-            }}
-          >
-            Buffets premium e mesas decoradas que transformam qualquer espaço 
-            numa celebração memorável.
-          </motion.p>
-
-          {/* CTA Buttons - Modern Luxury Style (Flat, No Gradients) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.1, duration: 0.8 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
-          >
-            <a
-              href="#contacto"
-              className="btn-gold-flat font-body text-[11px] uppercase tracking-[0.18em] px-10 py-4"
+          {/* Main Card Panel */}
+          <div className="bg-background/95 backdrop-blur-sm px-8 py-12 md:px-12 md:py-16 text-center shadow-luxury">
+            {/* Main Headline */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+              className="font-display text-3xl md:text-4xl lg:text-5xl leading-tight mb-6 text-foreground"
             >
-              Pedir Orçamento
-            </a>
-            <a
-              href="#pacotes"
-              className="font-body text-[11px] uppercase tracking-[0.18em] px-10 py-4 transition-all duration-300 border"
-              style={{
-                color: 'hsl(45, 40%, 99%)',
-                borderColor: 'hsla(45, 35%, 98%, 0.7)',
-                textShadow: '0 1px 3px hsla(30, 15%, 5%, 0.3)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'hsl(45, 35%, 98%)';
-                e.currentTarget.style.color = 'hsl(30, 15%, 18%)';
-                e.currentTarget.style.textShadow = 'none';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.color = 'hsl(45, 40%, 99%)';
-                e.currentTarget.style.textShadow = '0 1px 3px hsla(30, 15%, 5%, 0.3)';
-              }}
+              Receba com elegância.
+              <br />
+              <span className="italic">Sem preocupações.</span>
+            </motion.h1>
+
+            {/* Subtext */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+              className="font-body text-base md:text-lg text-muted-foreground mb-10 max-w-md mx-auto leading-relaxed"
             >
-              Ver Pacotes
-            </a>
-          </motion.div>
+              Levamos um buffet finger food totalmente montado e 
+              decorado ao seu espaço.
+            </motion.p>
+
+            {/* CTA Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.6 }}
+              className="mb-10"
+            >
+              <a
+                href="#contacto"
+                className="inline-block bg-foreground text-background font-body text-sm md:text-base px-8 py-4 hover:bg-foreground/90 transition-colors duration-300"
+              >
+                Quero orçamento para a minha data
+              </a>
+            </motion.div>
+
+            {/* Three Features with Gold Diamonds */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.9, duration: 0.6 }}
+              className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-sm"
+            >
+              <div className="flex items-center gap-2">
+                <span className="text-gold text-xs">◆</span>
+                <span className="font-body text-muted-foreground">Montagem completa</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-gold text-xs">◆</span>
+                <span className="font-body text-muted-foreground">Estética personalizada</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-gold text-xs">◆</span>
+                <span className="font-body text-muted-foreground">Experiência premium</span>
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Secondary Section - Below the card */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2, duration: 0.8 }}
+          className="max-w-2xl mx-auto mt-16 md:mt-24 text-center pb-12"
+        >
+          {/* Three Phase List */}
+          <div className="space-y-2 mb-6">
+            <p className="font-display text-xl md:text-2xl italic text-foreground">
+              Chegamos com tudo preparado.
+            </p>
+            <p className="font-display text-xl md:text-2xl italic text-foreground">
+              Montamos no local.
+            </p>
+            <p className="font-display text-xl md:text-2xl italic text-foreground">
+              Criamos a experiência.
+            </p>
+          </div>
+
+          {/* Gold Separator */}
+          <div className="w-12 h-0.5 bg-gold mx-auto mb-6" />
+
+          {/* Closing Text */}
+          <p className="font-body text-sm md:text-base text-muted-foreground">
+            Chegamos, montamos e deixamos tudo pronto para receber.
+          </p>
         </motion.div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-3"
-        >
-          <span 
-            className="font-body text-[10px] uppercase tracking-[0.2em]"
-            style={{
-              color: 'hsla(45, 35%, 98%, 0.8)',
-              textShadow: '0 1px 3px hsla(30, 15%, 5%, 0.3)',
-            }}
-          >
-            Scroll
-          </span>
-          <div 
-            className="w-px h-8"
-            style={{
-              background: 'linear-gradient(to bottom, hsl(38, 40%, 65%), transparent)'
-            }}
-          />
-        </motion.div>
-      </motion.div>
     </section>
   );
 };
