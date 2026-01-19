@@ -15,78 +15,82 @@ const packages = [
   {
     name: "Essence",
     size: "180 cm",
-    pieces: "180 peças",
-    guests: "Até 20 convidados",
-    price: "420",
+    pieces: "250 peças",
+    guests: "Ideal até 15 a 18 convidados",
+    price: "450",
     highlight: false,
     items: [
-      "Mini salgados",
-      "Mini hambúrgueres",
-      "Mini cachorros",
-      "Mini pizzas",
-      "Mini barquinhos de frango & chips",
-      "Cones de fruta",
-      "Mini sobremesas (brigadeiros, cupcakes)"
+      "25 Mini sobremesas variadas",
+      "25 Brigadeiros",
+      "100 Mini salgados variados",
+      "20 Mini hambúrgueres gourmet",
+      "20 Mini cachorros gourmet",
+      "20 Mini pizzas",
+      "15 Cones de fruta / enchidos",
+      "10 Donuts personalizados nas cores da festa",
+      "15 Mini barquinhos com asas de frango e chips"
     ],
     includes: [
-      "Águas aromatizadas / sumos",
-      "Montagem e apresentação",
-      "Montagem e desmontagem"
+      "Decoração incluída",
+      "Bebida não alcoólica servida em copos decorativos",
+      "Água aromatizada como elemento decorativo da mesa"
     ]
   },
   {
     name: "Supreme",
     size: "360 cm",
-    pieces: "300 peças",
-    guests: "Até 35 convidados",
-    price: "690",
+    pieces: "450 peças",
+    guests: "Ideal até 35 convidados",
+    price: "650",
     highlight: true,
     items: [
-      "Mini salgados",
-      "Mini hambúrgueres",
-      "Mini cachorros",
-      "Mini pizzas",
-      "Mini barquinhos frango & chips",
-      "Cones de fruta",
-      "Crepes chineses",
-      "Copos de salada César",
-      "Mini sobremesas",
-      "Brigadeiros",
-      "Donuts personalizados"
+      "45 Mini sobremesas",
+      "50 Brigadeiros",
+      "15 Donuts personalizados",
+      "150 Mini salgados variados",
+      "35 Mini hambúrgueres gourmet",
+      "35 Mini cachorros gourmet",
+      "35 Mini pizzas",
+      "20 Mini barquinhos com asas de frango e chips",
+      "20 Cones de fruta / enchidos",
+      "25 Crepes primavera",
+      "20 Copos de salada César"
     ],
     includes: [
-      "Águas aromatizadas / sumos",
-      "Montagem e apresentação",
-      "Montagem e desmontagem"
+      "Decoração incluída",
+      "Bebida não alcoólica servida em copos decorativos",
+      "Água aromatizada como elemento decorativo da mesa"
     ]
   },
   {
     name: "Premium",
     size: "360 cm",
-    pieces: "500 peças",
-    guests: "Até 50 convidados",
-    price: "890",
+    pieces: "650 peças",
+    guests: "Ideal até 50 convidados",
+    price: "920",
     highlight: false,
     items: [
-      "Mini salgados",
-      "Mini hambúrgueres",
-      "Mini pizzas",
-      "Barquinhos de frango & chips",
-      "Cones de fruta",
-      "Crepes chineses",
-      "Copos de salada César",
-      "Canudos de camarão",
-      "Tábuas de queijos",
-      "Sobremesas de copo",
-      "Brigadeiros",
-      "Donuts personalizados"
+      "50 Brigadeiros",
+      "60 Sobremesas de copo",
+      "18 Donuts personalizados",
+      "100 Mini salgados variados",
+      "50 Mini hambúrgueres gourmet",
+      "50 Mini cachorros gourmet",
+      "40 Mini pizzas",
+      "20 Mini barquinhos com asas de frango & chips",
+      "30 Crepes Primavera",
+      "25 Cones de fruta e enchidos",
+      "20 Mini wraps de frango",
+      "20 Saladas frias",
+      "20 Mini copos de salada César",
+      "20 Saladas frias de grão com bacalhau",
+      "20 Canapés diversos",
+      "20 Camarões panados em molho agridoce"
     ],
     includes: [
-      "6L águas aromatizadas ou sumos",
-      "Máquina de faíscas",
-      "Gelo seco",
-      "Montagem e desmontagem",
-      "2 elementos de staff para reposição"
+      "Decoração incluída",
+      "Bebida não alcoólica servida em copos decorativos",
+      "Água aromatizada como elemento decorativo da mesa"
     ]
   },
 ];
