@@ -1,10 +1,13 @@
 import { useMemo } from "react";
 
 // WhatsApp configuration - centralized constants
-export const WHATSAPP_NUMBER = "351912345678"; // Digits only, with country code
-export const WHATSAPP_MESSAGE = "Olá gostaria de um orçamento";
-export const PHONE_DISPLAY = "+351 912 345 678";
-export const PHONE_TEL = "tel:+351912345678";
+export const WHATSAPP_NUMBER = "351927177190"; // Digits only, with country code
+export const WHATSAPP_MESSAGE = "Olá, gostaria de um orçamento para um evento.";
+export const PHONE_DISPLAY = "+351 927 177 190";
+export const PHONE_TEL = "tel:+351927177190";
+export const EMAIL = "hello@doluxoamesa.pt";
+export const INSTAGRAM = "@doluxoamesa";
+export const INSTAGRAM_URL = "https://instagram.com/doluxoamesa";
 
 // URL-encoded message
 const ENCODED_MESSAGE = encodeURIComponent(WHATSAPP_MESSAGE);

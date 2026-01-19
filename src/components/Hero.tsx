@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
+import { MessageCircle } from "lucide-react";
 import tableCandles from "@/assets/table-candles.jpg";
+import { WHATSAPP_URL, whatsappLinkProps } from "@/hooks/use-whatsapp";
 
 const Hero = () => {
   return (
@@ -11,11 +13,11 @@ const Hero = () => {
           alt="Mesa elegante com velas e decoração de luxo"
           className="w-full h-full object-cover"
         />
-        {/* Light overlay to soften background */}
-        <div className="absolute inset-0 bg-background/40" />
+        {/* Gradient overlay for better text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/20 to-background/60" />
       </div>
 
-      {/* Content - Centered Overlay Panel */}
+      {/* Content */}
       <div className="relative z-10 container mx-auto px-6 lg:px-12 pt-20">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -24,7 +26,10 @@ const Hero = () => {
           className="max-w-2xl mx-auto"
         >
           {/* Main Card Panel */}
-          <div className="bg-background/95 backdrop-blur-sm px-8 py-12 md:px-12 md:py-16 text-center shadow-luxury">
+          <div className="bg-background/95 backdrop-blur-sm px-8 py-12 md:px-14 md:py-16 text-center shadow-luxury border border-gold/10">
+            {/* Gold accent line */}
+            <div className="w-16 h-px bg-gold mx-auto mb-8" />
+
             {/* Main Headline */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -34,7 +39,7 @@ const Hero = () => {
             >
               Receba com elegância.
               <br />
-              <span className="italic">Sem preocupações.</span>
+              <span className="italic text-foreground/90">Sem preocupações.</span>
             </motion.h1>
 
             {/* Subtext */}
@@ -48,18 +53,29 @@ const Hero = () => {
               decorado ao seu espaço.
             </motion.p>
 
-            {/* CTA Button */}
+            {/* CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7, duration: 0.6 }}
-              className="mb-10"
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10"
             >
+              {/* Primary CTA - Quote */}
               <a
                 href="#contacto"
-                className="inline-block bg-foreground text-background font-body text-sm md:text-base px-8 py-4 hover:bg-foreground/90 transition-colors duration-300"
+                className="inline-block bg-foreground text-background font-body text-sm md:text-base px-8 py-4 hover:bg-foreground/90 transition-colors duration-300 w-full sm:w-auto"
               >
-                Quero orçamento para a minha data
+                Pedir Orçamento
+              </a>
+
+              {/* WhatsApp CTA */}
+              <a
+                href={WHATSAPP_URL}
+                {...whatsappLinkProps}
+                className="inline-flex items-center justify-center gap-2 border border-gold text-foreground font-body text-sm md:text-base px-8 py-4 hover:bg-gold/10 transition-colors duration-300 w-full sm:w-auto group"
+              >
+                <MessageCircle className="w-4 h-4 text-gold group-hover:scale-110 transition-transform" />
+                <span>WhatsApp</span>
               </a>
             </motion.div>
 
@@ -83,38 +99,22 @@ const Hero = () => {
                 <span className="font-body text-muted-foreground">Experiência premium</span>
               </div>
             </motion.div>
+
+            {/* Bottom gold accent */}
+            <div className="w-16 h-px bg-gold mx-auto mt-10" />
           </div>
-        </motion.div>
-
-        {/* Secondary Section - Below the card */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-          className="max-w-2xl mx-auto mt-16 md:mt-24 text-center pb-12"
-        >
-          {/* Three Phase List */}
-          <div className="space-y-2 mb-6">
-            <p className="font-display text-xl md:text-2xl italic text-foreground">
-              Chegamos com tudo preparado.
-            </p>
-            <p className="font-display text-xl md:text-2xl italic text-foreground">
-              Montamos no local.
-            </p>
-            <p className="font-display text-xl md:text-2xl italic text-foreground">
-              Criamos a experiência.
-            </p>
-          </div>
-
-          {/* Gold Separator */}
-          <div className="w-12 h-0.5 bg-gold mx-auto mb-6" />
-
-          {/* Closing Text */}
-          <p className="font-body text-sm md:text-base text-muted-foreground">
-            Chegamos, montamos e deixamos tudo pronto para receber.
-          </p>
         </motion.div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 0.8 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+      >
+        <div className="w-px h-12 bg-gradient-to-b from-gold/60 to-transparent" />
+      </motion.div>
     </section>
   );
 };
