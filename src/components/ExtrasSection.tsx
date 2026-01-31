@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { extrasCategories, formatPrice, ExtraCategory, ExtraItem } from "@/data/extras";
+import { extrasCategories, formatPrice, ExtraCategory, ExtraItem, bubbleDecorItems } from "@/data/extras";
 import { useCart } from "@/contexts/CartContext";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
 import { X, Minus, Plus, ShoppingCart } from "lucide-react";
@@ -10,19 +9,22 @@ import { toast } from "sonner";
 
 // Placeholder images for categories (elegant luxury event aesthetic)
 const categoryImages: Record<string, string> = {
-  "mesas-cadeiras": "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=400&h=400&fit=crop&q=80",
-  "loica-mesa": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=400&fit=crop&q=80",
-  "copos": "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400&h=400&fit=crop&q=80",
-  "talheres": "https://images.unsplash.com/photo-1530027644375-9c83053d392e?w=400&h=400&fit=crop&q=80",
-  "texteis": "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=400&h=400&fit=crop&q=80",
-  "decoracao-suportes": "https://images.unsplash.com/photo-1478146896981-b80fe463b330?w=400&h=400&fit=crop&q=80",
-  "iluminacao-ambiente": "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&h=400&fit=crop&q=80",
-  "apoio-servico": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&h=400&fit=crop&q=80",
-  "suporte-champanhe": "https://images.unsplash.com/photo-1546171753-97d7676e4602?w=400&h=400&fit=crop&q=80",
+  "mesas-cadeiras": "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=200&h=200&fit=crop&q=80",
+  "loica-mesa": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=200&h=200&fit=crop&q=80",
+  "copos": "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=200&h=200&fit=crop&q=80",
+  "talheres": "https://images.unsplash.com/photo-1530027644375-9c83053d392e?w=200&h=200&fit=crop&q=80",
+  "texteis": "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=200&h=200&fit=crop&q=80",
+  "decoracao-suportes": "https://images.unsplash.com/photo-1478146896981-b80fe463b330?w=200&h=200&fit=crop&q=80",
+  "iluminacao-ambiente": "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=200&h=200&fit=crop&q=80",
+  "apoio-servico": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=200&h=200&fit=crop&q=80",
+  "suporte-champanhe": "https://images.unsplash.com/photo-1546171753-97d7676e4602?w=200&h=200&fit=crop&q=80",
 };
 
-// Item placeholder images
+// Item placeholder
 const itemPlaceholder = "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=200&h=200&fit=crop&q=80";
+
+// Bubble decor featured image
+const bubbleDecorImage = "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop&q=80";
 
 interface ItemQuantities {
   [itemId: string]: number;
@@ -33,11 +35,11 @@ const ExtrasSection = () => {
   const isHeaderInView = useInView(headerRef, { once: true, margin: "-100px" });
   const [selectedCategory, setSelectedCategory] = useState<ExtraCategory | null>(null);
   const [itemQuantities, setItemQuantities] = useState<ItemQuantities>({});
+  const [selectedBubble, setSelectedBubble] = useState<string>("bubble-painel-simples");
   const { addItem } = useCart();
 
   const handleOpenCategory = (category: ExtraCategory) => {
     setSelectedCategory(category);
-    // Reset quantities when opening modal
     setItemQuantities({});
   };
 
@@ -69,12 +71,27 @@ const ExtrasSection = () => {
       description: `${qty}x ${item.name}`,
     });
 
-    // Reset this item's quantity
     setItemQuantities((prev) => ({ ...prev, [item.id]: 0 }));
   };
 
+  const handleAddBubbleToCart = () => {
+    const bubbleItem = bubbleDecorItems.find(b => b.id === selectedBubble);
+    if (!bubbleItem) return;
+
+    addItem({
+      id: bubbleItem.id,
+      name: `Bubble Decor - ${bubbleItem.name}`,
+      type: "extra",
+      price: bubbleItem.price,
+    }, 1);
+
+    toast.success("Adicionado ao carrinho", {
+      description: `Bubble Decor - ${bubbleItem.name}`,
+    });
+  };
+
   return (
-    <section className="py-28 lg:py-36 bg-muted/30">
+    <section id="extras" className="py-28 lg:py-36 bg-muted/30">
       <div className="container mx-auto px-6 lg:px-12">
         {/* Section Header */}
         <motion.div
@@ -87,49 +104,131 @@ const ExtrasSection = () => {
           <span className="font-body text-[11px] uppercase tracking-[0.25em] mb-5 block text-gold">
             Complemente o seu evento
           </span>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mb-6 font-light">
-            Aluguer de Material Decorativo
-          </h2>
-          <div className="separator-gold mx-auto mb-8" />
-          <p className="font-body text-sm md:text-base text-muted-foreground leading-relaxed font-light">
-            Peças selecionadas para completar o seu evento com elegância e sofisticação.
-          </p>
+          <div className="separator-gold mx-auto" />
         </motion.div>
 
-        {/* Category Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 lg:gap-6">
-          {extrasCategories.map((category, index) => (
-            <motion.button
-              key={category.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.05 }}
-              viewport={{ once: true }}
-              onClick={() => handleOpenCategory(category)}
-              className="group relative overflow-hidden aspect-square cursor-pointer bg-card border border-border hover:border-gold/40 transition-all duration-500"
-            >
-              <img
-                src={categoryImages[category.id] || itemPlaceholder}
-                alt={category.name}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              {/* Overlay */}
-              <div 
-                className="absolute inset-0 flex items-end transition-all duration-500"
-                style={{
-                  background: 'linear-gradient(to top, hsla(30, 15%, 8%, 0.85) 0%, hsla(30, 15%, 8%, 0.2) 50%, transparent 100%)'
-                }}
+        {/* Two Column Layout */}
+        <div className="grid lg:grid-cols-2 gap-8">
+          {/* Left Column - Aluguer de Material Decorativo */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="bg-card border border-border p-8"
+          >
+            <h3 className="font-display text-2xl md:text-3xl text-foreground mb-3 font-light text-center">
+              Aluguer de Material Decorativo
+            </h3>
+            <p className="font-body text-sm text-muted-foreground text-center mb-8">
+              Peças selecionadas para completar o seu evento
+            </p>
+
+            {/* Category Mini Grid */}
+            <div className="grid grid-cols-3 gap-3 mb-8">
+              {extrasCategories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => handleOpenCategory(category)}
+                  className="group relative aspect-square overflow-hidden bg-muted cursor-pointer"
+                >
+                  <img
+                    src={categoryImages[category.id] || itemPlaceholder}
+                    alt={category.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div 
+                    className="absolute inset-0 flex items-end transition-all duration-300"
+                    style={{
+                      background: 'linear-gradient(to top, hsla(30, 15%, 8%, 0.85) 0%, hsla(30, 15%, 8%, 0.3) 60%, transparent 100%)'
+                    }}
+                  >
+                    <p className="w-full p-2 font-body text-[9px] sm:text-[10px] uppercase tracking-[0.08em] text-white text-center font-light leading-tight">
+                      {category.name}
+                    </p>
+                  </div>
+                  {/* Hover border */}
+                  <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 border-2 border-gold/60" />
+                </button>
+              ))}
+            </div>
+
+            {/* CTA Button */}
+            <div className="text-center">
+              <button
+                onClick={() => handleOpenCategory(extrasCategories[0])}
+                className="btn-gold-flat font-body text-[11px] uppercase tracking-[0.15em] py-3 px-8"
               >
-                <div className="p-4 w-full">
-                  <p className="font-body text-[10px] sm:text-xs uppercase tracking-[0.12em] text-white text-center font-light">
-                    {category.name}
-                  </p>
-                </div>
-              </div>
-              {/* Hover border */}
-              <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 border-2 border-gold/60" />
-            </motion.button>
-          ))}
+                Ver materiais disponíveis
+              </button>
+            </div>
+          </motion.div>
+
+          {/* Right Column - Bubble Decor Events */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="bg-card border border-border p-8"
+          >
+            <h3 className="font-display text-2xl md:text-3xl text-foreground mb-3 font-light text-center">
+              Bubble Decor Events
+            </h3>
+            <p className="font-body text-sm text-muted-foreground text-center mb-8">
+              Espaço fotográfico decorativo para criar um ponto de destaque no seu evento
+            </p>
+
+            {/* Price Options */}
+            <div className="space-y-3 mb-6">
+              {bubbleDecorItems.map((item) => (
+                <label
+                  key={item.id}
+                  className={`flex items-center justify-between p-4 border cursor-pointer transition-all duration-300 ${
+                    selectedBubble === item.id
+                      ? "border-gold bg-gold/5"
+                      : "border-border hover:border-gold/40"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="radio"
+                      name="bubble-option"
+                      value={item.id}
+                      checked={selectedBubble === item.id}
+                      onChange={(e) => setSelectedBubble(e.target.value)}
+                      className="w-4 h-4 accent-gold"
+                    />
+                    <span className="font-body text-sm text-foreground">
+                      {item.name}
+                    </span>
+                  </div>
+                  <span className="font-body text-sm font-medium text-gold">
+                    — {formatPrice(item.price)}
+                  </span>
+                </label>
+              ))}
+            </div>
+
+            {/* Add to Cart Button */}
+            <div className="text-center mb-6">
+              <button
+                onClick={handleAddBubbleToCart}
+                className="btn-gold-flat font-body text-[11px] uppercase tracking-[0.15em] py-3 px-8"
+              >
+                Adicionar Bubble Deluxe
+              </button>
+            </div>
+
+            {/* Featured Image */}
+            <div className="aspect-[4/3] overflow-hidden">
+              <img
+                src={bubbleDecorImage}
+                alt="Bubble Decor - Espaço fotográfico decorativo"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </motion.div>
         </div>
 
         {/* Category Modal */}

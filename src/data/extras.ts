@@ -99,9 +99,22 @@ export const extrasCategories: ExtraCategory[] = [
 ];
 
 // Helper to format price in Portuguese style
+// Helper to format price in Portuguese style
 export const formatPrice = (price: number): string => {
   return price.toLocaleString("pt-PT", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).replace(".", ",") + " €";
 };
+
+// Bubble Decor items
+export interface BubbleItem {
+  id: string;
+  name: string;
+  price: number;
+}
+
+export const bubbleDecorItems: BubbleItem[] = [
+  { id: "bubble-painel-simples", name: "Painel simples", price: 50 },
+  { id: "bubble-painel-reforcado", name: "Painel reforçado", price: 80 },
+];
