@@ -61,11 +61,11 @@ const Header = () => {
       <div className="container mx-auto px-6 lg:px-12">
         <nav className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center">
+          <a href="#" className="flex items-center py-1">
             <img
               src={logo}
               alt="Do Luxo à Mesa - Eventos e Catering"
-              className="h-8 md:h-10 lg:h-12 w-auto object-contain"
+              className="h-[36px] sm:h-[44px] md:h-[52px] lg:h-[60px] w-auto object-contain"
             />
           </a>
 
@@ -83,8 +83,8 @@ const Header = () => {
             ))}
           </div>
 
-          {/* Right side: Cart + CTA */}
-          <div className="hidden lg:flex items-center gap-6">
+          {/* Right side: Cart only */}
+          <div className="hidden lg:flex items-center">
             {/* Cart Button */}
             <button
               onClick={() => setIsOpen(true)}
@@ -98,15 +98,6 @@ const Header = () => {
                 </span>
               )}
             </button>
-
-            {/* CTA Button */}
-            <a
-              href="#contacto"
-              onClick={(e) => handleNavClick(e, '#contacto')}
-              className="btn-outline-gold text-[10px] py-3 px-8"
-            >
-              Pedir Orçamento
-            </a>
           </div>
 
           {/* Mobile: Cart + Menu */}
@@ -175,13 +166,6 @@ const Header = () => {
                   {item.label}
                 </motion.a>
               ))}
-              <a
-                href="#contacto"
-                onClick={(e) => handleNavClick(e, '#contacto')}
-                className="font-body text-sm uppercase tracking-[0.15em] text-center mt-4 btn-outline-gold py-3"
-              >
-                Pedir Orçamento
-              </a>
             </div>
           </motion.div>
         )}

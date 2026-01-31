@@ -117,13 +117,21 @@ const CartDrawer = () => {
                 {formatPrice(subtotal)}
               </span>
             </div>
-            <a
-              href="#contacto"
-              onClick={() => setIsOpen(false)}
+            <button
+              onClick={() => {
+                // Create WhatsApp message with cart summary
+                const cartSummary = items.map(item => 
+                  `• ${item.name} (${item.qty}x) - ${formatPrice(item.price * item.qty)}`
+                ).join('%0A');
+                const message = `Olá! Gostaria de pedir um orçamento:%0A%0A${cartSummary}%0A%0ASubtotal: ${formatPrice(subtotal)}`;
+                const whatsappUrl = `https://wa.me/351912345678?text=${message}`;
+                window.open(whatsappUrl, '_blank');
+                setIsOpen(false);
+              }}
               className="block text-center btn-gold-flat font-body text-[11px] uppercase tracking-[0.15em] py-4 w-full"
             >
               Finalizar pedido / Pedir orçamento
-            </a>
+            </button>
           </div>
         )}
       </SheetContent>
