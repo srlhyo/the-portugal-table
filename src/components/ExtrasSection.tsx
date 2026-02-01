@@ -133,8 +133,11 @@ const ExtrasSection = () => {
             <h3 className="font-display text-2xl md:text-3xl text-foreground mb-3 font-light text-center">
               Aluguer de Material Decorativo
             </h3>
-            <p className="font-body text-sm text-muted-foreground text-center mb-8">
+            <p className="font-body text-sm text-muted-foreground text-center mb-2">
               Peças selecionadas para completar o seu evento
+            </p>
+            <p className="font-body text-xs text-muted-foreground/70 text-center mb-8">
+              Selecione uma categoria para ver os materiais disponíveis.
             </p>
 
             {/* Category Mini Grid */}
@@ -205,7 +208,7 @@ const ExtrasSection = () => {
             </p>
 
             {/* Price Options */}
-            <div className="space-y-3 mb-5">
+            <div className="space-y-3 mb-3">
               {bubbleDecorItems.map((item) => (
                 <label
                   key={item.id}
@@ -229,20 +232,27 @@ const ExtrasSection = () => {
                     </span>
                   </div>
                   <span className="font-body text-sm font-medium text-gold">
-                    — {formatPrice(item.price)}
+                    {formatPrice(item.price)}
                   </span>
                 </label>
               ))}
             </div>
+            <p className="font-body text-xs text-muted-foreground/70 text-center mb-5">
+              Extra opcional para criar um ponto fotográfico no seu evento.
+            </p>
 
             {/* Add to Cart Button */}
             <div className="text-center mb-5">
               <button
                 onClick={handleAddBubbleToCart}
                 className="btn-gold-flat font-body text-[11px] uppercase tracking-[0.15em] py-3 px-8"
+                aria-label="Adicionar Bubble Deluxe - Este item será adicionado ao carrinho como extra"
               >
                 Adicionar Bubble Deluxe
               </button>
+              <p className="font-body text-[10px] text-muted-foreground/60 mt-2">
+                Este item será adicionado ao carrinho como extra.
+              </p>
             </div>
 
             {/* Featured Image */}
