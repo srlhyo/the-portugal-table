@@ -138,7 +138,7 @@ const ExtrasSection = () => {
             </p>
 
             {/* Category Mini Grid */}
-            <div className="grid grid-cols-3 gap-3 mb-6">
+            <div className="grid grid-cols-3 gap-3">
               {visibleCategories.map((category) => (
                 <button
                   key={category.id}
@@ -168,7 +168,7 @@ const ExtrasSection = () => {
 
             {/* Toggle Button - only show if there are hidden categories */}
             {hasHiddenCategories && (
-              <div className="text-center">
+              <div className="text-center mt-4">
                 <button
                   onClick={toggleShowAll}
                   className="inline-flex items-center gap-2 btn-gold-flat font-body text-[11px] uppercase tracking-[0.15em] py-3 px-8"
@@ -176,12 +176,12 @@ const ExtrasSection = () => {
                   {showAllCategories ? (
                     <>
                       Ver menos
-                      <ChevronUp className="w-4 h-4" />
+                      <ChevronUp className="w-4 h-4 transition-transform" />
                     </>
                   ) : (
                     <>
                       Ver materiais disponíveis
-                      <ChevronDown className="w-4 h-4" />
+                      <ChevronDown className="w-4 h-4 transition-transform" />
                     </>
                   )}
                 </button>
@@ -200,12 +200,12 @@ const ExtrasSection = () => {
             <h3 className="font-display text-2xl md:text-3xl text-foreground mb-3 font-light text-center">
               Bubble Decor Events
             </h3>
-            <p className="font-body text-sm text-muted-foreground text-center mb-8">
+            <p className="font-body text-sm text-muted-foreground text-center mb-6">
               Espaço fotográfico decorativo para criar um ponto de destaque no seu evento
             </p>
 
             {/* Price Options */}
-            <div className="space-y-3 mb-6">
+            <div className="space-y-3 mb-5">
               {bubbleDecorItems.map((item) => (
                 <label
                   key={item.id}
@@ -236,7 +236,7 @@ const ExtrasSection = () => {
             </div>
 
             {/* Add to Cart Button */}
-            <div className="text-center mb-6">
+            <div className="text-center mb-5">
               <button
                 onClick={handleAddBubbleToCart}
                 className="btn-gold-flat font-body text-[11px] uppercase tracking-[0.15em] py-3 px-8"
@@ -246,7 +246,7 @@ const ExtrasSection = () => {
             </div>
 
             {/* Featured Image */}
-            <div className="aspect-[4/3] overflow-hidden">
+            <div className="aspect-[3/2] overflow-hidden">
               <img
                 src={bubbleDecorImage}
                 alt="Bubble Decor - Espaço fotográfico decorativo"
