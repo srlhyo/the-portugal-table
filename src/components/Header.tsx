@@ -61,11 +61,11 @@ const Header = () => {
       <div className="container mx-auto px-6 lg:px-12">
         <nav className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center py-1">
+          <a href="#" className="flex items-center py-1 mr-6 lg:mr-10">
             <img
               src={logo}
               alt="Do Luxo à Mesa - Eventos e Catering"
-              className="h-[36px] sm:h-[48px] lg:h-[60px] w-auto object-contain"
+              className="h-[44px] sm:h-[56px] lg:h-[72px] w-auto object-contain"
             />
           </a>
 
