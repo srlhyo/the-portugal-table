@@ -4,7 +4,7 @@ import { useInView } from "framer-motion";
 import { extrasCategories, formatPrice, ExtraCategory, ExtraItem, bubbleDecorItems } from "@/data/extras";
 import { useCart } from "@/contexts/CartContext";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
-import { X, Minus, Plus, ShoppingCart } from "lucide-react";
+import { X, Minus, Plus, ShoppingCart, ChevronDown, ChevronUp } from "lucide-react";
 import { toast } from "sonner";
 
 // Placeholder images for categories (elegant luxury event aesthetic)
@@ -26,6 +26,9 @@ const itemPlaceholder = "https://images.unsplash.com/photo-1470337458703-46ad175
 // Bubble decor featured image
 const bubbleDecorImage = "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&h=400&fit=crop&q=80";
 
+// Number of categories to show by default (2 rows of 3)
+const DEFAULT_VISIBLE_COUNT = 6;
+
 interface ItemQuantities {
   [itemId: string]: number;
 }
@@ -36,7 +39,13 @@ const ExtrasSection = () => {
   const [selectedCategory, setSelectedCategory] = useState<ExtraCategory | null>(null);
   const [itemQuantities, setItemQuantities] = useState<ItemQuantities>({});
   const [selectedBubble, setSelectedBubble] = useState<string>("bubble-painel-simples");
+  const [showAllCategories, setShowAllCategories] = useState(false);
   const { addItem } = useCart();
+
+  const hasHiddenCategories = extrasCategories.length > DEFAULT_VISIBLE_COUNT;
+  const visibleCategories = showAllCategories 
+    ? extrasCategories 
+    : extrasCategories.slice(0, DEFAULT_VISIBLE_COUNT);
 
   const handleOpenCategory = (category: ExtraCategory) => {
     setSelectedCategory(category);
@@ -90,6 +99,10 @@ const ExtrasSection = () => {
     });
   };
 
+  const toggleShowAll = () => {
+    setShowAllCategories(prev => !prev);
+  };
+
   return (
     <section id="extras" className="py-28 lg:py-36 bg-muted/30">
       <div className="container mx-auto px-6 lg:px-12">
@@ -125,8 +138,8 @@ const ExtrasSection = () => {
             </p>
 
             {/* Category Mini Grid */}
-            <div className="grid grid-cols-3 gap-3 mb-8">
-              {extrasCategories.map((category) => (
+            <div className="grid grid-cols-3 gap-3 mb-6">
+              {visibleCategories.map((category) => (
                 <button
                   key={category.id}
                   onClick={() => handleOpenCategory(category)}
@@ -153,15 +166,27 @@ const ExtrasSection = () => {
               ))}
             </div>
 
-            {/* CTA Button */}
-            <div className="text-center">
-              <button
-                onClick={() => handleOpenCategory(extrasCategories[0])}
-                className="btn-gold-flat font-body text-[11px] uppercase tracking-[0.15em] py-3 px-8"
-              >
-                Ver materiais disponíveis
-              </button>
-            </div>
+            {/* Toggle Button - only show if there are hidden categories */}
+            {hasHiddenCategories && (
+              <div className="text-center">
+                <button
+                  onClick={toggleShowAll}
+                  className="inline-flex items-center gap-2 btn-gold-flat font-body text-[11px] uppercase tracking-[0.15em] py-3 px-8"
+                >
+                  {showAllCategories ? (
+                    <>
+                      Ver menos
+                      <ChevronUp className="w-4 h-4" />
+                    </>
+                  ) : (
+                    <>
+                      Ver materiais disponíveis
+                      <ChevronDown className="w-4 h-4" />
+                    </>
+                  )}
+                </button>
+              </div>
+            )}
           </motion.div>
 
           {/* Right Column - Bubble Decor Events */}

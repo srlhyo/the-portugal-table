@@ -65,7 +65,7 @@ const Header = () => {
             <img
               src={logo}
               alt="Do Luxo à Mesa - Eventos e Catering"
-              className="h-[36px] sm:h-[44px] md:h-[52px] lg:h-[60px] w-auto object-contain"
+              className="h-[36px] sm:h-[48px] lg:h-[60px] w-auto object-contain"
             />
           </a>
 
