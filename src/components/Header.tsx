@@ -51,21 +51,21 @@ const Header = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "shadow-soft py-2"
-          : "py-3"
+          ? "shadow-soft py-3"
+          : "py-4"
       }`}
       style={{
         backgroundColor: 'hsl(45, 35%, 97%)',
       }}
     >
-      <div className="container mx-auto px-6 lg:px-12">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
         <nav className="flex items-center justify-between">
-          {/* Logo */}
-          <a href="#" className="flex items-center py-1 mr-6 lg:mr-10">
+          {/* Logo - Dominant and clearly visible */}
+          <a href="#" className="flex items-center shrink-0 mr-4 sm:mr-6 lg:mr-10">
             <img
               src={logo}
               alt="Do Luxo à Mesa - Eventos e Catering"
-              className="h-[44px] sm:h-[56px] lg:h-[72px] w-auto object-contain"
+              className="h-[56px] sm:h-[64px] lg:h-[80px] w-auto object-contain"
             />
           </a>
 
