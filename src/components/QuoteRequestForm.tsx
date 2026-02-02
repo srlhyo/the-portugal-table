@@ -1,0 +1,306 @@
+import { useState } from "react";
+import { useCart, CartItem } from "@/contexts/CartContext";
+import { formatPrice } from "@/data/extras";
+import { motion } from "framer-motion";
+import { ArrowLeft, CheckCircle, Calendar, MapPin, Users, Phone, Mail, User, FileText } from "lucide-react";
+
+interface QuoteFormData {
+  // Dados do Cliente
+  nomeCompleto: string;
+  telefone: string;
+  email: string;
+  // Dados do Evento
+  tipoEvento: string;
+  dataEvento: string;
+  horarioPrevisto: string;
+  localEvento: string;
+  numeroConvidados: string;
+  // Observações
+  observacoes: string;
+}
+
+interface QuoteRequestFormProps {
+  onBack: () => void;
+  onSubmit: (data: QuoteFormData, referenceNumber: string) => void;
+}
+
+const initialFormData: QuoteFormData = {
+  nomeCompleto: "",
+  telefone: "",
+  email: "",
+  tipoEvento: "",
+  dataEvento: "",
+  horarioPrevisto: "",
+  localEvento: "",
+  numeroConvidados: "",
+  observacoes: "",
+};
+
+const eventTypes = [
+  { value: "casamento", label: "Casamento" },
+  { value: "aniversario", label: "Aniversário" },
+  { value: "corporativo", label: "Evento Corporativo" },
+  { value: "privado", label: "Evento Privado" },
+  { value: "outro", label: "Outro" },
+];
+
+const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
+  const { items, subtotal } = useCart();
+  const [formData, setFormData] = useState<QuoteFormData>(initialFormData);
+  const [errors, setErrors] = useState<Partial<QuoteFormData>>({});
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    // Clear error when user types
+    if (errors[name as keyof QuoteFormData]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+  };
+
+  const validate = (): boolean => {
+    const newErrors: Partial<QuoteFormData> = {};
+    
+    if (!formData.nomeCompleto.trim()) {
+      newErrors.nomeCompleto = "Campo obrigatório";
+    }
+    if (!formData.telefone.trim()) {
+      newErrors.telefone = "Campo obrigatório";
+    }
+    if (!formData.tipoEvento) {
+      newErrors.tipoEvento = "Selecione o tipo de evento";
+    }
+    if (!formData.dataEvento) {
+      newErrors.dataEvento = "Campo obrigatório";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const generateReferenceNumber = (): string => {
+    const date = new Date();
+    const year = date.getFullYear().toString().slice(-2);
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const random = Math.floor(Math.random() * 10000).toString().padStart(4, "0");
+    return `DLM-${year}${month}-${random}`;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (validate()) {
+      const referenceNumber = generateReferenceNumber();
+      onSubmit(formData, referenceNumber);
+    }
+  };
+
+  const inputClasses = (fieldName: keyof QuoteFormData) =>
+    `w-full px-4 py-3 bg-background border ${
+      errors[fieldName] ? "border-destructive" : "border-border"
+    } font-body text-sm focus:outline-none focus:border-gold transition-colors`;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -20 }}
+      className="flex flex-col h-full"
+    >
+      {/* Header */}
+      <div className="border-b border-border pb-4 mb-4">
+        <button
+          onClick={onBack}
+          className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-3"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span className="font-body text-sm">Voltar ao carrinho</span>
+        </button>
+        <h2 className="font-display text-2xl text-foreground font-light">
+          Pedido de Orçamento
+        </h2>
+        <p className="font-body text-xs text-muted-foreground mt-1">
+          Preencha os dados para solicitar o seu orçamento personalizado
+        </p>
+      </div>
+
+      {/* Scrollable Form Content */}
+      <div className="flex-1 overflow-y-auto pr-1">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Dados do Cliente */}
+          <section>
+            <h3 className="font-body text-xs uppercase tracking-[0.15em] text-gold mb-4 flex items-center gap-2">
+              <User className="w-4 h-4" />
+              Dados do Cliente
+            </h3>
+            <div className="space-y-3">
+              <div>
+                <input
+                  type="text"
+                  name="nomeCompleto"
+                  value={formData.nomeCompleto}
+                  onChange={handleChange}
+                  placeholder="Nome completo *"
+                  className={inputClasses("nomeCompleto")}
+                />
+                {errors.nomeCompleto && (
+                  <p className="text-destructive text-xs mt-1 font-body">{errors.nomeCompleto}</p>
+                )}
+              </div>
+              <div>
+                <input
+                  type="tel"
+                  name="telefone"
+                  value={formData.telefone}
+                  onChange={handleChange}
+                  placeholder="Telefone / WhatsApp *"
+                  className={inputClasses("telefone")}
+                />
+                {errors.telefone && (
+                  <p className="text-destructive text-xs mt-1 font-body">{errors.telefone}</p>
+                )}
+              </div>
+              <div>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Email (opcional)"
+                  className={inputClasses("email")}
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* Dados do Evento */}
+          <section>
+            <h3 className="font-body text-xs uppercase tracking-[0.15em] text-gold mb-4 flex items-center gap-2">
+              <Calendar className="w-4 h-4" />
+              Dados do Evento
+            </h3>
+            <div className="space-y-3">
+              <div>
+                <select
+                  name="tipoEvento"
+                  value={formData.tipoEvento}
+                  onChange={handleChange}
+                  className={`${inputClasses("tipoEvento")} ${
+                    !formData.tipoEvento ? "text-muted-foreground" : ""
+                  }`}
+                >
+                  <option value="">Tipo de evento *</option>
+                  {eventTypes.map((type) => (
+                    <option key={type.value} value={type.value}>
+                      {type.label}
+                    </option>
+                  ))}
+                </select>
+                {errors.tipoEvento && (
+                  <p className="text-destructive text-xs mt-1 font-body">{errors.tipoEvento}</p>
+                )}
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <input
+                    type="date"
+                    name="dataEvento"
+                    value={formData.dataEvento}
+                    onChange={handleChange}
+                    className={inputClasses("dataEvento")}
+                  />
+                  {errors.dataEvento && (
+                    <p className="text-destructive text-xs mt-1 font-body">{errors.dataEvento}</p>
+                  )}
+                </div>
+                <div>
+                  <input
+                    type="time"
+                    name="horarioPrevisto"
+                    value={formData.horarioPrevisto}
+                    onChange={handleChange}
+                    placeholder="Horário"
+                    className={inputClasses("horarioPrevisto")}
+                  />
+                </div>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="localEvento"
+                  value={formData.localEvento}
+                  onChange={handleChange}
+                  placeholder="Local do evento"
+                  className={inputClasses("localEvento")}
+                />
+              </div>
+              <div>
+                <input
+                  type="number"
+                  name="numeroConvidados"
+                  value={formData.numeroConvidados}
+                  onChange={handleChange}
+                  placeholder="Número de convidados"
+                  min="1"
+                  className={inputClasses("numeroConvidados")}
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* Observações */}
+          <section>
+            <h3 className="font-body text-xs uppercase tracking-[0.15em] text-gold mb-4 flex items-center gap-2">
+              <FileText className="w-4 h-4" />
+              Observações
+            </h3>
+            <textarea
+              name="observacoes"
+              value={formData.observacoes}
+              onChange={handleChange}
+              placeholder="Observações adicionais (opcional)"
+              rows={3}
+              className={inputClasses("observacoes")}
+            />
+          </section>
+
+          {/* Cart Summary (Read-only) */}
+          <section className="bg-muted/30 border border-border p-4">
+            <h3 className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-3">
+              Resumo do Pedido
+            </h3>
+            <div className="space-y-2">
+              {items.map((item) => (
+                <div key={item.id} className="flex justify-between font-body text-sm">
+                  <span className="text-foreground">
+                    {item.name} <span className="text-muted-foreground">×{item.qty}</span>
+                  </span>
+                  <span className="text-muted-foreground">{formatPrice(item.price * item.qty)}</span>
+                </div>
+              ))}
+            </div>
+            <div className="border-t border-border mt-3 pt-3 flex justify-between">
+              <span className="font-body text-sm font-medium text-foreground">Subtotal estimado</span>
+              <span className="font-display text-lg text-gold">{formatPrice(subtotal)}</span>
+            </div>
+          </section>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="btn-gold-flat font-body text-[11px] uppercase tracking-[0.15em] py-4 w-full"
+          >
+            Submeter pedido de orçamento
+          </button>
+
+          <p className="font-body text-[10px] text-muted-foreground/70 text-center">
+            O pedido de orçamento não constitui compromisso e está sujeito a confirmação de disponibilidade.
+          </p>
+        </form>
+      </div>
+    </motion.div>
+  );
+};
+
+export default QuoteRequestForm;
