@@ -57,11 +57,17 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   // Find existing package in cart
   const existingPackage = items.find((i) => i.type === "package") || null;
 
+  // Use ref to track items for synchronous checks without causing re-renders
+  const itemsRef = React.useRef(items);
+  React.useEffect(() => {
+    itemsRef.current = items;
+  }, [items]);
+
   const addItem = useCallback((item: Omit<CartItem, "qty">, qty: number = 1): AddItemResult => {
     // If adding a package, enforce special rules
     if (item.type === "package") {
-      // Check current state synchronously
-      const currentItems = items;
+      // Check current state synchronously via ref
+      const currentItems = itemsRef.current;
       const existing = currentItems.find((i) => i.type === "package");
       
       // If same package exists, do NOT increment - packages are always qty=1
@@ -91,7 +97,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       return [...prev, { ...item, qty }];
     });
     return "added";
-  }, [items]);
+  }, []);
 
   const confirmPackageReplace = useCallback(() => {
     if (!pendingPackage) return;
