@@ -112,36 +112,45 @@ const CartDrawer = () => {
                             </div>
 
                             <div className="flex items-center justify-between">
-                              {/* Quantity controls */}
-                              <div className="flex items-center gap-2 border border-border bg-background">
-                                <button
-                                  onClick={() => updateQuantity(item.id, item.qty - 1)}
-                                  className="p-2 hover:bg-muted transition-colors"
-                                  aria-label="Diminuir quantidade"
-                                >
-                                  <Minus className="w-3 h-3" />
-                                </button>
-                                <span className="font-body text-sm min-w-[2rem] text-center">
-                                  {item.qty}
+                              {/* Quantity controls - only for non-package items */}
+                              {item.type !== "package" ? (
+                                <div className="flex items-center gap-2 border border-border bg-background">
+                                  <button
+                                    onClick={() => updateQuantity(item.id, item.qty - 1)}
+                                    className="p-2 hover:bg-muted transition-colors"
+                                    aria-label="Diminuir quantidade"
+                                  >
+                                    <Minus className="w-3 h-3" />
+                                  </button>
+                                  <span className="font-body text-sm min-w-[2rem] text-center">
+                                    {item.qty}
+                                  </span>
+                                  <button
+                                    onClick={() => updateQuantity(item.id, item.qty + 1)}
+                                    className="p-2 hover:bg-muted transition-colors"
+                                    aria-label="Aumentar quantidade"
+                                  >
+                                    <Plus className="w-3 h-3" />
+                                  </button>
+                                </div>
+                              ) : (
+                                <span className="font-body text-xs text-muted-foreground italic">
+                                  Pacote base
                                 </span>
-                                <button
-                                  onClick={() => updateQuantity(item.id, item.qty + 1)}
-                                  className="p-2 hover:bg-muted transition-colors"
-                                  aria-label="Aumentar quantidade"
-                                >
-                                  <Plus className="w-3 h-3" />
-                                </button>
-                              </div>
+                              )}
 
                               {/* Line subtotal */}
                               <p className="font-body text-sm font-medium text-gold">
-                                {formatPrice(item.price * item.qty)}
+                                {formatPrice(item.price)}
                               </p>
                             </div>
 
-                            <p className="font-body text-xs text-muted-foreground mt-1">
-                              {formatPrice(item.price)} /un.
-                            </p>
+                            {/* Unit price - only for non-package items with qty > 1 */}
+                            {item.type !== "package" && item.qty > 1 && (
+                              <p className="font-body text-xs text-muted-foreground mt-1">
+                                {formatPrice(item.price)} /un.
+                              </p>
+                            )}
                           </div>
                         </motion.div>
                       ))}

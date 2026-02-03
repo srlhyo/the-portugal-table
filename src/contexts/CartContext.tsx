@@ -56,26 +56,25 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const existingPackage = items.find((i) => i.type === "package") || null;
 
   const addItem = useCallback((item: Omit<CartItem, "qty">, qty: number = 1) => {
-    // If adding a package, check if one already exists
+    // If adding a package, enforce special rules
     if (item.type === "package") {
       setItems((prev) => {
         const existing = prev.find((i) => i.type === "package");
         
-        // If same package exists, just increment qty
+        // If same package exists, do NOT increment - packages are always qty=1
         if (existing && existing.id === item.id) {
-          return prev.map((i) =>
-            i.id === item.id ? { ...i, qty: i.qty + qty } : i
-          );
+          // Return a flag to show toast (handled outside)
+          return prev; // No change, package already in cart
         }
         
         // If different package exists, trigger confirmation modal
         if (existing) {
-          setPendingPackage({ item, qty });
+          setPendingPackage({ item, qty: 1 }); // Always qty=1 for packages
           return prev; // Don't modify cart yet
         }
         
-        // No package exists, add normally
-        return [...prev, { ...item, qty }];
+        // No package exists, add with qty=1 (always)
+        return [...prev, { ...item, qty: 1 }];
       });
       return;
     }
@@ -117,7 +116,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       setItems((prev) => prev.filter((i) => i.id !== id));
     } else {
       setItems((prev) =>
-        prev.map((i) => (i.id === id ? { ...i, qty } : i))
+        prev.map((i) => {
+          if (i.id === id) {
+            // Packages are ALWAYS qty=1, never allow increment
+            const newQty = i.type === "package" ? 1 : qty;
+            return { ...i, qty: newQty };
+          }
+          return i;
+        })
       );
     }
   }, []);
