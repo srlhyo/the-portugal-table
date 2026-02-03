@@ -173,22 +173,22 @@ const Packages = () => {
               </h3>
 
               {/* Specs */}
-              <div className="flex justify-center gap-5 mb-6">
-                <div className="flex items-center gap-2 text-xs">
-                  <Ruler className="w-4 h-4 text-gold" />
+              <div className="flex flex-wrap justify-center gap-3 sm:gap-5 mb-6">
+                <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs">
+                  <Ruler className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gold flex-shrink-0" />
                   <span className={pkg.highlight ? "text-background/70" : "text-muted-foreground"}>
                     {pkg.size}
                   </span>
                 </div>
-                <div className="flex items-center gap-2 text-xs">
-                  <Sparkles className="w-4 h-4 text-gold" />
+                <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs">
+                  <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gold flex-shrink-0" />
                   <span className={pkg.highlight ? "text-background/70" : "text-muted-foreground"}>
                     {pkg.pieces}
                   </span>
                 </div>
-                <div className="flex items-center gap-2 text-xs">
-                  <Users className="w-4 h-4 text-gold" />
-                  <span className={pkg.highlight ? "text-background/70" : "text-muted-foreground"}>
+                <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs">
+                  <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gold flex-shrink-0" />
+                  <span className={`${pkg.highlight ? "text-background/70" : "text-muted-foreground"} whitespace-nowrap`}>
                     {pkg.guests}
                   </span>
                 </div>
