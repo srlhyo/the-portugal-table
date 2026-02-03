@@ -98,16 +98,24 @@ const Packages = () => {
   const { addItem } = useCart();
 
   const handleAddToCart = (pkg: typeof packages[0]) => {
-    addItem({
+    const result = addItem({
       id: pkg.id,
       name: `Pacote ${pkg.name}`,
       type: "package",
       price: pkg.price,
     });
     
-    toast.success("Adicionado ao carrinho", {
-      description: `Pacote ${pkg.name} - ${pkg.price}€`,
-    });
+    // Only show toast if package was actually added (not pending confirmation)
+    if (result === "added") {
+      toast.success("Adicionado ao carrinho", {
+        description: `Pacote ${pkg.name} - ${pkg.price}€`,
+      });
+    } else if (result === "already_in_cart") {
+      toast.info("Este pacote já está no carrinho", {
+        description: `Pacote ${pkg.name}`,
+      });
+    }
+    // If "pending_confirmation", the modal will handle the toast
   };
 
   return (

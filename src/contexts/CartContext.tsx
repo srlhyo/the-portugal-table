@@ -15,9 +15,11 @@ interface PendingPackage {
   qty: number;
 }
 
+export type AddItemResult = "added" | "already_in_cart" | "pending_confirmation";
+
 interface CartContextType {
   items: CartItem[];
-  addItem: (item: Omit<CartItem, "qty">, qty?: number) => void;
+  addItem: (item: Omit<CartItem, "qty">, qty?: number) => AddItemResult;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, qty: number) => void;
   clearCart: () => void;
@@ -55,28 +57,27 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   // Find existing package in cart
   const existingPackage = items.find((i) => i.type === "package") || null;
 
-  const addItem = useCallback((item: Omit<CartItem, "qty">, qty: number = 1) => {
+  const addItem = useCallback((item: Omit<CartItem, "qty">, qty: number = 1): AddItemResult => {
     // If adding a package, enforce special rules
     if (item.type === "package") {
-      setItems((prev) => {
-        const existing = prev.find((i) => i.type === "package");
-        
-        // If same package exists, do NOT increment - packages are always qty=1
-        if (existing && existing.id === item.id) {
-          // Return a flag to show toast (handled outside)
-          return prev; // No change, package already in cart
-        }
-        
-        // If different package exists, trigger confirmation modal
-        if (existing) {
-          setPendingPackage({ item, qty: 1 }); // Always qty=1 for packages
-          return prev; // Don't modify cart yet
-        }
-        
-        // No package exists, add with qty=1 (always)
-        return [...prev, { ...item, qty: 1 }];
-      });
-      return;
+      // Check current state synchronously
+      const currentItems = items;
+      const existing = currentItems.find((i) => i.type === "package");
+      
+      // If same package exists, do NOT increment - packages are always qty=1
+      if (existing && existing.id === item.id) {
+        return "already_in_cart";
+      }
+      
+      // If different package exists, trigger confirmation modal
+      if (existing) {
+        setPendingPackage({ item, qty: 1 }); // Always qty=1 for packages
+        return "pending_confirmation";
+      }
+      
+      // No package exists, add with qty=1 (always)
+      setItems((prev) => [...prev, { ...item, qty: 1 }]);
+      return "added";
     }
 
     // For extras, use normal logic
@@ -89,7 +90,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       }
       return [...prev, { ...item, qty }];
     });
-  }, []);
+    return "added";
+  }, [items]);
 
   const confirmPackageReplace = useCallback(() => {
     if (!pendingPackage) return;
