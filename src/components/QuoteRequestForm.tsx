@@ -26,7 +26,7 @@ interface QuoteRequestFormProps {
 
 const initialFormData: QuoteFormData = {
   nomeCompleto: "",
-  telefone: "",
+  telefone: "+351 ",
   email: "",
   tipoEvento: "",
   dataEvento: "",
@@ -34,6 +34,14 @@ const initialFormData: QuoteFormData = {
   localEvento: "",
   numeroConvidados: "",
   observacoes: "",
+};
+
+const PHONE_PREFIX = "+351 ";
+
+// Validate Portuguese mobile number: must be 9 digits starting with 9
+const isValidPortugueseMobile = (phone: string): boolean => {
+  const digitsOnly = phone.replace(/\D/g, "").slice(3); // Remove +351 and get remaining digits
+  return digitsOnly.length === 9 && digitsOnly.startsWith("9");
 };
 
 const eventTypes = [
@@ -60,14 +68,58 @@ const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
     }
   };
 
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+    
+    // Ensure prefix is always present
+    if (!value.startsWith(PHONE_PREFIX)) {
+      value = PHONE_PREFIX;
+    }
+    
+    // Extract digits after prefix
+    const afterPrefix = value.slice(PHONE_PREFIX.length);
+    const digitsOnly = afterPrefix.replace(/\D/g, "");
+    
+    // Limit to 9 digits
+    const limitedDigits = digitsOnly.slice(0, 9);
+    
+    // Format: +351 XXX XXX XXX
+    let formatted = PHONE_PREFIX;
+    if (limitedDigits.length > 0) {
+      formatted += limitedDigits.slice(0, 3);
+    }
+    if (limitedDigits.length > 3) {
+      formatted += " " + limitedDigits.slice(3, 6);
+    }
+    if (limitedDigits.length > 6) {
+      formatted += " " + limitedDigits.slice(6, 9);
+    }
+    
+    setFormData((prev) => ({ ...prev, telefone: formatted }));
+    
+    // Clear error when user types
+    if (errors.telefone) {
+      setErrors((prev) => ({ ...prev, telefone: "" }));
+    }
+  };
+
+  const handlePhoneBlur = () => {
+    // Restore prefix if field was cleared
+    if (!formData.telefone || formData.telefone.trim() === "" || formData.telefone === "+351") {
+      setFormData((prev) => ({ ...prev, telefone: PHONE_PREFIX }));
+    }
+  };
+
   const validate = (): boolean => {
     const newErrors: Partial<QuoteFormData> = {};
     
     if (!formData.nomeCompleto.trim()) {
       newErrors.nomeCompleto = "Campo obrigatório";
     }
-    if (!formData.telefone.trim()) {
+    if (!formData.telefone.trim() || formData.telefone === PHONE_PREFIX) {
       newErrors.telefone = "Campo obrigatório";
+    } else if (!isValidPortugueseMobile(formData.telefone)) {
+      newErrors.telefone = "Introduza um número de telemóvel português válido (ex.: +351 912 345 678)";
     }
     if (!formData.tipoEvento) {
       newErrors.tipoEvento = "Selecione o tipo de evento";
@@ -153,7 +205,8 @@ const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
                   type="tel"
                   name="telefone"
                   value={formData.telefone}
-                  onChange={handleChange}
+                  onChange={handlePhoneChange}
+                  onBlur={handlePhoneBlur}
                   placeholder="Telefone / WhatsApp *"
                   className={inputClasses("telefone")}
                 />
