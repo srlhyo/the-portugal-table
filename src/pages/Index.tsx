@@ -9,12 +9,14 @@ import HowItWorks from "@/components/HowItWorks";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
+import PackageReplaceModal from "@/components/PackageReplaceModal";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
       <CartDrawer />
+      <PackageReplaceModal />
       <main>
         <Hero />
         <ThreePhases />
