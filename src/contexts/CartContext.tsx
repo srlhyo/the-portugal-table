@@ -8,9 +8,10 @@ export interface CartItem {
   type: CartItemType;
   price: number;
   qty: number;
+  groupKey?: string; // For mutually exclusive extras like Bubble panels
 }
 
-interface PendingPackage {
+interface PendingItem {
   item: Omit<CartItem, "qty">;
   qty: number;
 }
@@ -28,10 +29,15 @@ interface CartContextType {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
   // Package replacement modal
-  pendingPackage: PendingPackage | null;
+  pendingPackage: PendingItem | null;
   existingPackage: CartItem | null;
   confirmPackageReplace: () => void;
   cancelPackageReplace: () => void;
+  // Bubble panel replacement modal
+  pendingBubble: PendingItem | null;
+  existingBubble: CartItem | null;
+  confirmBubbleReplace: () => void;
+  cancelBubbleReplace: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -47,7 +53,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     return [];
   });
   const [isOpen, setIsOpen] = useState(false);
-  const [pendingPackage, setPendingPackage] = useState<PendingPackage | null>(null);
+  const [pendingPackage, setPendingPackage] = useState<PendingItem | null>(null);
+  const [pendingBubble, setPendingBubble] = useState<PendingItem | null>(null);
 
   // Persist to localStorage
   useEffect(() => {
@@ -56,6 +63,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   // Find existing package in cart
   const existingPackage = items.find((i) => i.type === "package") || null;
+  
+  // Find existing Bubble panel in cart
+  const existingBubble = items.find((i) => i.groupKey === "bubble_panel") || null;
 
   // Use ref to track items for synchronous checks without causing re-renders
   const itemsRef = React.useRef(items);
@@ -86,7 +96,28 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       return "added";
     }
 
-    // For extras, use normal logic
+    // If adding a Bubble panel (groupKey = "bubble_panel"), enforce single-selection
+    if (item.groupKey === "bubble_panel") {
+      const currentItems = itemsRef.current;
+      const existing = currentItems.find((i) => i.groupKey === "bubble_panel");
+      
+      // If same Bubble panel exists, do NOT increment - always qty=1
+      if (existing && existing.id === item.id) {
+        return "already_in_cart";
+      }
+      
+      // If different Bubble panel exists, trigger confirmation modal
+      if (existing) {
+        setPendingBubble({ item, qty: 1 }); // Always qty=1 for Bubble panels
+        return "pending_confirmation";
+      }
+      
+      // No Bubble panel exists, add with qty=1
+      setItems((prev) => [...prev, { ...item, qty: 1 }]);
+      return "added";
+    }
+
+    // For other extras, use normal logic
     setItems((prev) => {
       const existing = prev.find((i) => i.id === item.id);
       if (existing) {
@@ -115,6 +146,22 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setPendingPackage(null);
   }, []);
 
+  const confirmBubbleReplace = useCallback(() => {
+    if (!pendingBubble) return;
+    
+    setItems((prev) => {
+      // Remove existing Bubble panel and add new one
+      const withoutBubble = prev.filter((i) => i.groupKey !== "bubble_panel");
+      return [...withoutBubble, { ...pendingBubble.item, qty: pendingBubble.qty }];
+    });
+    
+    setPendingBubble(null);
+  }, [pendingBubble]);
+
+  const cancelBubbleReplace = useCallback(() => {
+    setPendingBubble(null);
+  }, []);
+
   const removeItem = useCallback((id: string) => {
     setItems((prev) => prev.filter((i) => i.id !== id));
   }, []);
@@ -126,8 +173,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       setItems((prev) =>
         prev.map((i) => {
           if (i.id === id) {
-            // Packages are ALWAYS qty=1, never allow increment
-            const newQty = i.type === "package" ? 1 : qty;
+            // Packages and Bubble panels are ALWAYS qty=1, never allow increment
+            const newQty = (i.type === "package" || i.groupKey === "bubble_panel") ? 1 : qty;
             return { ...i, qty: newQty };
           }
           return i;
@@ -159,6 +206,10 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         existingPackage,
         confirmPackageReplace,
         cancelPackageReplace,
+        pendingBubble,
+        existingBubble,
+        confirmBubbleReplace,
+        cancelBubbleReplace,
       }}
     >
       {children}

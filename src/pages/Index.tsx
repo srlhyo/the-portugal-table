@@ -10,6 +10,7 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import CartDrawer from "@/components/CartDrawer";
 import PackageReplaceModal from "@/components/PackageReplaceModal";
+import BubbleReplaceModal from "@/components/BubbleReplaceModal";
 
 const Index = () => {
   return (
@@ -17,6 +18,7 @@ const Index = () => {
       <Header />
       <CartDrawer />
       <PackageReplaceModal />
+      <BubbleReplaceModal />
       <main>
         <Hero />
         <ThreePhases />

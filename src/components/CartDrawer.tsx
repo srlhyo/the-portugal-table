@@ -99,7 +99,7 @@ const CartDrawer = () => {
                                   {item.name}
                                 </p>
                                 <p className="font-body text-xs text-muted-foreground capitalize">
-                                  {item.type === "package" ? "Pacote" : "Extra"}
+                                  {item.type === "package" ? "Pacote" : item.groupKey === "bubble_panel" ? "Bubble Decor" : "Extra"}
                                 </p>
                               </div>
                               <button
@@ -112,8 +112,8 @@ const CartDrawer = () => {
                             </div>
 
                             <div className="flex items-center justify-between">
-                              {/* Quantity controls - only for non-package items */}
-                              {item.type !== "package" ? (
+                              {/* Quantity controls - only for non-package and non-bubble items */}
+                              {item.type !== "package" && item.groupKey !== "bubble_panel" ? (
                                 <div className="flex items-center gap-2 border border-border bg-background">
                                   <button
                                     onClick={() => updateQuantity(item.id, item.qty - 1)}
@@ -135,7 +135,7 @@ const CartDrawer = () => {
                                 </div>
                               ) : (
                                 <span className="font-body text-xs text-muted-foreground italic">
-                                  Pacote base
+                                  {item.type === "package" ? "Pacote base" : "Painel único"}
                                 </span>
                               )}
 
@@ -145,8 +145,8 @@ const CartDrawer = () => {
                               </p>
                             </div>
 
-                            {/* Unit price - only for non-package items with qty > 1 */}
-                            {item.type !== "package" && item.qty > 1 && (
+                            {/* Unit price - only for items with qty > 1 that allow quantity changes */}
+                            {item.type !== "package" && item.groupKey !== "bubble_panel" && item.qty > 1 && (
                               <p className="font-body text-xs text-muted-foreground mt-1">
                                 {formatPrice(item.price)} /un.
                               </p>
