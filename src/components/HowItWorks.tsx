@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { MessageCircle, FileText, CreditCard, PartyPopper } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
 
 const steps = [
   {
@@ -31,6 +32,7 @@ const steps = [
 ];
 
 const HowItWorks = () => {
+  const { setIsOpen } = useCart();
   const headerRef = useRef(null);
   const isHeaderInView = useInView(headerRef, { once: true, margin: "-100px" });
 
@@ -111,12 +113,12 @@ const HowItWorks = () => {
           <p className="font-body text-sm text-muted-foreground mb-6 font-light">
             Pronta para criar o seu momento especial?
           </p>
-          <a
-            href="#contacto"
-            className="inline-block btn-gold-flat"
+          <button
+            onClick={() => setIsOpen(true)}
+            className="btn-gold-flat"
           >
-            Pedir Orçamento
-          </a>
+            Abrir Carrinho
+          </button>
         </motion.div>
       </div>
     </section>

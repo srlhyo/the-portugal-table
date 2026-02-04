@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useCart, CartItem } from "@/contexts/CartContext";
+import { useCart } from "@/contexts/CartContext";
 import { formatPrice } from "@/data/extras";
 import { motion } from "framer-motion";
-import { ArrowLeft, CheckCircle, Calendar, MapPin, Users, Phone, Mail, User, FileText } from "lucide-react";
+import { ArrowLeft, Calendar, User, FileText, Loader2 } from "lucide-react";
 
 interface QuoteFormData {
   // Dados do Cliente
@@ -56,6 +56,8 @@ const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
   const { items, subtotal } = useCart();
   const [formData, setFormData] = useState<QuoteFormData>(initialFormData);
   const [errors, setErrors] = useState<Partial<QuoteFormData>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -66,6 +68,7 @@ const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
     if (errors[name as keyof QuoteFormData]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
+    setSubmitError(null);
   };
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,6 +104,7 @@ const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
     if (errors.telefone) {
       setErrors((prev) => ({ ...prev, telefone: "" }));
     }
+    setSubmitError(null);
   };
 
   const handlePhoneBlur = () => {
@@ -127,6 +131,12 @@ const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
     if (!formData.dataEvento) {
       newErrors.dataEvento = "Campo obrigatório";
     }
+    if (!formData.localEvento.trim()) {
+      newErrors.localEvento = "Campo obrigatório";
+    }
+    if (!formData.numeroConvidados || parseInt(formData.numeroConvidados) < 1) {
+      newErrors.numeroConvidados = "Indique o número de convidados";
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -140,11 +150,64 @@ const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
     return `DLM-${year}${month}-${random}`;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validate()) {
+    if (!validate()) return;
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      // Build payload for Netlify function
+      const packageItem = items.find((item) => item.type === "package");
+      const extras = items
+        .filter((item) => item.type === "extra" && item.groupKey !== "bubble_panel")
+        .map((item) => `${item.name} x${item.qty}`);
+      const bubbleItem = items.find((item) => item.groupKey === "bubble_panel");
+      if (bubbleItem) {
+        extras.push(bubbleItem.name);
+      }
+
+      const payload = {
+        nome: formData.nomeCompleto.trim(),
+        whatsapp: formData.telefone.replace(/\s/g, ""), // Remove spaces for +3519XXXXXXXX
+        email: formData.email.trim() || undefined,
+        tipo_evento: eventTypes.find((t) => t.value === formData.tipoEvento)?.label || formData.tipoEvento,
+        data_evento: formData.dataEvento,
+        hora_evento: formData.horarioPrevisto || undefined,
+        local_evento: formData.localEvento.trim(),
+        num_convidados: parseInt(formData.numeroConvidados),
+        pacote: packageItem?.name || "Sem pacote",
+        itens: {
+          ...(extras.length > 0 ? { extras } : {}),
+        },
+        subtotal_estimado: subtotal,
+        observacoes: formData.observacoes.trim() || undefined,
+      };
+
+      const response = await fetch("/.netlify/functions/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || result.ok === false) {
+        throw new Error(result.error || result.errors?.join(", ") || "Erro ao submeter pedido");
+      }
+
       const referenceNumber = generateReferenceNumber();
       onSubmit(formData, referenceNumber);
+    } catch (error) {
+      console.error("Submit error:", error);
+      setSubmitError(
+        error instanceof Error
+          ? error.message
+          : "Falha ao processar o pedido. Tente novamente ou contacte-nos via WhatsApp."
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -284,9 +347,12 @@ const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
                   name="localEvento"
                   value={formData.localEvento}
                   onChange={handleChange}
-                  placeholder="Local do evento"
+                  placeholder="Local do evento *"
                   className={inputClasses("localEvento")}
                 />
+                {errors.localEvento && (
+                  <p className="text-destructive text-xs mt-1 font-body">{errors.localEvento}</p>
+                )}
               </div>
               <div>
                 <input
@@ -294,10 +360,13 @@ const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
                   name="numeroConvidados"
                   value={formData.numeroConvidados}
                   onChange={handleChange}
-                  placeholder="Número de convidados"
+                  placeholder="Número de convidados *"
                   min="1"
                   className={inputClasses("numeroConvidados")}
                 />
+                {errors.numeroConvidados && (
+                  <p className="text-destructive text-xs mt-1 font-body">{errors.numeroConvidados}</p>
+                )}
               </div>
             </div>
           </section>
@@ -339,12 +408,27 @@ const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
             </div>
           </section>
 
+          {/* Submit Error */}
+          {submitError && (
+            <div className="bg-destructive/10 border border-destructive/30 p-3 text-center">
+              <p className="font-body text-sm text-destructive">{submitError}</p>
+            </div>
+          )}
+
           {/* Submit Button */}
           <button
             type="submit"
-            className="btn-gold-flat font-body text-[11px] uppercase tracking-[0.15em] py-4 w-full"
+            disabled={isSubmitting}
+            className="btn-gold-flat font-body text-[11px] uppercase tracking-[0.15em] py-4 w-full disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
-            Submeter pedido de orçamento
+            {isSubmitting ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                A processar...
+              </>
+            ) : (
+              "Submeter pedido de orçamento"
+            )}
           </button>
 
           <p className="font-body text-[10px] text-muted-foreground/70 text-center">
