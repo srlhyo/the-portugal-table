@@ -87,16 +87,25 @@ const ExtrasSection = () => {
     const bubbleItem = bubbleDecorItems.find(b => b.id === selectedBubble);
     if (!bubbleItem) return;
 
-    addItem({
+    const result = addItem({
       id: bubbleItem.id,
       name: `Bubble Decor - ${bubbleItem.name}`,
       type: "extra",
       price: bubbleItem.price,
+      groupKey: "bubble_panel", // Mark as Bubble panel for single-selection enforcement
     }, 1);
 
-    toast.success("Adicionado ao carrinho", {
-      description: `Bubble Decor - ${bubbleItem.name}`,
-    });
+    // Only show toast if successfully added (not pending confirmation or already in cart)
+    if (result === "added") {
+      toast.success("Adicionado ao carrinho", {
+        description: `Bubble Decor - ${bubbleItem.name}`,
+      });
+    } else if (result === "already_in_cart") {
+      toast.info("Já no carrinho", {
+        description: `Bubble Decor - ${bubbleItem.name}`,
+      });
+    }
+    // If "pending_confirmation", the modal will handle feedback
   };
 
   const toggleShowAll = () => {

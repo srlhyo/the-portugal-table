@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, ShoppingBag } from "lucide-react";
 import tableCandles from "@/assets/table-candles.jpg";
 import { WHATSAPP_URL, whatsappLinkProps } from "@/hooks/use-whatsapp";
+import { useCart } from "@/contexts/CartContext";
 
 const Hero = () => {
+  const { setIsOpen } = useCart();
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -60,13 +62,14 @@ const Hero = () => {
               transition={{ delay: 0.7, duration: 0.6 }}
               className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10"
             >
-              {/* Primary CTA - Quote */}
-              <a
-                href="#contacto"
-                className="inline-block bg-foreground text-background font-body text-sm md:text-base px-8 py-4 hover:bg-foreground/90 transition-colors duration-300 w-full sm:w-auto"
+              {/* Primary CTA - Open Cart */}
+              <button
+                onClick={() => setIsOpen(true)}
+                className="inline-flex items-center justify-center gap-2 bg-foreground text-background font-body text-sm md:text-base px-8 py-4 hover:bg-foreground/90 transition-colors duration-300 w-full sm:w-auto"
               >
-                Pedir Orçamento
-              </a>
+                <ShoppingBag className="w-4 h-4" />
+                Abrir Carrinho
+              </button>
 
               {/* WhatsApp CTA */}
               <a
