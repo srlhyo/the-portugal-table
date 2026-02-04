@@ -210,7 +210,7 @@ export const handler: Handler = async (event) => {
     return { statusCode: 200, body: text };
   } catch (error) {
     console.error("create-order error:", error);
-    return { statusCode: 500, body: JSON.stringify({ ok: false, error: "Failed to create order" }) };
+    return { statusCode: 500, body: JSON.stringify({ ok: false, error: "Falha ao processar o pedido. Tente novamente ou contacte-nos via WhatsApp." }) };
   }
 };
 
