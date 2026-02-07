@@ -197,8 +197,8 @@ const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
         throw new Error(result.error || result.errors?.join(", ") || "Erro ao submeter pedido");
       }
 
-      const referenceNumber = generateReferenceNumber();
-      onSubmit(formData, referenceNumber);
+      // const referenceNumber = generateReferenceNumber();
+      onSubmit(formData, result.id_pedido);
     } catch (error) {
       console.error("Submit error:", error);
       setSubmitError(
