@@ -15,7 +15,7 @@ interface ConfirmationData {
 }
 
 const CartDrawer = () => {
-  const { items, isOpen, setIsOpen, updateQuantity, removeItem, subtotal, totalItems } = useCart();
+  const { items, isOpen, setIsOpen, updateQuantity, removeItem, subtotal, totalItems, clearCart } = useCart();
   const [currentStep, setCurrentStep] = useState<CartStep>("cart");
   const [confirmationData, setConfirmationData] = useState<ConfirmationData | null>(null);
 
@@ -33,6 +33,7 @@ const CartDrawer = () => {
       referenceNumber,
       eventDate: formData.dataEvento,
     });
+    clearCart();
     setCurrentStep("confirmation");
   };
 
