@@ -50,8 +50,8 @@ const Hero = () => {
               transition={{ delay: 0.5, duration: 0.8 }}
               className="font-body text-base md:text-lg text-muted-foreground mb-10 max-w-md mx-auto leading-relaxed"
             >
-              Levamos um buffet finger food totalmente montado e 
-              decorado ao seu espaço.
+              Levamos ao seu espaço um buffet finger food totalmente montado e
+              decorado.
             </motion.p>
 
             {/* CTA Buttons */}
