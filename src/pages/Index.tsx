@@ -5,6 +5,7 @@ import Services from "@/components/Services";
 import Packages from "@/components/Packages";
 import ExtrasSection from "@/components/ExtrasSection";
 import Gallery from "@/components/Gallery";
+import FAQ from "@/components/FAQ";
 import HowItWorks from "@/components/HowItWorks";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -28,6 +29,7 @@ const Index = () => {
           <ExtrasSection />
         </section>
         <Gallery />
+        <FAQ />
         <HowItWorks />
         <Contact />
       </main>
