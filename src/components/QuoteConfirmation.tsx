@@ -55,11 +55,14 @@ const QuoteConfirmation = ({ referenceNumber, eventDate, onClose }: QuoteConfirm
           <CheckCircle className="w-8 h-8 text-gold" />
         </motion.div>
         <h2 className="font-display text-2xl md:text-3xl text-foreground font-light mb-2">
-          Recebemos o seu pedido!
+          Pedido enviado com sucesso!
         </h2>
         <p className="font-body text-sm text-muted-foreground max-w-sm mx-auto">
-          O seu pedido de orçamento encontra-se agora em processamento.
-          Entraremos em contacto brevemente com a confirmação de disponibilidade e valores.
+          A sua data será agora verificada pela nossa equipa.
+          Entraremos em contacto brevemente com a confirmação e todos os detalhes finais.
+        </p>
+        <p className="font-body text-xs text-muted-foreground/70 max-w-sm mx-auto mt-3">
+          Não é necessário enviar mensagem adicional — responderemos diretamente.
         </p>
       </div>
 

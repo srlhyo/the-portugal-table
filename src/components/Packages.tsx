@@ -257,7 +257,7 @@ const Packages = () => {
                 }`}
               >
                 <ShoppingCart className="w-4 h-4" />
-                Adicionar ao carrinho
+                Reservar este pacote
               </button>
             </motion.div>
           ))}

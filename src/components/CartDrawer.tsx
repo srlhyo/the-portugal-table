@@ -173,7 +173,7 @@ const CartDrawer = () => {
                     onClick={() => setCurrentStep("form")}
                     className="block text-center btn-gold-flat font-body text-[11px] uppercase tracking-[0.15em] py-4 w-full"
                   >
-                    Finalizar pedido
+                    Submeter pedido de reserva
                   </button>
                 </div>
               )}

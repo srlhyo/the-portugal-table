@@ -7,26 +7,26 @@ import { useCart } from "@/contexts/CartContext";
 const steps = [
   {
     number: "01",
-    title: "Pedido",
-    description: "Escolha o que pretende: buffet, decoração ou ambos. Contacte-nos por formulário ou WhatsApp.",
+    title: "Escolha o seu evento",
+    description: "Selecione o pacote pretendido e adicione os extras desejados ao carrinho.",
     icon: MessageCircle
   },
   {
     number: "02",
-    title: "Orçamento",
-    description: "Recebe proposta personalizada em 24 horas com todas as opções e extras disponíveis.",
+    title: "Submeta o pedido",
+    description: "Indique a data e os detalhes do evento no pedido.",
     icon: FileText
   },
   {
     number: "03",
-    title: "Confirmação",
-    description: "Reserva a data com 50% de sinal. O restante é pago no dia do evento.",
+    title: "Confirmação de disponibilidade",
+    description: "Verificamos a agenda e enviamos a confirmação e todos os detalhes finais.",
     icon: CreditCard
   },
   {
     number: "04",
-    title: "Evento",
-    description: "Chegamos, montamos tudo e criamos a experiência. No fim, desmontamos. O cliente só desfruta.",
+    title: "Dia do evento",
+    description: "Chegamos, montamos tudo e criamos a experiência. No final desmontamos — o cliente só desfruta.",
     icon: PartyPopper
   },
 ];

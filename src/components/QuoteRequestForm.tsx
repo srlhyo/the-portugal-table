@@ -427,7 +427,7 @@ const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
                 A processar...
               </>
             ) : (
-              "Submeter pedido de orçamento"
+              "Verificar disponibilidade da data"
             )}
           </button>
 
