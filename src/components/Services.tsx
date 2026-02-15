@@ -16,7 +16,7 @@ const services = [
   {
     icon: Flower2,
     title: "Decoração de Mesas",
-    description: "Mesa posta e decoração (sem comida), para pedidos de noivado, jantares especiais, eventos intimistas e datas importantes. Inclui loiças, guardanapos, centros de mesa, flores e styling visual.",
+    description: "Mesa posta e decoração (sem buffet), para pedidos de noivado, jantares especiais, eventos intimistas e datas importantes. Inclui loiças, guardanapos, centros de mesa, flores e styling visual.",
     image: tableCandles,
   },
   {

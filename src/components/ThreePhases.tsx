@@ -36,9 +36,12 @@ const ThreePhases = () => {
           className="text-center mb-16"
         >
           <span className="text-gold text-sm tracking-[0.3em] uppercase font-body mb-4 block">
-            Como funciona
+            Nós tratamos de tudo
           </span>
-          <div className="w-12 h-px bg-gold mx-auto" />
+          <div className="w-12 h-px bg-gold mx-auto mb-6" />
+          <p className="font-body text-sm md:text-base text-muted-foreground leading-relaxed font-light max-w-xl mx-auto">
+            Chegamos com tudo preparado, montamos no local e no final desmontamos. O cliente apenas desfruta do evento.
+          </p>
         </motion.div>
 
         {/* Three Phases Grid */}

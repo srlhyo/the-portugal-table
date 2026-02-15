@@ -1,17 +1,23 @@
-import { useCart } from "@/contexts/CartContext";
 import { formatPrice } from "@/data/extras";
 import { motion } from "framer-motion";
 import { CheckCircle, Calendar, FileText, Phone } from "lucide-react";
 
+interface OrderItem {
+  id: string;
+  name: string;
+  qty: number;
+  price: number;
+}
+
 interface QuoteConfirmationProps {
   referenceNumber: string;
   eventDate: string;
+  orderItems: OrderItem[];
+  orderSubtotal: number;
   onClose: () => void;
 }
 
-const QuoteConfirmation = ({ referenceNumber, eventDate, onClose }: QuoteConfirmationProps) => {
-  const { items, subtotal, clearCart } = useCart();
-
+const QuoteConfirmation = ({ referenceNumber, eventDate, orderItems, orderSubtotal, onClose }: QuoteConfirmationProps) => {
   const formatEventDate = (dateStr: string): string => {
     if (!dateStr) return "A definir";
     const date = new Date(dateStr);
@@ -23,16 +29,11 @@ const QuoteConfirmation = ({ referenceNumber, eventDate, onClose }: QuoteConfirm
     });
   };
 
-  const handleClose = () => {
-    clearCart();
-    onClose();
-  };
-
   const handleWhatsApp = () => {
-    const cartSummary = items
+    const cartSummary = orderItems
       .map((item) => `• ${item.name} (${item.qty}x) - ${formatPrice(item.price * item.qty)}`)
       .join("%0A");
-    const message = `Olá! Acabei de submeter um pedido de orçamento.%0A%0AReferência: ${referenceNumber}%0AData do evento: ${formatEventDate(eventDate)}%0A%0AResumo:%0A${cartSummary}%0A%0ASubtotal estimado: ${formatPrice(subtotal)}`;
+    const message = `Olá! Acabei de submeter um pedido de orçamento.%0A%0AReferência: ${referenceNumber}%0AData do evento: ${formatEventDate(eventDate)}%0A%0AResumo:%0A${cartSummary}%0A%0ASubtotal estimado: ${formatPrice(orderSubtotal)}`;
     const whatsappUrl = `https://wa.me/351912345678?text=${message}`;
     window.open(whatsappUrl, "_blank");
   };
@@ -98,7 +99,7 @@ const QuoteConfirmation = ({ referenceNumber, eventDate, onClose }: QuoteConfirm
             </h3>
           </div>
           <div className="p-4 space-y-3">
-            {items.map((item) => (
+            {orderItems.map((item) => (
               <div key={item.id} className="flex justify-between font-body text-sm">
                 <span className="text-foreground">
                   {item.name}{" "}
@@ -114,7 +115,7 @@ const QuoteConfirmation = ({ referenceNumber, eventDate, onClose }: QuoteConfirm
                 Subtotal estimado
               </span>
               <span className="font-display text-lg text-gold">
-                {formatPrice(subtotal)}
+                {formatPrice(orderSubtotal)}
               </span>
             </div>
           </div>
@@ -135,7 +136,7 @@ const QuoteConfirmation = ({ referenceNumber, eventDate, onClose }: QuoteConfirm
           Falar no WhatsApp
         </button>
         <button
-          onClick={handleClose}
+          onClick={onClose}
           className="btn-outline-gold font-body text-[11px] uppercase tracking-[0.15em] py-3 w-full"
         >
           Fechar

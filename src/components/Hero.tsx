@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
-import { MessageCircle, ShoppingBag } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 import tableCandles from "@/assets/table-candles.jpg";
-import { WHATSAPP_URL, whatsappLinkProps } from "@/hooks/use-whatsapp";
 import { useCart } from "@/contexts/CartContext";
 
 const Hero = () => {
@@ -64,22 +63,20 @@ const Hero = () => {
             >
               {/* Primary CTA - Open Cart */}
               <button
-                onClick={() => setIsOpen(true)}
+                onClick={() => {
+                  setIsOpen(true);
+                  setTimeout(() => {
+                    const packagesSection = document.getElementById('pacotes');
+                    if (packagesSection) {
+                      packagesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }, 100);
+                }}
                 className="inline-flex items-center justify-center gap-2 bg-foreground text-background font-body text-sm md:text-base px-8 py-4 hover:bg-foreground/90 transition-colors duration-300 w-full sm:w-auto"
               >
                 <ShoppingBag className="w-4 h-4" />
-                Abrir Carrinho
+                Começar reserva
               </button>
-
-              {/* WhatsApp CTA */}
-              <a
-                href={WHATSAPP_URL}
-                {...whatsappLinkProps}
-                className="inline-flex items-center justify-center gap-2 border border-gold text-foreground font-body text-sm md:text-base px-8 py-4 hover:bg-gold/10 transition-colors duration-300 w-full sm:w-auto group"
-              >
-                <MessageCircle className="w-4 h-4 text-gold group-hover:scale-110 transition-transform" />
-                <span>WhatsApp</span>
-              </a>
             </motion.div>
 
             {/* Three Features with Gold Diamonds */}

@@ -46,8 +46,11 @@ const Contact = () => {
             <ShoppingCart className="w-4 h-4" />
             Verificar disponibilidade da minha data
           </button>
-          <p className="font-body text-xs text-primary-foreground/50 mb-10">
+          <p className="font-body text-xs text-primary-foreground/50 mb-3">
             Sem pagamento imediato e sem compromisso.
+          </p>
+          <p className="font-body text-xs text-primary-foreground/50 mb-10">
+            Respondemos normalmente em menos de 24h.
           </p>
 
           {/* Secondary CTA */}

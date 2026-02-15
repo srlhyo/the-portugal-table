@@ -9,6 +9,17 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { totalItems, setIsOpen } = useCart();
 
+  const handleOpenCart = useCallback(() => {
+    setIsOpen(true);
+    // Scroll to packages section when cart opens from CTA
+    setTimeout(() => {
+      const packagesSection = document.getElementById('pacotes');
+      if (packagesSection) {
+        packagesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
+  }, [setIsOpen]);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -18,12 +29,11 @@ const Header = () => {
   }, []);
 
   const navItems = [
-    { label: "Serviços", href: "#servicos" },
-    { label: "Pacotes", href: "#pacotes" },
+    { label: "O que fazemos", href: "#servicos" },
+    { label: "Pacotes & Preços", href: "#pacotes" },
     { label: "Extras", href: "#extras" },
     { label: "Galeria", href: "#galeria" },
-    { label: "Como Funciona", href: "#como-funciona" },
-    { label: "Contacto", href: "#contacto" },
+    { label: "Como reservar", href: "#como-funciona" },
   ];
 
   // Smooth scroll handler that accounts for navbar height
@@ -83,8 +93,15 @@ const Header = () => {
             ))}
           </div>
 
-          {/* Right side: Cart only */}
-          <div className="hidden lg:flex items-center">
+          {/* Right side: CTA + Cart */}
+          <div className="hidden lg:flex items-center gap-4">
+            {/* CTA Button */}
+            <button
+              onClick={() => handleOpenCart()}
+              className="btn-gold-flat font-body text-[10px] uppercase tracking-[0.15em] px-5 py-2.5"
+            >
+              Ver disponibilidade
+            </button>
             {/* Cart Button */}
             <button
               onClick={() => setIsOpen(true)}

@@ -87,7 +87,8 @@ const packages = [
     includes: [
       "Decoração incluída",
       "Bebida não alcoólica servida em copos decorativos",
-      "Água aromatizada como elemento decorativo da mesa"
+      "Água aromatizada como elemento decorativo da mesa",
+      "2 elementos de staff para serviço e reposição durante o evento"
     ]
   },
 ];

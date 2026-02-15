@@ -12,6 +12,8 @@ type CartStep = "cart" | "form" | "confirmation";
 interface ConfirmationData {
   referenceNumber: string;
   eventDate: string;
+  orderItems: Array<{ id: string; name: string; qty: number; price: number }>;
+  orderSubtotal: number;
 }
 
 const CartDrawer = () => {
@@ -29,9 +31,12 @@ const CartDrawer = () => {
   };
 
   const handleFormSubmit = (formData: { dataEvento: string }, referenceNumber: string) => {
+    // Capture items and subtotal BEFORE clearing
     setConfirmationData({
       referenceNumber,
       eventDate: formData.dataEvento,
+      orderItems: items.map(i => ({ id: i.id, name: i.name, qty: i.qty, price: i.price })),
+      orderSubtotal: subtotal,
     });
     clearCart();
     setCurrentStep("confirmation");
@@ -75,11 +80,14 @@ const CartDrawer = () => {
                       className="flex flex-col items-center justify-center h-full text-center px-4"
                     >
                       <ShoppingBag className="w-16 h-16 text-muted-foreground/30 mb-4" />
-                      <p className="font-body text-muted-foreground">
-                        O seu carrinho está vazio
+                      <p className="font-body text-foreground font-medium mb-2">
+                        Comece por escolher um pacote.
                       </p>
-                      <p className="font-body text-sm text-muted-foreground/70 mt-2">
-                        Adicione pacotes ou extras para começar
+                      <p className="font-body text-sm text-muted-foreground">
+                        Selecione o pacote ideal na secção "Pacotes &amp; Preços".
+                      </p>
+                      <p className="font-body text-sm text-muted-foreground/70 mt-1">
+                        Depois poderá adicionar extras e indicar a data do evento.
                       </p>
                     </motion.div>
                   ) : (
@@ -140,16 +148,16 @@ const CartDrawer = () => {
                                 </span>
                               )}
 
-                              {/* Line subtotal */}
+                              {/* Line total (qty × unit price) */}
                               <p className="font-body text-sm font-medium text-gold">
-                                {formatPrice(item.price)}
+                                {formatPrice(item.price * item.qty)}
                               </p>
                             </div>
 
-                            {/* Unit price - only for items with qty > 1 that allow quantity changes */}
-                            {item.type !== "package" && item.groupKey !== "bubble_panel" && item.qty > 1 && (
+                            {/* Unit price - show when qty > 1 */}
+                            {item.qty > 1 && (
                               <p className="font-body text-xs text-muted-foreground mt-1">
-                                {formatPrice(item.price)} /un.
+                                {formatPrice(item.price)}/un.
                               </p>
                             )}
                           </div>
@@ -169,6 +177,12 @@ const CartDrawer = () => {
                       {formatPrice(subtotal)}
                     </span>
                   </div>
+                  <p className="font-body text-[10px] text-muted-foreground/70 text-center">
+                    O valor final será confirmado após verificação da disponibilidade da data.
+                  </p>
+                  <p className="font-body text-xs text-muted-foreground text-center">
+                    No próximo passo irá indicar a data e os detalhes do evento.
+                  </p>
                   <button
                     onClick={() => setCurrentStep("form")}
                     className="block text-center btn-gold-flat font-body text-[11px] uppercase tracking-[0.15em] py-4 w-full"
@@ -193,6 +207,8 @@ const CartDrawer = () => {
               key="confirmation"
               referenceNumber={confirmationData.referenceNumber}
               eventDate={confirmationData.eventDate}
+              orderItems={confirmationData.orderItems}
+              orderSubtotal={confirmationData.orderSubtotal}
               onClose={handleConfirmationClose}
             />
           )}
