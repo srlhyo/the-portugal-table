@@ -352,7 +352,7 @@ const ExtrasSection = () => {
                           }`}
                         >
                           <ShoppingCart className="w-3 h-3" />
-                          Adicionar
+                          Incluir no evento
                         </button>
                       </div>
                     </div>

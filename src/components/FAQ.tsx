@@ -120,7 +120,7 @@ const FAQ = () => {
           className="text-center mt-20"
         >
           <p className="font-body text-sm text-muted-foreground mb-8 font-light max-w-lg mx-auto">
-            Ainda tem dúvidas? Pode submeter o pedido e nós confirmamos a disponibilidade da data.
+            Ainda com dúvidas? Pode submeter o pedido e confirmamos a disponibilidade da sua data.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button

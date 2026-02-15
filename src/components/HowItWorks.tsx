@@ -51,7 +51,7 @@ const HowItWorks = () => {
             Processo Simples
           </span>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mb-6 font-light">
-            Como Funciona
+            Como Reservar
           </h2>
           <div className="separator-gold mx-auto mb-8" />
           <p className="font-body text-sm md:text-base text-muted-foreground leading-relaxed font-light">
