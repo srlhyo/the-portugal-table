@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { ShoppingCart } from "lucide-react";
+import { ClipboardList } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -127,7 +127,7 @@ const FAQ = () => {
               onClick={() => setIsOpen(true)}
               className="btn-gold-flat flex items-center justify-center gap-2"
             >
-              <ShoppingCart className="w-4 h-4" />
+              <ClipboardList className="w-4 h-4" />
               Verificar disponibilidade da minha data
             </button>
             <a
