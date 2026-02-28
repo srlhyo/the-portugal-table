@@ -8,7 +8,7 @@ const steps = [
   {
     number: "01",
     title: "Escolha o seu evento",
-    description: "Selecione o pacote pretendido e adicione os extras desejados ao carrinho.",
+    description: "Selecione o pacote pretendido e adicione os extras desejados à sua proposta.",
     icon: MessageCircle
   },
   {
@@ -62,7 +62,7 @@ const HowItWorks = () => {
         {/* Steps - Horizontal Timeline */}
         <div className="grid md:grid-cols-4 gap-10 lg:gap-6 relative">
           {/* Connecting Line - Desktop */}
-          <div 
+          <div
             className="hidden md:block absolute top-8 left-[12.5%] right-[12.5%] h-px z-0 bg-gold/25"
           />
 
@@ -76,7 +76,7 @@ const HowItWorks = () => {
               className="relative z-10 text-center"
             >
               {/* Number Square - Flat, no gradient */}
-              <div 
+              <div
                 className="w-16 h-16 mx-auto mb-8 flex items-center justify-center step-number-gold"
               >
                 <span className="font-display text-2xl font-light">
@@ -117,7 +117,7 @@ const HowItWorks = () => {
             onClick={() => setIsOpen(true)}
             className="btn-gold-flat"
           >
-            Abrir Carrinho
+            Abrir Proposta
           </button>
         </motion.div>
       </div>

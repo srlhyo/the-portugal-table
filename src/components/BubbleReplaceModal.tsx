@@ -36,12 +36,12 @@ const BubbleReplaceModal = () => {
             Alterar painel?
           </AlertDialogTitle>
           <AlertDialogDescription className="font-body text-muted-foreground">
-            Já tem um painel Bubble no carrinho.
+            Já tem um painel Bubble na sua proposta.
             <br />
             Deseja substituir pelo painel selecionado?
           </AlertDialogDescription>
         </AlertDialogHeader>
-        
+
         {existingBubble && pendingBubble && (
           <div className="my-4 space-y-3">
             <div className="flex items-center justify-between p-3 bg-muted/30 border border-border">
@@ -65,13 +65,13 @@ const BubbleReplaceModal = () => {
         )}
 
         <AlertDialogFooter className="gap-3 sm:gap-2">
-          <AlertDialogCancel 
+          <AlertDialogCancel
             onClick={handleCancel}
             className="font-body text-[11px] uppercase tracking-[0.15em] border-border hover:bg-muted"
           >
             Cancelar
           </AlertDialogCancel>
-          <AlertDialogAction 
+          <AlertDialogAction
             onClick={handleConfirm}
             className="btn-gold-flat font-body text-[11px] uppercase tracking-[0.15em]"
           >

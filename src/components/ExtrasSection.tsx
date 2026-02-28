@@ -43,8 +43,8 @@ const ExtrasSection = () => {
   const { addItem } = useCart();
 
   const hasHiddenCategories = extrasCategories.length > DEFAULT_VISIBLE_COUNT;
-  const visibleCategories = showAllCategories 
-    ? extrasCategories 
+  const visibleCategories = showAllCategories
+    ? extrasCategories
     : extrasCategories.slice(0, DEFAULT_VISIBLE_COUNT);
 
   const handleOpenCategory = (category: ExtraCategory) => {
@@ -162,7 +162,7 @@ const ExtrasSection = () => {
                     alt={category.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div 
+                  <div
                     className="absolute inset-0 flex items-end transition-all duration-300"
                     style={{
                       background: 'linear-gradient(to top, hsla(30, 15%, 8%, 0.85) 0%, hsla(30, 15%, 8%, 0.3) 60%, transparent 100%)'
@@ -221,11 +221,10 @@ const ExtrasSection = () => {
               {bubbleDecorItems.map((item) => (
                 <label
                   key={item.id}
-                  className={`flex items-center justify-between p-4 border cursor-pointer transition-all duration-300 ${
-                    selectedBubble === item.id
+                  className={`flex items-center justify-between p-4 border cursor-pointer transition-all duration-300 ${selectedBubble === item.id
                       ? "border-gold bg-gold/5"
                       : "border-border hover:border-gold/40"
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center gap-3">
                     <input
@@ -255,9 +254,9 @@ const ExtrasSection = () => {
               <button
                 onClick={handleAddBubbleToCart}
                 className="btn-gold-flat font-body text-[11px] uppercase tracking-[0.15em] py-3 px-8"
-                aria-label="Adicionar Bubble Deluxe - Este item será adicionado ao carrinho como extra"
+                aria-label="Adicionar Bubble Deluxe - Este item será adicionado à sua proposta como extra"
               >
-                Adicionar Bubble Deluxe à Proposta
+                Adicionar Bubble Deluxe à proposta
               </button>
               <p className="font-body text-[10px] text-muted-foreground/60 mt-2">
                 Este extra será incluído no seu pedido de orçamento
@@ -345,11 +344,10 @@ const ExtrasSection = () => {
                         <button
                           onClick={() => handleAddToCart(item)}
                           disabled={qty === 0}
-                          className={`flex items-center gap-2 px-4 py-2 font-body text-[10px] uppercase tracking-[0.12em] transition-all duration-300 ${
-                            qty === 0
+                          className={`flex items-center gap-2 px-4 py-2 font-body text-[10px] uppercase tracking-[0.12em] transition-all duration-300 ${qty === 0
                               ? "bg-muted text-muted-foreground cursor-not-allowed"
                               : "btn-gold-flat"
-                          }`}
+                            }`}
                         >
                           <ClipboardList className="w-3 h-3" />
                           Incluir no evento
