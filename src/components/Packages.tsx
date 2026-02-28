@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Check, Users, Ruler, Sparkles, ShoppingCart } from "lucide-react";
+import { Check, Users, Ruler, Sparkles, ClipboardList } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
 
@@ -22,7 +22,7 @@ const packages = [
       "Mini cachorros gourmet",
       "Mini pizzas",
       "Cones de fruta / enchidos",
-      "Donuts personalizados nas cores da festa",
+      "Donuts personalizados",
       "Mini barquinhos com asas de frango e chips"
     ],
     includes: [
@@ -108,11 +108,11 @@ const Packages = () => {
     
     // Only show toast if package was actually added (not pending confirmation)
     if (result === "added") {
-      toast.success("Adicionado ao carrinho", {
+      toast.success("Pacote adicionado à sua Proposta", {
         description: `Pacote ${pkg.name} - ${pkg.price}€`,
       });
     } else if (result === "already_in_cart") {
-      toast.info("Este pacote já está no carrinho", {
+      toast.info("Este pacote já está na proposta", {
         description: `Pacote ${pkg.name}`,
       });
     }
@@ -257,7 +257,7 @@ const Packages = () => {
                     : "btn-outline-gold"
                 }`}
               >
-                <ShoppingCart className="w-4 h-4" />
+                <ClipboardList className="w-4 h-4" />
                 Reservar este pacote
               </button>
             </motion.div>

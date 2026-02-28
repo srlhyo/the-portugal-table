@@ -112,8 +112,8 @@ const QuoteConfirmation = ({ referenceNumber, eventDate, orderItems, orderSubtot
             ))}
             <div className="border-t border-border pt-3 mt-3 flex justify-between">
               <span className="font-body text-sm font-medium text-foreground">
-                Subtotal estimado
-              </span>
+                 Valor estimado dos serviços
+               </span>
               <span className="font-display text-lg text-gold">
                 {formatPrice(orderSubtotal)}
               </span>

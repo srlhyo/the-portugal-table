@@ -4,7 +4,7 @@ import { useInView } from "framer-motion";
 import { extrasCategories, formatPrice, ExtraCategory, ExtraItem, bubbleDecorItems } from "@/data/extras";
 import { useCart } from "@/contexts/CartContext";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
-import { X, Minus, Plus, ShoppingCart, ChevronDown, ChevronUp } from "lucide-react";
+import { X, Minus, Plus, ClipboardList, ChevronDown, ChevronUp } from "lucide-react";
 import { toast } from "sonner";
 
 // Placeholder images for categories (elegant luxury event aesthetic)
@@ -76,7 +76,7 @@ const ExtrasSection = () => {
       price: item.price,
     }, qty);
 
-    toast.success("Adicionado ao carrinho", {
+    toast.success("Adicionado à sua Proposta", {
       description: `${qty}x ${item.name}`,
     });
 
@@ -97,11 +97,11 @@ const ExtrasSection = () => {
 
     // Only show toast if successfully added (not pending confirmation or already in cart)
     if (result === "added") {
-      toast.success("Adicionado ao carrinho", {
+      toast.success("Adicionado à sua Proposta", {
         description: `Bubble Decor - ${bubbleItem.name}`,
       });
     } else if (result === "already_in_cart") {
-      toast.info("Já no carrinho", {
+      toast.info("Já na proposta", {
         description: `Bubble Decor - ${bubbleItem.name}`,
       });
     }
@@ -257,10 +257,10 @@ const ExtrasSection = () => {
                 className="btn-gold-flat font-body text-[11px] uppercase tracking-[0.15em] py-3 px-8"
                 aria-label="Adicionar Bubble Deluxe - Este item será adicionado ao carrinho como extra"
               >
-                Adicionar Bubble Deluxe
+                Adicionar Bubble Deluxe à Proposta
               </button>
               <p className="font-body text-[10px] text-muted-foreground/60 mt-2">
-                Este item será adicionado ao carrinho como extra.
+                Este extra será incluído no seu pedido de orçamento
               </p>
             </div>
 
@@ -351,7 +351,7 @@ const ExtrasSection = () => {
                               : "btn-gold-flat"
                           }`}
                         >
-                          <ShoppingCart className="w-3 h-3" />
+                          <ClipboardList className="w-3 h-3" />
                           Incluir no evento
                         </button>
                       </div>

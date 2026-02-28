@@ -17,6 +17,8 @@ interface QuoteFormData {
   numeroConvidados: string;
   // Observações
   observacoes: string;
+  // Confirmação
+  confirmacao: boolean;
 }
 
 interface QuoteRequestFormProps {
@@ -34,6 +36,7 @@ const initialFormData: QuoteFormData = {
   localEvento: "",
   numeroConvidados: "",
   observacoes: "",
+  confirmacao: false,
 };
 
 const PHONE_PREFIX = "+351 ";
@@ -55,7 +58,7 @@ const eventTypes = [
 const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
   const { items, subtotal } = useCart();
   const [formData, setFormData] = useState<QuoteFormData>(initialFormData);
-  const [errors, setErrors] = useState<Partial<QuoteFormData>>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
@@ -65,7 +68,7 @@ const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     // Clear error when user types
-    if (errors[name as keyof QuoteFormData]) {
+    if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
     setSubmitError(null);
@@ -115,7 +118,7 @@ const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
   };
 
   const validate = (): boolean => {
-    const newErrors: Partial<QuoteFormData> = {};
+    const newErrors: Record<string, string> = {};
     
     if (!formData.nomeCompleto.trim()) {
       newErrors.nomeCompleto = "Campo obrigatório";
@@ -136,6 +139,10 @@ const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
     }
     if (!formData.numeroConvidados || parseInt(formData.numeroConvidados) < 1) {
       newErrors.numeroConvidados = "Indique o número de convidados";
+    }
+
+    if (!formData.confirmacao) {
+      newErrors.confirmacao = "Deve confirmar que leu as informações";
     }
 
     setErrors(newErrors);
@@ -211,7 +218,7 @@ const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
     }
   };
 
-  const inputClasses = (fieldName: keyof QuoteFormData) =>
+  const inputClasses = (fieldName: string) =>
     `w-full px-4 py-3 bg-background border ${
       errors[fieldName] ? "border-destructive" : "border-border"
     } font-body text-sm focus:outline-none focus:border-gold transition-colors`;
@@ -230,13 +237,13 @@ const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
           className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-3"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span className="font-body text-sm">Voltar ao carrinho</span>
+          <span className="font-body text-sm">Voltar à proposta</span>
         </button>
         <h2 className="font-display text-2xl text-foreground font-light">
-          Pedido de Orçamento
+          Detalhes do Evento
         </h2>
         <p className="font-body text-xs text-muted-foreground mt-1">
-          Preencha os dados para solicitar o seu orçamento personalizado
+          Preencha para solicitar orçamento
         </p>
       </div>
 
@@ -403,7 +410,7 @@ const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
               ))}
             </div>
             <div className="border-t border-border mt-3 pt-3 flex justify-between">
-              <span className="font-body text-sm font-medium text-foreground">Subtotal estimado</span>
+              <span className="font-body text-sm font-medium text-foreground">Valor estimado dos serviços</span>
               <span className="font-display text-lg text-gold">{formatPrice(subtotal)}</span>
             </div>
           </section>
@@ -413,6 +420,26 @@ const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
             <div className="bg-destructive/10 border border-destructive/30 p-3 text-center">
               <p className="font-body text-sm text-destructive">{submitError}</p>
             </div>
+          )}
+
+          {/* Confirmation Checkbox */}
+          <div className="flex items-start gap-3">
+            <input
+              type="checkbox"
+              id="confirmCheckbox"
+              checked={formData.confirmacao}
+              onChange={(e) => {
+                setFormData((prev) => ({ ...prev, confirmacao: e.target.checked }));
+                if (errors.confirmacao) setErrors((prev) => ({ ...prev, confirmacao: "" }));
+              }}
+              className="mt-1 w-4 h-4 accent-gold shrink-0"
+            />
+            <label htmlFor="confirmCheckbox" className="font-body text-xs text-muted-foreground leading-relaxed cursor-pointer">
+              Confirmo que li as informações e entendo que este é um pedido de orçamento sem compromisso, sujeito à disponibilidade da data.
+            </label>
+          </div>
+          {errors.confirmacao && (
+            <p className="text-destructive text-xs font-body -mt-4">{errors.confirmacao}</p>
           )}
 
           {/* Submit Button */}
@@ -427,12 +454,12 @@ const QuoteRequestForm = ({ onBack, onSubmit }: QuoteRequestFormProps) => {
                 A processar...
               </>
             ) : (
-              "Verificar disponibilidade da data"
+              "Submeter pedido de reserva"
             )}
           </button>
 
           <p className="font-body text-[10px] text-muted-foreground/70 text-center">
-            O pedido de orçamento não constitui compromisso e está sujeito a confirmação de disponibilidade.
+            Respondemos em até 24h
           </p>
         </form>
       </div>

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ShoppingBag } from "lucide-react";
+import { ClipboardList } from "lucide-react";
 import tableCandles from "@/assets/table-candles.jpg";
 import { useCart } from "@/contexts/CartContext";
 
@@ -74,7 +74,7 @@ const Hero = () => {
                 }}
                 className="inline-flex items-center justify-center gap-2 bg-foreground text-background font-body text-sm md:text-base px-8 py-4 hover:bg-foreground/90 transition-colors duration-300 w-full sm:w-auto"
               >
-                <ShoppingBag className="w-4 h-4" />
+                <ClipboardList className="w-4 h-4" />
                 Começar reserva
               </button>
             </motion.div>

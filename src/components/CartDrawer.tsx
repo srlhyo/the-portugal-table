@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { useCart } from "@/contexts/CartContext";
 import { formatPrice } from "@/data/extras";
-import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
+import { Minus, Plus, Trash2, ClipboardList } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import QuoteRequestForm from "./QuoteRequestForm";
 import QuoteConfirmation from "./QuoteConfirmation";
@@ -60,14 +60,12 @@ const CartDrawer = () => {
             >
               <SheetHeader className="border-b border-border pb-4">
                 <SheetTitle className="font-display text-2xl text-foreground font-light flex items-center gap-3">
-                  <ShoppingBag className="w-6 h-6 text-gold" />
-                  Carrinho
-                  {totalItems > 0 && (
-                    <span className="text-sm font-body text-muted-foreground">
-                      ({totalItems} {totalItems === 1 ? "item" : "itens"})
-                    </span>
-                  )}
+                  <ClipboardList className="w-6 h-6 text-gold" />
+                  A Minha Proposta
                 </SheetTitle>
+                <p className="font-body text-xs text-muted-foreground mt-1">
+                  Resumo do seu pedido para orçamento
+                </p>
               </SheetHeader>
 
               {/* Cart Items */}
@@ -79,7 +77,7 @@ const CartDrawer = () => {
                       animate={{ opacity: 1 }}
                       className="flex flex-col items-center justify-center h-full text-center px-4"
                     >
-                      <ShoppingBag className="w-16 h-16 text-muted-foreground/30 mb-4" />
+                      <ClipboardList className="w-16 h-16 text-muted-foreground/30 mb-4" />
                       <p className="font-body text-foreground font-medium mb-2">
                         Comece por escolher um pacote.
                       </p>
@@ -171,24 +169,27 @@ const CartDrawer = () => {
               {/* Footer with subtotal and CTA */}
               {items.length > 0 && (
                 <div className="border-t border-border pt-4 space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="font-body text-sm text-muted-foreground">Subtotal</span>
-                    <span className="font-display text-2xl text-gold font-light">
-                      {formatPrice(subtotal)}
-                    </span>
-                  </div>
+                   <div className="flex items-center justify-between">
+                     <span className="font-body text-sm text-muted-foreground">Valor estimado dos serviços</span>
+                     <span className="font-display text-2xl text-gold font-light">
+                       {formatPrice(subtotal)}
+                     </span>
+                   </div>
                   <p className="font-body text-[10px] text-muted-foreground/70 text-center">
                     O valor final será confirmado após verificação da disponibilidade da data.
                   </p>
                   <p className="font-body text-xs text-muted-foreground text-center">
                     No próximo passo irá indicar a data e os detalhes do evento.
                   </p>
-                  <button
-                    onClick={() => setCurrentStep("form")}
-                    className="block text-center btn-gold-flat font-body text-[11px] uppercase tracking-[0.15em] py-4 w-full"
-                  >
-                    Submeter pedido de reserva
-                  </button>
+                   <button
+                     onClick={() => setCurrentStep("form")}
+                     className="block text-center btn-gold-flat font-body text-[11px] uppercase tracking-[0.15em] py-4 w-full"
+                   >
+                     Preencher data e detalhes
+                   </button>
+                   <p className="font-body text-[10px] text-muted-foreground/70 text-center mt-2">
+                     Sujeito a disponibilidade · sem compromisso
+                   </p>
                 </div>
               )}
             </motion.div>

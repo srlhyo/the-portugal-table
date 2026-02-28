@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingCart } from "lucide-react";
+import { ClipboardList } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import logo from "@/assets/logo.png";
 
@@ -106,9 +106,10 @@ const Header = () => {
             <button
               onClick={() => setIsOpen(true)}
               className="relative p-2 hover:text-gold transition-colors duration-300"
-              aria-label="Carrinho"
+              aria-label="A Minha Proposta"
+              title="A Minha Proposta"
             >
-              <ShoppingCart className="w-5 h-5" />
+              <ClipboardList className="w-5 h-5" />
               {totalItems > 0 && (
                 <span className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-gold text-white text-[10px] font-body rounded-full">
                   {totalItems > 99 ? "99+" : totalItems}
@@ -123,9 +124,10 @@ const Header = () => {
             <button
               onClick={() => setIsOpen(true)}
               className="relative p-2"
-              aria-label="Carrinho"
+              aria-label="A Minha Proposta"
+              title="A Minha Proposta"
             >
-              <ShoppingCart className="w-5 h-5" />
+              <ClipboardList className="w-5 h-5" />
               {totalItems > 0 && (
                 <span className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-gold text-white text-[10px] font-body rounded-full">
                   {totalItems > 99 ? "99+" : totalItems}
