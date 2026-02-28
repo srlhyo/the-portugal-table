@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { ShoppingCart } from "lucide-react";
+import { ClipboardList } from "lucide-react";
 import {
   useWhatsAppUrl,
   whatsappLinkProps,
@@ -43,7 +43,7 @@ const Contact = () => {
             onClick={() => setIsOpen(true)}
             className="btn-gold-flat flex items-center justify-center gap-2 mx-auto mb-4"
           >
-            <ShoppingCart className="w-4 h-4" />
+            <ClipboardList className="w-4 h-4" />
             Verificar disponibilidade da minha data
           </button>
           <p className="font-body text-xs text-primary-foreground/50 mb-3">
