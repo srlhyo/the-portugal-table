@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/contexts/CartContext";
 import Index from "./pages/Index";
+import Diary from "./pages/Diary";
+import DiaryPost from "./pages/DiaryPost";
 import NotFound from "./pages/NotFound";
 
 // Create query client instance
@@ -21,6 +23,8 @@ const App = () => {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/diario" element={<Diary />} />
+              <Route path="/diario/:slug" element={<DiaryPost />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
