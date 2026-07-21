@@ -5,7 +5,7 @@ import logo from "@/assets/logo.png";
 import tableCandles from "@/assets/table-candles.jpg";
 import tablePink from "@/assets/table-pink.jpg";
 import fingerfoodBoard from "@/assets/fingerfood-board.jpg";
-import cocktailsElegant from "@/assets/cocktails-elegant.jpg";
+import cocktailsElegant from "@/assets/cocktails-elegant.jpeg";
 import dinnerFormal from "@/assets/dinner-formal.jpg";
 import videoExperience from "@/assets/video-experience-1.mp4";
 import MagneticButton from "@/components/MagneticButton";
@@ -18,7 +18,6 @@ const QUOTE_URL = "https://dlm-jornada.netlify.app/";
 const TAGS = [
   "Montagem de Mesas",
   "Buffet & Finger Food",
-  "Bar de Bebidas",
   "Aluguer de Material",
   "E Muito Mais",
 ];
@@ -26,8 +25,8 @@ const TAGS = [
 const SHOWCASE = [
   { image: tablePink, label: "Montagem de Mesas" },
   { image: fingerfoodBoard, label: "Buffet & Finger Food" },
-  { image: cocktailsElegant, label: "Bar de Bebidas" },
   { image: dinnerFormal, label: "Aluguer de Material" },
+  { image: cocktailsElegant, label: "E Muito Mais" },
 ];
 
 const ctaClass =
