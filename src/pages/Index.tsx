@@ -7,7 +7,7 @@ import tablePink from "@/assets/table-pink.jpg";
 import fingerfoodBoard from "@/assets/fingerfood-board.jpg";
 import cocktailsElegant from "@/assets/cocktails-elegant.jpg";
 import dinnerFormal from "@/assets/dinner-formal.jpg";
-import videoExperience from "@/assets/video-experience-2.mp4";
+import videoExperience from "@/assets/video-experience-1.mp4";
 import MagneticButton from "@/components/MagneticButton";
 import TiltVideoCard from "@/components/TiltVideoCard";
 
@@ -15,12 +15,18 @@ const CandlelightField = lazy(() => import("@/components/three/CandlelightField"
 
 const QUOTE_URL = "https://dlm-jornada.netlify.app/";
 
-const TAGS = ["Montagem de Mesas", "Buffet & Finger Food", "Balcão de Cocktails", "Aluguer de Material"];
+const TAGS = [
+  "Montagem de Mesas",
+  "Buffet & Finger Food",
+  "Bar de Bebidas",
+  "Aluguer de Material",
+  "E Muito Mais",
+];
 
 const SHOWCASE = [
   { image: tablePink, label: "Montagem de Mesas" },
   { image: fingerfoodBoard, label: "Buffet & Finger Food" },
-  { image: cocktailsElegant, label: "Balcão de Cocktails" },
+  { image: cocktailsElegant, label: "Bar de Bebidas" },
   { image: dinnerFormal, label: "Aluguer de Material" },
 ];
 
@@ -85,9 +91,9 @@ const Index = () => {
                 transition={{ delay: 0.6, duration: 0.9 }}
                 className="font-body mx-auto mt-7 max-w-lg text-balance text-sm leading-relaxed text-[#f6efe4]/75 md:text-base lg:mx-0"
               >
-                Montagem de mesas, buffet finger food, balcão de cocktails e
-                aluguer de material — tudo pensado ao detalhe para que só
-                precise de receber os seus convidados.
+                Montagem de mesas, buffet finger food, bar de bebidas,
+                aluguer de material e muito mais — tudo pensado ao detalhe
+                para que só precise de receber os seus convidados.
               </motion.p>
 
               <motion.div
@@ -111,17 +117,28 @@ const Index = () => {
                 transition={{ delay: 1.2, duration: 0.9 }}
                 className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 lg:justify-start"
               >
-                {TAGS.map((tag) => (
-                  <div key={tag} className="flex items-center gap-2">
-                    <span className="text-gold text-xs">◆</span>
-                    <span className="font-body text-xs text-[#f6efe4]/70 md:text-sm">{tag}</span>
-                  </div>
-                ))}
+                {TAGS.map((tag) => {
+                  const isMore = tag === "E Muito Mais";
+                  return (
+                    <div key={tag} className="flex items-center gap-2">
+                      <span className={`text-xs ${isMore ? "text-[#f6efe4]/40" : "text-gold"}`}>
+                        {isMore ? "+" : "◆"}
+                      </span>
+                      <span
+                        className={`font-body text-xs md:text-sm ${
+                          isMore ? "italic text-[#f6efe4]/50" : "text-[#f6efe4]/70"
+                        }`}
+                      >
+                        {tag}
+                      </span>
+                    </div>
+                  );
+                })}
               </motion.div>
             </div>
 
             {/* Real footage, framed and floating */}
-            <TiltVideoCard src={videoExperience} poster={dinnerFormal} className="hidden lg:block" />
+            <TiltVideoCard src={videoExperience} poster={fingerfoodBoard} className="hidden lg:block" />
           </div>
         </div>
       </section>
@@ -139,6 +156,9 @@ const Index = () => {
             <span className="font-body text-[11px] uppercase tracking-[0.3em] text-gold">
               O Que Preparamos Para Si
             </span>
+            <p className="font-body mt-3 text-xs text-[#f6efe4]/45 md:text-sm">
+              Alguns exemplos do que fazemos — e há sempre mais à sua medida.
+            </p>
           </motion.div>
 
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
