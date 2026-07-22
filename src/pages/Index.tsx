@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/logo.png";
-import MesaDesenhada from "@/components/reforma/MesaDesenhada";
+import PalcoDoServico from "@/components/reforma/PalcoDoServico";
 import Campanula from "@/components/reforma/Campanula";
 
 // ============================================================
@@ -31,15 +31,21 @@ const LEGENDAS = [
   "Estamos a renovar o nosso site…",
   "…com o mesmo cuidado que dedicamos a cada mesa…",
   "…devagar, ao detalhe, sem comprometer a qualidade.",
+  "O serviço entra em cena…",
   "Até lá, o convite está servido:",
 ];
 
 const Index = () => {
   const [fase, setFase] = useState(-1);
-  const [desenhoCompleto, setDesenhoCompleto] = useState(false);
+  const [servida, setServida] = useState(false);
 
   const aoFase = useCallback((n) => setFase(n), []);
-  const aoTerminar = useCallback(() => setDesenhoCompleto(true), []);
+  // A campânula foi pousada pelo serviço: entra a versão interativa
+  // e a legenda final
+  const aoServir = useCallback(() => {
+    setServida(true);
+    setFase(4);
+  }, []);
 
   return (
     <div className="relative flex min-h-[100dvh] w-full flex-col overflow-hidden bg-[#FDFBF6] text-[#1A1A1A]">
@@ -105,14 +111,15 @@ const Index = () => {
 
         {/* O palco: a mesa desenha-se; a campânula pousa sobre ela */}
         <div className="relative mt-2 w-full">
-          <MesaDesenhada aoFase={aoFase} aoTerminar={aoTerminar} />
+          <PalcoDoServico aoFase={aoFase} aoServir={aoServir} />
 
-          {/* A campânula pousa com o rebordo à altura do tampo da
-              mesa (ajustar top se o tamanho do palco mudar) */}
-          {desenhoCompleto && (
+          {/* A campânula interativa assume o LUGAR EXATO da campânula
+              que a mordoma pousou no palco (mesma proporção: 31.25%
+              da largura, rebordo à altura do tampo). Se mexeres no
+              viewBox do palco, reajusta top/width aqui. */}
+          {servida && (
             <div
-              className="absolute left-1/2 top-[24%] -translate-x-1/2"
-              style={{ width: "min(210px, 44%)" }}
+              className="absolute left-1/2 top-[36.5%] w-[31.25%] -translate-x-1/2"
             >
               <Campanula href={QUOTE_URL} />
             </div>

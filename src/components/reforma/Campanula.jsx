@@ -93,10 +93,10 @@ export default function Campanula({ href }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 14 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.9, ease: EASE_LUXO }}
-      className="relative mx-auto w-[210px] text-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
+      className="relative mx-auto w-full text-center"
       onPointerEnter={(e) => {
         if (e.pointerType === "mouse") abrir();
       }}
@@ -113,7 +113,7 @@ export default function Campanula({ href }) {
 
       {/* O convite, servido debaixo da campânula */}
       <div
-        className={`absolute left-1/2 top-[64px] z-10 -translate-x-1/2 transition-opacity duration-500 ${
+        className={`absolute left-1/2 top-[46%] z-10 -translate-x-1/2 transition-opacity duration-500 ${
           aberta ? "opacity-100 delay-150" : "pointer-events-none opacity-0"
         }`}
       >
@@ -140,11 +140,11 @@ export default function Campanula({ href }) {
       {/* A campânula — levanta-se com requinte, nunca salta */}
       <motion.svg
         viewBox="0 0 200 130"
-        className="relative z-30 mx-auto w-[200px] cursor-pointer"
+        className="relative z-30 mx-auto w-full cursor-pointer"
         style={{ transformOrigin: "50% 100%" }}
         animate={
           aberta
-            ? { y: -84, rotate: -6, opacity: 0.94 }
+            ? { y: -76, rotate: -6, opacity: 0.94 }
             : { y: 0, rotate: 0, opacity: 1 }
         }
         transition={{ duration: 1.0, ease: EASE_LUXO }}
@@ -195,14 +195,16 @@ export default function Campanula({ href }) {
       </motion.svg>
 
       {/* A dica — desaparece quando já cumpriu a missão */}
+      {/* A dica flutua ACIMA do domo, numa pílula de marfim com
+          hairline dourada — nenhum traço da cena a atravessa */}
       <AnimatePresence>
         {!aberta && (
           <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
-            className="mt-2 font-body text-[11px] tracking-[0.08em] text-gold-dark"
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 4 }}
+            transition={{ duration: 0.45, ease: "easeOut" }}
+            className="absolute -top-9 left-1/2 z-40 -translate-x-1/2 whitespace-nowrap rounded-full border border-gold-light bg-[#FDFBF6]/90 px-3 py-1 font-body text-[11px] tracking-[0.08em] text-gold-dark shadow-[0_2px_10px_rgba(201,168,76,0.18)]"
           >
             ✧ levante a campânula ✧
           </motion.p>
