@@ -201,9 +201,14 @@ export default function Campanula({ href }) {
         {!aberta && (
           <motion.p
             initial={{ opacity: 0, y: 4 }}
-            animate={{ opacity: 1, y: 0 }}
+            // Levitação: a pílula flutua devagar, suspensa por um
+            // fio invisível — chama o olho sem gritar
+            animate={{ opacity: 1, y: [0, -4, 0] }}
             exit={{ opacity: 0, y: 4 }}
-            transition={{ duration: 0.45, ease: "easeOut" }}
+            transition={{
+              opacity: { duration: 0.45, ease: "easeOut" },
+              y: { duration: 2.6, repeat: Infinity, ease: "easeInOut" },
+            }}
             // Centragem via framer (x), NUNCA via -translate-x-1/2:
             // o motion sobrescreve o transform CSS e a pílula fugia
             style={{ x: "-50%" }}

@@ -137,9 +137,45 @@ const Index = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.4, duration: 0.8 }}
-          className="font-body text-xs tracking-[0.06em] text-gold-dark underline decoration-gold-light underline-offset-4 transition-colors hover:text-gold"
+          className="group inline-flex items-baseline gap-1.5 border-b border-gold-light pb-0.5 font-body text-xs tracking-[0.06em] transition-colors hover:border-gold"
         >
-          Com pressa? Peça já o seu orçamento →
+          {/* Brilho de ourives: uma passagem de luz dourada atravessa
+              as letras a cada ciclo — o truque do veludo, dentro do
+              próprio texto */}
+          <motion.span
+            style={{
+              backgroundImage:
+                "linear-gradient(90deg, #A07830 0%, #A07830 38%, #E8C56A 50%, #FFF3D0 54%, #E8C56A 58%, #A07830 70%, #A07830 100%)",
+              backgroundSize: "220% 100%",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+            }}
+            animate={{ backgroundPosition: ["160% 0%", "-60% 0%"] }}
+            transition={{
+              duration: 2.0,
+              repeat: Infinity,
+              repeatDelay: 2.8,
+              ease: "easeInOut",
+            }}
+          >
+            Com pressa? Peça já o seu orçamento
+          </motion.span>
+          {/* A seta acena logo a seguir ao brilho (ciclos de 4.8s
+              sincronizados: 2.0+2.8 = 1.1+3.7) */}
+          <motion.span
+            className="text-gold-dark transition-colors group-hover:text-gold"
+            animate={{ x: [0, 4, 0] }}
+            transition={{
+              duration: 1.1,
+              repeat: Infinity,
+              repeatDelay: 3.7,
+              ease: "easeInOut",
+              delay: 2.0,
+            }}
+          >
+            →
+          </motion.span>
         </motion.a>
         {/* Se quiseres o Instagram da Nádia aqui, é só descomentar:
         <a
