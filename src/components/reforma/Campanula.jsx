@@ -204,7 +204,10 @@ export default function Campanula({ href }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 4 }}
             transition={{ duration: 0.45, ease: "easeOut" }}
-            className="absolute -top-9 left-1/2 z-40 -translate-x-1/2 whitespace-nowrap rounded-full border border-gold-light bg-[#FDFBF6]/90 px-3 py-1 font-body text-[11px] tracking-[0.08em] text-gold-dark shadow-[0_2px_10px_rgba(201,168,76,0.18)]"
+            // Centragem via framer (x), NUNCA via -translate-x-1/2:
+            // o motion sobrescreve o transform CSS e a pílula fugia
+            style={{ x: "-50%" }}
+            className="absolute -top-9 left-1/2 z-40 whitespace-nowrap rounded-full border border-gold-light bg-[#FDFBF6]/90 px-3 py-1 font-body text-[11px] tracking-[0.08em] text-gold-dark shadow-[0_2px_10px_rgba(201,168,76,0.18)]"
           >
             ✧ levante a campânula ✧
           </motion.p>

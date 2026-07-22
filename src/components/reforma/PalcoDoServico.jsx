@@ -54,8 +54,11 @@ export default function PalcoDoServico({ aoFase, aoServir }) {
     const brilhos = q("#brilho-flores circle");
 
     gsap.set(chamas, { opacity: 0, transformOrigin: "50% 100%" });
-    gsap.set(mordE, { x: -200 });
-    gsap.set(mordD, { x: 200 });
+    // Bastidores a sério: a figura da esquerda estende-se até x≈216
+    // (ponta da bandeja), por isso ±200 deixava a campânula a
+    // espreitar no palco. ±260 esconde tudo.
+    gsap.set(mordE, { x: -260 });
+    gsap.set(mordD, { x: 260 });
     gsap.set(clocheGrande, {
       x: -122,
       y: -26,
