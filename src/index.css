@@ -385,6 +385,42 @@
   }
 }
 
+@layer components {
+  /* ========================================
+     PÁGINA DE RENOVAÇÃO — orçamento vertical
+
+     A cena tem de caber num só ecrã, sem scroll. A faixa da
+     carta da casa custa ~68px, e num portátil de 768px de
+     altura esses 68px são a diferença entre ver o rodapé e
+     tê-lo cortado. Em ecrãs baixos, é o logo, as margens e o
+     palco que devolvem o espaço — a hierarquia mantém-se,
+     apenas respira menos.
+     ======================================== */
+  @media (max-height: 820px) {
+    .pagina-renovacao .marca-renovacao {
+      height: 4.5rem;
+    }
+
+    .pagina-renovacao .palco-envolvente {
+      max-width: 34rem;
+    }
+
+    .pagina-renovacao main {
+      padding-top: 1.5rem;
+    }
+  }
+
+  @media (max-height: 700px) {
+    .pagina-renovacao .marca-renovacao {
+      height: 3.5rem;
+    }
+
+    .pagina-renovacao .palco-envolvente {
+      max-width: 28rem;
+    }
+  }
+}
+
 @layer utilities {
   /* Shadow Utilities */
   .shadow-soft {

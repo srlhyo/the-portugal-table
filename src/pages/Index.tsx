@@ -1,8 +1,11 @@
 import { useCallback, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import logo from "@/assets/logo.png";
 import PalcoDoServico from "@/components/reforma/PalcoDoServico";
 import Campanula from "@/components/reforma/Campanula";
+import CartaDaCasa from "@/components/reforma/CartaDaCasa";
+import GatilhoDaCarta from "@/components/reforma/GatilhoDaCarta";
+import { hrefOrcamento } from "@/components/reforma/orcamento";
 
 // ============================================================
 // Index — página temporária "em renovação" do Do Luxo à Mesa.
@@ -17,15 +20,20 @@ import Campanula from "@/components/reforma/Campanula";
 //   3. A campânula dourada desce sobre a mesa: o convite (CTA
 //      de orçamento) está servido debaixo dela. Pairar/tocar
 //      levanta-a com um sopro de partículas douradas.
+//   4. Por baixo do palco, a mordoma oferece a carta da casa —
+//      os três serviços, com preços, para quem quiser comparar
+//      antes de pedir. Ver a carta é sempre opcional.
+//
+// Três velocidades que não se estorvam: a campânula (a magia),
+// a carta (a comparação) e o link do rodapé (a fuga). Cada
+// perfil de visitante tem um caminho e nenhum bloqueia o outro.
 //
 // Saída de emergência: quem tem pressa encontra sempre o link
 // discreto de orçamento no rodapé — nunca prendemos ninguém à
 // animação.
 // ============================================================
 
-const QUOTE_URL = "https://dlm-jornada.netlify.app/";
-
-const EASE_LUXO = [0.22, 1, 0.36, 1];
+const EASE_LUXO = [0.22, 1, 0.36, 1] as const;
 
 const LEGENDAS = [
   "Estamos a renovar o nosso site…",
@@ -38,8 +46,14 @@ const LEGENDAS = [
 const Index = () => {
   const [fase, setFase] = useState(-1);
   const [servida, setServida] = useState(false);
+  const [cartaAberta, setCartaAberta] = useState(false);
+  const [jaViuCarta, setJaViuCarta] = useState(false);
+  // O serviço que o visitante anotou na carta segue com ele para
+  // o pedido de orçamento — pela carta ou pela campânula.
+  const [escolhido, setEscolhido] = useState<string | null>(null);
+  const reduzido = useReducedMotion();
 
-  const aoFase = useCallback((n) => setFase(n), []);
+  const aoFase = useCallback((n: number) => setFase(n), []);
   // A campânula foi pousada pelo serviço: entra a versão interativa
   // e a legenda final
   const aoServir = useCallback(() => {
@@ -47,8 +61,19 @@ const Index = () => {
     setFase(4);
   }, []);
 
+  const abrirCarta = useCallback(() => setCartaAberta(true), []);
+  const fecharCarta = useCallback(() => {
+    setCartaAberta(false);
+    setJaViuCarta(true);
+  }, []);
+
+  // A carta é oferecida assim que a mesa está posta (~5s), e não
+  // no fim da coreografia (~11s): quem chega do Instagram não
+  // espera onze segundos para saber quanto custa.
+  const gatilhoVisivel = fase >= 3;
+
   return (
-    <div className="relative flex min-h-[100dvh] w-full flex-col overflow-hidden bg-[#FDFBF6] text-[#1A1A1A]">
+    <div className="pagina-renovacao relative flex min-h-[100dvh] w-full flex-col overflow-hidden bg-[#FDFBF6] text-[#1A1A1A]">
       {/* Luz de sala: um véu quente que desce do teto sobre o marfim */}
       <div
         aria-hidden="true"
@@ -67,7 +92,7 @@ const Index = () => {
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: EASE_LUXO }}
-          className="h-24 w-auto md:h-28"
+          className="marca-renovacao h-24 w-auto md:h-28"
           style={{
             filter: "drop-shadow(0 2px 10px rgba(201,168,76,0.28))",
           }}
@@ -110,7 +135,7 @@ const Index = () => {
         </div>
 
         {/* O palco: a mesa desenha-se; a campânula pousa sobre ela */}
-        <div className="relative mt-2 w-full">
+        <div className="palco-envolvente relative mt-2 w-full">
           <PalcoDoServico aoFase={aoFase} aoServir={aoServir} />
 
           {/* A campânula interativa assume o LUGAR EXATO da campânula
@@ -121,17 +146,38 @@ const Index = () => {
             <div
               className="absolute left-1/2 top-[36.5%] w-[31.25%] -translate-x-1/2"
             >
-              <Campanula href={QUOTE_URL} />
+              <Campanula
+                href={hrefOrcamento({
+                  pacote: escolhido,
+                  origem: "campanula",
+                })}
+              />
             </div>
           )}
         </div>
+
+        {/* A carta da casa — oferecida, nunca imposta */}
+        <GatilhoDaCarta
+          visivel={gatilhoVisivel}
+          aoAbrir={abrirCarta}
+          jaViu={jaViuCarta}
+          escolhido={escolhido}
+          reduzido={reduzido}
+        />
       </main>
+
+      <CartaDaCasa
+        aberta={cartaAberta}
+        aoFechar={fecharCarta}
+        aoEscolher={setEscolhido}
+        escolhido={escolhido}
+      />
 
       {/* Rodapé: a saída rápida está sempre à vista — nunca prendemos
           ninguém à animação — e a assinatura da casa */}
       <footer className="relative z-10 mx-auto w-full max-w-2xl px-5 pb-7 pt-2 text-center">
         <motion.a
-          href={QUOTE_URL}
+          href={hrefOrcamento({ pacote: escolhido, origem: "rodape" })}
           target="_blank"
           rel="noopener noreferrer"
           initial={{ opacity: 0 }}

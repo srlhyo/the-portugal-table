@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import MagneticButton from "@/components/MagneticButton";
@@ -90,6 +90,16 @@ export default function Campanula({ href }) {
   const pousar = useCallback(() => {
     if (!fixa.current) setAberta(false);
   }, []);
+
+  // O sopro é curto, mas se o componente sair de cena a meio
+  // ficava um requestAnimationFrame a pintar para sempre um
+  // canvas que já ninguém vê — caro num telemóvel a bateria.
+  useEffect(
+    () => () => {
+      if (animId.current) cancelAnimationFrame(animId.current);
+    },
+    [],
+  );
 
   return (
     <motion.div

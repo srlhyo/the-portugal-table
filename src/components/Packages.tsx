@@ -4,94 +4,22 @@ import { useRef } from "react";
 import { Check, Users, Ruler, Sparkles, ClipboardList } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
+import { pacotes } from "@/data/pacotes";
 
-const packages = [
-  {
-    id: "essence",
-    name: "Essence",
-    size: "180 cm",
-    pieces: "250 peças",
-    guests: "Ideal até 15 a 18 convidados",
-    price: 450,
-    highlight: false,
-    items: [
-      "Mini sobremesas variadas",
-      "Brigadeiros",
-      "Mini salgados variados",
-      "Mini hambúrgueres gourmet",
-      "Mini cachorros gourmet",
-      "Mini pizzas",
-      "Cones de fruta / enchidos",
-      "Donuts personalizados",
-      "Mini barquinhos com asas de frango e chips"
-    ],
-    includes: [
-      "Decoração incluída",
-      "Bebida não alcoólica servida em copos decorativos",
-      "Água aromatizada como elemento decorativo da mesa"
-    ]
-  },
-  {
-    id: "supreme",
-    name: "Supreme",
-    size: "360 cm",
-    pieces: "450 peças",
-    guests: "Ideal até 35 convidados",
-    price: 650,
-    highlight: true,
-    items: [
-      "Mini sobremesas",
-      "Brigadeiros",
-      "Donuts personalizados",
-      "Mini salgados variados",
-      "Mini hambúrgueres gourmet",
-      "Mini cachorros gourmet",
-      "Mini pizzas",
-      "Mini barquinhos com asas de frango e chips",
-      "Cones de fruta / enchidos",
-      "Crepes primavera",
-      "Copos de salada César"
-    ],
-    includes: [
-      "Decoração incluída",
-      "Bebida não alcoólica servida em copos decorativos",
-      "Água aromatizada como elemento decorativo da mesa"
-    ]
-  },
-  {
-    id: "premium",
-    name: "Premium",
-    size: "360 cm",
-    pieces: "650 peças",
-    guests: "Ideal até 50 convidados",
-    price: 920,
-    highlight: false,
-    items: [
-      "Brigadeiros",
-      "Sobremesas de copo",
-      "Donuts personalizados",
-      "Mini salgados variados",
-      "Mini hambúrgueres gourmet",
-      "Mini cachorros gourmet",
-      "Mini pizzas",
-      "Mini barquinhos com asas de frango & chips",
-      "Crepes Primavera",
-      "Cones de fruta e enchidos",
-      "Mini wraps de frango",
-      "Saladas frias",
-      "Mini copos de salada César",
-      "Saladas frias de grão com bacalhau",
-      "Canapés diversos",
-      "Camarões panados em molho agridoce"
-    ],
-    includes: [
-      "Decoração incluída",
-      "Bebida não alcoólica servida em copos decorativos",
-      "Água aromatizada como elemento decorativo da mesa",
-      "2 elementos de staff para serviço e reposição durante o evento"
-    ]
-  },
-];
+// Os pacotes vivem em @/data/pacotes — são mostrados aqui e na
+// carta da página de renovação, e um preço em dois sítios acaba
+// sempre por divergir.
+const packages = pacotes.map((p) => ({
+  id: p.id,
+  name: p.nome,
+  size: p.medida,
+  pieces: p.pecas,
+  guests: p.convidados,
+  price: p.preco,
+  highlight: p.destaque,
+  items: p.itens,
+  includes: p.oferta,
+}));
 
 const Packages = () => {
   const headerRef = useRef(null);
@@ -161,7 +89,7 @@ const Packages = () => {
               {pkg.highlight && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                   <span className="font-body text-[10px] uppercase tracking-[0.15em] px-4 py-1.5 bg-gold text-white">
-                    Mais Popular
+                    Sugestão da casa
                   </span>
                 </div>
               )}
