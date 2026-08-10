@@ -40,12 +40,9 @@ export default function GatilhoDaCarta({
     : `Três serviços · desde ${precoMaisBaixo} €`;
 
   return (
-    // A faixa está sempre reservada, mesmo antes de o botão
-    // aparecer: o rodapé nunca dá um salto a meio da cena.
-    <div className="flex h-[62px] shrink-0 items-center justify-center md:h-[68px]">
-      <motion.button
-        type="button"
-        onClick={aoAbrir}
+    <motion.button
+      type="button"
+      onClick={aoAbrir}
         aria-haspopup="dialog"
         // Sem aria-label fixo: o rótulo acessível é o texto visível,
         // que muda com o estado ("Rever…", "Anotámos: Supreme").
@@ -55,7 +52,9 @@ export default function GatilhoDaCarta({
         transition={{ duration: reduzido ? 0 : 0.7, ease: EASE_LUXO }}
         style={{ pointerEvents: visivel ? "auto" : "none" }}
         whileTap={reduzido ? undefined : { scale: 0.985 }}
-        className="group flex items-center gap-3 border border-[#E4D3A2] bg-[#FDFBF6]/70 px-5 py-2.5 text-left transition-colors duration-400 hover:border-[#C9A84C] hover:bg-[#FFFDF6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#A07830]"
+        // Largura fixa no telemóvel para as duas portas ficarem
+      // alinhadas uma sobre a outra, ícone com ícone.
+      className="group flex w-[250px] items-center gap-3 border border-[#E4D3A2] bg-[#FDFBF6]/70 px-5 py-2.5 text-left transition-colors duration-400 hover:border-[#C9A84C] hover:bg-[#FFFDF6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#A07830] sm:w-auto"
       >
         {/* A carta dobrada — o mesmo objeto que a mordoma tem na mão */}
         <svg
@@ -86,7 +85,6 @@ export default function GatilhoDaCarta({
             {sublinha}
           </span>
         </span>
-      </motion.button>
-    </div>
+    </motion.button>
   );
 }

@@ -1,15 +1,31 @@
 import { useEffect, useState } from "react";
 
 // ============================================================
-// O caminho para o pedido de orçamento.
+// As duas saídas da página, e o que as distingue.
 //
-// A app de orçamento vive fora deste site. Tudo o que o
-// visitante decidir aqui — o serviço que escolheu, e de onde
-// veio — viaja com ele em query params. Se a app os ignorar,
-// nada se perde: continua a abrir como hoje.
+// ORÇAMENTO — o formulário de interesse. É a ação: quem já
+//   decidiu (ou quase) vem por aqui. Tudo o que o visitante
+//   escolher nesta página — o serviço, e de onde partiu —
+//   viaja com ele em query params; se a app os ignorar, nada
+//   se perde e abre como abriria.
+//
+// GUIA — o passeio interativo por quem somos. É a história,
+//   não a venda: só lá vai quem quiser conhecer a casa antes
+//   de falar de mesas. Nunca compete com o orçamento.
 // ============================================================
 
-export const QUOTE_URL = "https://dlm-jornada.netlify.app/";
+export const QUOTE_URL = "https://celebra-doluxoamesa-teste.netlify.app/interesse";
+
+/** O guia interativo — a "porta da casa", o nosso sobre. */
+export const GUIA_URL = "https://dlm-jornada.netlify.app/";
+
+const comOrigem = (base: string, params: Record<string, string | null | undefined>) => {
+  const url = new URL(base);
+  for (const [chave, valor] of Object.entries(params)) {
+    if (valor) url.searchParams.set(chave, valor);
+  }
+  return url.toString();
+};
 
 export function hrefOrcamento({
   pacote,
@@ -18,14 +34,15 @@ export function hrefOrcamento({
   pacote?: string | null;
   origem?: string;
 } = {}): string {
-  const url = new URL(QUOTE_URL);
-  if (pacote) url.searchParams.set("pacote", pacote);
-  if (origem) url.searchParams.set("origem", origem);
-  return url.toString();
+  return comOrigem(QUOTE_URL, { pacote, origem });
+}
+
+export function hrefGuia({ origem }: { origem?: string } = {}): string {
+  return comOrigem(GUIA_URL, { origem });
 }
 
 /**
- * Onde abrir o pedido de orçamento.
+ * Onde abrir uma ligação para fora (orçamento ou guia).
  *
  * Em rato, separador novo: o visitante não perde a mesa que
  * estava a ver. Em ecrã tátil, o mesmo separador: boa parte

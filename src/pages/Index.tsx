@@ -5,6 +5,7 @@ import PalcoDoServico from "@/components/reforma/PalcoDoServico";
 import Campanula from "@/components/reforma/Campanula";
 import CartaDaCasa from "@/components/reforma/CartaDaCasa";
 import GatilhoDaCarta from "@/components/reforma/GatilhoDaCarta";
+import ConhecerACasa from "@/components/reforma/ConhecerACasa";
 import { hrefOrcamento, useAlvoExterno } from "@/components/reforma/orcamento";
 
 // ============================================================
@@ -157,14 +158,23 @@ const Index = () => {
           )}
         </div>
 
-        {/* A carta da casa — oferecida, nunca imposta */}
-        <GatilhoDaCarta
-          visivel={gatilhoVisivel}
-          aoAbrir={abrirCarta}
-          jaViu={jaViuCarta}
-          escolhido={escolhido}
-          reduzido={reduzido}
-        />
+        {/* As duas portas opcionais: o que servimos e quem somos.
+            A faixa está sempre reservada, mesmo antes de elas
+            aparecerem — o rodapé nunca dá um salto a meio da cena. */}
+        <div className="flex min-h-[76px] shrink-0 flex-col items-center justify-center gap-1 sm:min-h-[68px] sm:flex-row sm:gap-6">
+          <GatilhoDaCarta
+            visivel={gatilhoVisivel}
+            aoAbrir={abrirCarta}
+            jaViu={jaViuCarta}
+            escolhido={escolhido}
+            reduzido={reduzido}
+          />
+          <span
+            aria-hidden="true"
+            className="hidden h-8 w-px bg-[#EADCC0] sm:block"
+          />
+          <ConhecerACasa visivel={gatilhoVisivel} reduzido={reduzido} />
+        </div>
       </main>
 
       <CartaDaCasa
