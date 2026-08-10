@@ -229,14 +229,20 @@ export default function CartaDaCasa({ aberta, aoFechar, aoEscolher, escolhido })
   const escolherLugar = useCallback(
     (valor) => {
       setLugar(valor);
-      if (valor === A_MEDIDA) {
-        aoEscolher?.(null);
-        return;
-      }
-      aoEscolher?.(valor);
-      const i = pacotes.findIndex((p) => p.id === valor);
+
+      // "Mais de 50" não é um pacote: nada fica anotado, mas o
+      // carrossel tem mesmo de ir até lá. Sem isto, o visitante de
+      // maior valor tocava e via apenas o CTA desaparecer.
+      const i =
+        valor === A_MEDIDA
+          ? pacotes.length
+          : pacotes.findIndex((p) => p.id === valor);
+
+      aoEscolher?.(valor === A_MEDIDA ? null : valor);
+
       if (i < 0) return;
-      setVisivel(i);
+      if (valor !== A_MEDIDA) setVisivel(i);
+
       const alvo = painelRefs.current[i];
       const pista = carrosselRef.current;
       if (alvo && pista && !desktop) {
@@ -249,7 +255,9 @@ export default function CartaDaCasa({ aberta, aoFechar, aoEscolher, escolhido })
     [aoEscolher, desktop, reduzido],
   );
 
-  const pacoteVisivel = pacotes[visivel] ?? pacotes[0];
+  // Na folha "à medida" não há pacote — e a barra de ação some-se,
+  // porque essa folha traz o seu próprio caminho (o WhatsApp).
+  const pacoteVisivel = pacotes[visivel] ?? null;
 
   return (
     <AnimatePresence>
@@ -292,6 +300,13 @@ export default function CartaDaCasa({ aberta, aoFechar, aoEscolher, escolhido })
                   : { opacity: 0, y: 16, transition: { duration: 0.3, ease: EASE_SAIDA } }
               }
               transition={{ duration: d(0.55), ease: EASE_LUXO }}
+              // O papel acabou de desenrolar: tiramos o clip-path,
+              // que de outro modo ficava inscrito no style inline e
+              // continuava a recortar a folha para sempre.
+              onAnimationComplete={() => {
+                const el = folhaRef.current;
+                if (el) el.style.clipPath = "";
+              }}
               style={PAPEL}
               className="pointer-events-auto relative flex h-[92dvh] w-full flex-col border border-[#E4D3A2] shadow-[0_40px_120px_-40px_rgba(26,26,26,0.35)] outline-none md:h-[min(820px,88dvh)] md:w-[min(1120px,94vw)]"
             >
@@ -355,18 +370,29 @@ export default function CartaDaCasa({ aberta, aoFechar, aoEscolher, escolhido })
                   ))}
                 </div>
 
-                <div aria-hidden="true" className="w-[8vw] shrink-0 md:hidden" />
-
                 {/* O evento maior não sai pela porta: tem casa
                     própria, de largura total, e está cá sempre —
-                    a grelha de três colunas nunca muda de forma. */}
-                <BlocoAMedida realcado={lugar === A_MEDIDA} />
+                    a grelha de três colunas nunca muda de forma.
+                    No telemóvel é a quarta folha do carrossel,
+                    logo tem de vir ANTES do encosto final. */}
+                <BlocoAMedida
+                  refCallback={(el) => (painelRefs.current[pacotes.length] = el)}
+                  realcado={lugar === A_MEDIDA}
+                />
+
+                <div aria-hidden="true" className="w-[8vw] shrink-0 md:hidden" />
               </div>
+
+              {/* Um véu de marfim no fim do corpo: diz, sem uma
+                  palavra, que a ementa continua por baixo. */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none relative z-10 -mt-8 hidden h-8 shrink-0 bg-gradient-to-t from-[#FDFBF6] to-transparent md:block"
+              />
 
               <Rodape
                 pacoteVisivel={pacoteVisivel}
                 desktop={desktop}
-                lugar={lugar}
                 aoFechar={aoFechar}
               />
 
@@ -542,12 +568,40 @@ function PainelDoServico({
         ≈ {porConvidado} € por convidado
       </p>
 
-      <p className="font-display mt-3 min-h-[3.4em] text-[15px] italic leading-snug text-[#4B5563]">
+      {/* Altura reservada para três linhas: as promessas têm
+          comprimentos diferentes, mas os três botões têm de
+          arrancar da mesma linha para a comparação ser justa. */}
+      <p className="font-display mt-3 text-[15px] italic leading-snug text-[#4B5563] md:min-h-[4.3em]">
         {pacote.descricao}
       </p>
 
+      {/* A ação vive logo a seguir à promessa: os três botões ficam
+          à vista sem ser preciso rolar, alinhados entre si, e toda
+          a prova — mesa, medidas, ementa — corre por baixo sem
+          nada por cima. (Era sticky no fundo da coluna e tapava a
+          ementa, justamente aquilo que faz a casa merecer o
+          preço.) */}
+      <div className="mt-4 hidden md:block">
+        <a
+          href={hrefOrcamento({ pacote: pacote.id, origem: "carta" })}
+          target={alvo.target}
+          rel={alvo.rel}
+          className={`flex w-full items-center justify-center gap-2 py-3.5 font-body text-[10.5px] uppercase tracking-[0.16em] transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#A07830] ${
+            pacote.destaque ? "btn-gold-flat" : "btn-outline-gold"
+          }`}
+        >
+          Seguir com o {pacote.nome} →
+          {alvo.novoSeparador && (
+            <span className="sr-only"> (abre noutro separador)</span>
+          )}
+        </a>
+        <p className="mt-1.5 text-center font-body text-[9.5px] text-[#9CA3AF]">
+          Abre o pedido de orçamento
+        </p>
+      </div>
+
       {/* A mesa deste serviço, à escala real */}
-      <div className="mt-3">
+      <div className="mt-4">
         <MesaAEscala pacote={pacote} />
         <p className="mt-1 text-center font-body text-[9px] uppercase tracking-[0.16em] text-[#9CA3AF]">
           {pacote.medida} · {pacote.lotacaoCurta} convidados
@@ -603,34 +657,16 @@ function PainelDoServico({
         </p>
       )}
 
-      {/* O CTA fica sempre à mão, colado ao fundo da coluna */}
-      <div className="mt-auto hidden pt-6 md:block md:sticky md:bottom-0 md:bg-gradient-to-t md:from-[#FDFBF6] md:via-[#FDFBF6] md:to-transparent md:pb-1">
-        <a
-          href={hrefOrcamento({ pacote: pacote.id, origem: "carta" })}
-          target={alvo.target}
-          rel={alvo.rel}
-          className={`flex w-full items-center justify-center gap-2 py-3.5 font-body text-[10.5px] uppercase tracking-[0.16em] transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#A07830] ${
-            pacote.destaque ? "btn-gold-flat" : "btn-outline-gold"
-          }`}
-        >
-          Seguir com o {pacote.nome} →
-          {alvo.novoSeparador && (
-            <span className="sr-only"> (abre noutro separador)</span>
-          )}
-        </a>
-        <p className="mt-1.5 text-center font-body text-[9.5px] text-[#9CA3AF]">
-          Abre o pedido de orçamento
-        </p>
-      </div>
     </motion.article>
   );
 }
 
 // ------------------------------------------------------------
-function BlocoAMedida({ realcado }) {
+function BlocoAMedida({ realcado, refCallback }) {
   const alvo = useAlvoExterno();
   return (
     <section
+      ref={refCallback}
       className={`w-[84vw] shrink-0 snap-center border-l border-[#EADCC0] px-5 py-6 text-center transition-colors duration-300 md:w-auto md:border-l-0 md:border-t md:px-10 ${
         realcado ? "bg-[#FAF7F0]" : ""
       }`}
@@ -662,32 +698,37 @@ function BlocoAMedida({ realcado }) {
 // a barra de ação que acompanha a folha à vista, para que o
 // polegar nunca tenha de rolar até ao fim de um cartão.
 // ------------------------------------------------------------
-function Rodape({ pacoteVisivel, desktop, lugar, aoFechar }) {
+function Rodape({ pacoteVisivel, desktop, aoFechar }) {
   const alvo = useAlvoExterno();
 
   return (
     <div className="shrink-0 border-t border-[#EADCC0] bg-[#FDFBF6]">
-      {!desktop && lugar !== A_MEDIDA && (
+      {!desktop && (
         <div
           className="px-4 pt-3"
           style={{ paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))" }}
         >
-          <a
-            key={pacoteVisivel.id}
-            href={hrefOrcamento({ pacote: pacoteVisivel.id, origem: "carta" })}
-            target={alvo.target}
-            rel={alvo.rel}
-            className="btn-gold-flat flex w-full items-center justify-center py-3.5 font-body text-[11px] uppercase tracking-[0.16em] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#A07830]"
-          >
-            Seguir com o {pacoteVisivel.nome} →
-            {alvo.novoSeparador && (
-              <span className="sr-only"> (abre noutro separador)</span>
-            )}
-          </a>
+          {/* Na folha "à medida" a ação é a da própria folha; aqui
+              fica só a saída, para a barra nunca prometer um
+              serviço que não é o que está no ecrã. */}
+          {pacoteVisivel && (
+            <a
+              key={pacoteVisivel.id}
+              href={hrefOrcamento({ pacote: pacoteVisivel.id, origem: "carta" })}
+              target={alvo.target}
+              rel={alvo.rel}
+              className="btn-gold-flat flex w-full items-center justify-center py-3.5 font-body text-[11px] uppercase tracking-[0.16em] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[#A07830]"
+            >
+              Seguir com o {pacoteVisivel.nome} →
+              {alvo.novoSeparador && (
+                <span className="sr-only"> (abre noutro separador)</span>
+              )}
+            </a>
+          )}
           <button
             type="button"
             onClick={aoFechar}
-            className="mt-2 w-full py-1 font-body text-[10px] tracking-[0.08em] text-[#9CA3AF] transition-colors hover:text-[#6B7280] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A07830]"
+            className="mt-2 min-h-[44px] w-full font-body text-[10px] tracking-[0.08em] text-[#9CA3AF] transition-colors hover:text-[#6B7280] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A07830]"
           >
             Fechar a carta
           </button>

@@ -2,6 +2,7 @@ import { useRef, useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import MagneticButton from "@/components/MagneticButton";
+import { useAlvoExterno } from "@/components/reforma/orcamento";
 
 // ============================================================
 // Campanula — o botão mágico da página de renovação.
@@ -21,6 +22,7 @@ const EASE_LUXO = [0.22, 1, 0.36, 1];
 
 export default function Campanula({ href }) {
   const [aberta, setAberta] = useState(false);
+  const alvo = useAlvoExterno();
   // No toque, a campânula fica aberta (não há "pointer leave" digno
   // em ecrãs táteis); no rato, volta a pousar se ele se afastar
   const fixa = useRef(false);
@@ -122,7 +124,12 @@ export default function Campanula({ href }) {
       />
 
       {/* O convite, servido debaixo da campânula */}
+      {/* Enquanto a campânula está pousada, o convite não existe
+          para ninguém: invisível ao rato, ao teclado e ao leitor
+          de ecrã. (opacity-0 sozinho deixava-o focável.) */}
       <div
+        aria-hidden={!aberta}
+        {...(aberta ? {} : { inert: "" })}
         className={`absolute left-1/2 top-[46%] z-10 -translate-x-1/2 transition-opacity duration-500 ${
           aberta ? "opacity-100 delay-150" : "pointer-events-none opacity-0"
         }`}
@@ -137,11 +144,14 @@ export default function Campanula({ href }) {
         >
           <MagneticButton
             href={href}
-            target="_blank"
-            rel="noopener noreferrer"
+            target={alvo.target}
+            rel={alvo.rel}
             className="group relative inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-gold px-6 py-3 font-body text-sm font-semibold tracking-wide text-[#161210] shadow-[0_6px_30px_-6px_rgba(201,168,76,0.65)] transition-colors duration-300 hover:bg-gold-light"
           >
             <span>Pedir o meu orçamento</span>
+            {alvo.novoSeparador && (
+              <span className="sr-only"> (abre noutro separador)</span>
+            )}
             <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </MagneticButton>
         </motion.div>

@@ -47,7 +47,9 @@ export default function GatilhoDaCarta({
         type="button"
         onClick={aoAbrir}
         aria-haspopup="dialog"
-        aria-label="Ver a carta da casa — os três serviços de buffet, com preços"
+        // Sem aria-label fixo: o rótulo acessível é o texto visível,
+        // que muda com o estado ("Rever…", "Anotámos: Supreme").
+        // Um label estático dizia uma coisa e o ecrã outra.
         initial={{ opacity: 0, y: 6 }}
         animate={visivel ? { opacity: 1, y: 0 } : { opacity: 0, y: 6 }}
         transition={{ duration: reduzido ? 0 : 0.7, ease: EASE_LUXO }}

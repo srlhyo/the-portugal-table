@@ -5,7 +5,7 @@ import PalcoDoServico from "@/components/reforma/PalcoDoServico";
 import Campanula from "@/components/reforma/Campanula";
 import CartaDaCasa from "@/components/reforma/CartaDaCasa";
 import GatilhoDaCarta from "@/components/reforma/GatilhoDaCarta";
-import { hrefOrcamento } from "@/components/reforma/orcamento";
+import { hrefOrcamento, useAlvoExterno } from "@/components/reforma/orcamento";
 
 // ============================================================
 // Index — página temporária "em renovação" do Do Luxo à Mesa.
@@ -52,6 +52,7 @@ const Index = () => {
   // o pedido de orçamento — pela carta ou pela campânula.
   const [escolhido, setEscolhido] = useState<string | null>(null);
   const reduzido = useReducedMotion();
+  const alvo = useAlvoExterno();
 
   const aoFase = useCallback((n: number) => setFase(n), []);
   // A campânula foi pousada pelo serviço: entra a versão interativa
@@ -178,8 +179,8 @@ const Index = () => {
       <footer className="relative z-10 mx-auto w-full max-w-2xl px-5 pb-7 pt-2 text-center">
         <motion.a
           href={hrefOrcamento({ pacote: escolhido, origem: "rodape" })}
-          target="_blank"
-          rel="noopener noreferrer"
+          target={alvo.target}
+          rel={alvo.rel}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.4, duration: 0.8 }}
