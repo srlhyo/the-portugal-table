@@ -11,7 +11,7 @@ import {
   type ReactNode,
 } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { ArrowDown, ArrowUp, Pause, Play } from "lucide-react";
+import { ArrowDown, ArrowUp, Maximize2, Pause, Play } from "lucide-react";
 import { fotosEventos, videosEventos } from "@/data/eventos";
 import { useEmVista } from "@/hooks/use-em-vista";
 
@@ -21,11 +21,15 @@ import { useEmVista } from "@/hooks/use-em-vista";
 // Estado "coberta": a campânula 3D flutua sobre o palco, com a
 //   frase da casa por cima e o convite "Revelar a mesa" por
 //   baixo. O rato (ou o dedo) inclina-a.
-// Estado "revelada": a campânula sobe e sai de cena; no lugar
-//   dela, as fotos e os vídeos dos eventos reais da Nádia
-//   enchem o arco, com um Ken Burns lento. Deslizar com o dedo
-//   (ou tocar nas miniaturas) muda a foto; os dois vídeos têm
-//   as suas próprias fichas por baixo.
+// Estado "revelada": a campânula sobe e sai de cena e, no lugar
+//   dela, as fotografias dos eventos reais passam em molduras
+//   de papel, num carrossel em 3D — cada uma no ratio em que foi
+//   feita, nunca cortada nem esticada. Deslizar com o dedo, tocar
+//   nas miniaturas ou esperar (passeio automático) muda a foto;
+//   tocar na foto abre-a em tamanho real na vitrine.
+//
+// Os vídeos não tocam aqui dentro (seriam cortados pelo arco):
+// as fichas por baixo abrem-nos na vitrine, em ecrã inteiro.
 //
 // O 3D chega em lazy (three.js é o maior pedaço do site) e, até
 // chegar — ou se o WebGL falhar — fica uma campânula em SVG no
@@ -35,9 +39,8 @@ import { useEmVista } from "@/hooks/use-em-vista";
 const CampanulaTresD = lazy(() => import("./CampanulaTresD"));
 
 const EASE_LUXO = [0.22, 1, 0.36, 1] as const;
-const INTERVALO_FOTOS = 4600;
-
-type Midia = { tipo: "foto"; indice: number } | { tipo: "video"; indice: number };
+const INTERVALO_FOTOS = 4400;
+const N = fotosEventos.length;
 
 /** Se o WebGL falhar, o palco mostra a campânula desenhada — nunca um buraco. */
 class RedeDeSeguranca extends Component<{ fallback: ReactNode; children: ReactNode }, { falhou: boolean }> {
@@ -84,19 +87,32 @@ function CampanulaDesenhada({ levantada }: { levantada: boolean }) {
   );
 }
 
+/** Distância circular entre duas posições do carrossel: -N/2 … N/2. */
+const desvio = (i: number, atual: number) => {
+  let d = i - atual;
+  if (d > N / 2) d -= N;
+  if (d < -N / 2) d += N;
+  return d;
+};
+
 interface Props {
+  /** Abrir uma foto na vitrine (índice na lista de fotos). */
+  aoAbrirFoto: (indice: number) => void;
+  /** Abrir um vídeo na vitrine (índice na lista de vídeos). */
+  aoAbrirVideo: (indice: number) => void;
   /** Quando a mesa se revela pela primeira vez — o Index pode reagir. */
   aoRevelar?: () => void;
 }
 
-export default function PalcoDaMesa({ aoRevelar }: Props) {
+export default function PalcoDaMesa({ aoAbrirFoto, aoAbrirVideo, aoRevelar }: Props) {
   const reduzido = useReducedMotion() ?? false;
   const [raiz, emVista] = useEmVista<HTMLDivElement>("160px");
   const [revelada, setRevelada] = useState(false);
-  const [midia, setMidia] = useState<Midia>({ tipo: "foto", indice: 0 });
+  const [atual, setAtual] = useState(0);
   const [pausado, setPausado] = useState(false);
   const jaRevelou = useRef(false);
   const inicioToque = useRef<{ x: number; y: number } | null>(null);
+  const arrastou = useRef(false);
 
   const revelar = useCallback(() => {
     setRevelada(true);
@@ -111,37 +127,27 @@ export default function PalcoDaMesa({ aoRevelar }: Props) {
     else revelar();
   }, [revelada, revelar]);
 
-  const irParaFoto = useCallback(
+  const irPara = useCallback(
     (indice: number) => {
-      const n = fotosEventos.length;
-      setMidia({ tipo: "foto", indice: ((indice % n) + n) % n });
+      setAtual(((indice % N) + N) % N);
       revelar();
     },
     [revelar],
   );
 
-  const irParaVideo = useCallback(
-    (indice: number) => {
-      setMidia({ tipo: "video", indice });
-      revelar();
-    },
-    [revelar],
-  );
-
-  // O passeio automático pelas fotos — só quando a mesa está à
-  // vista, ninguém carregou em pausa e o palco está no ecrã
+  // O passeio automático pelas fotos — só com a mesa à vista,
+  // sem pausa e com o palco no ecrã
   useEffect(() => {
-    if (!revelada || pausado || !emVista || midia.tipo !== "foto") return;
-    const id = window.setTimeout(() => {
-      setMidia((m) => (m.tipo === "foto" ? { tipo: "foto", indice: (m.indice + 1) % fotosEventos.length } : m));
-    }, INTERVALO_FOTOS);
+    if (!revelada || pausado || !emVista) return;
+    const id = window.setTimeout(() => setAtual((a) => (a + 1) % N), INTERVALO_FOTOS);
     return () => window.clearTimeout(id);
-  }, [revelada, pausado, emVista, midia]);
+  }, [revelada, pausado, emVista, atual]);
 
   // Deslizar com o dedo muda a foto (só na horizontal, para não
   // roubar o scroll da página)
   const aoPointerDown = (e: ReactPointerEvent) => {
     inicioToque.current = { x: e.clientX, y: e.clientY };
+    arrastou.current = false;
   };
   const aoPointerUp = (e: ReactPointerEvent) => {
     const ini = inicioToque.current;
@@ -150,19 +156,12 @@ export default function PalcoDaMesa({ aoRevelar }: Props) {
     const dx = e.clientX - ini.x;
     const dy = e.clientY - ini.y;
     if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy) * 1.4) {
-      const atual = midia.tipo === "foto" ? midia.indice : 0;
-      irParaFoto(dx < 0 ? atual + 1 : atual - 1);
+      arrastou.current = true;
+      irPara(dx < 0 ? atual + 1 : atual - 1);
     }
   };
 
-  const fotoAtual = midia.tipo === "foto" ? fotosEventos[midia.indice] : null;
-  const videoAtual = midia.tipo === "video" ? videosEventos[midia.indice] : null;
-  const chaveMidia = `${midia.tipo}-${midia.indice}`;
-  const legenda = fotoAtual?.legenda ?? videoAtual?.descricao ?? "";
-  const contador =
-    midia.tipo === "foto"
-      ? `${String(midia.indice + 1).padStart(2, "0")} / ${String(fotosEventos.length).padStart(2, "0")}`
-      : videoAtual?.titulo ?? "";
+  const foto = fotosEventos[atual];
 
   return (
     <div ref={raiz} className="w-full">
@@ -204,60 +203,63 @@ export default function PalcoDaMesa({ aoRevelar }: Props) {
           </div>
         )}
 
-        {/* A mesa revelada: fotos e vídeos dos eventos */}
+        {/* A mesa revelada: as fotos em molduras, num carrossel 3D */}
         <div
-          className={`absolute inset-0 transition-opacity duration-[900ms] ease-out ${
-            revelada ? "opacity-100" : "pointer-events-none opacity-0"
+          className={`absolute inset-x-0 top-[13%] bottom-[27%] transition-opacity duration-[900ms] ease-out ${
+            revelada ? "opacity-100 delay-300" : "pointer-events-none opacity-0"
           }`}
+          style={{ perspective: "1100px" }}
+          aria-live="polite"
         >
-          <AnimatePresence mode="sync">
-            {revelada && fotoAtual && (
-              <motion.img
-                key={chaveMidia}
-                src={fotoAtual.src}
-                alt={fotoAtual.alt}
-                draggable={false}
-                className="absolute inset-0 h-full w-full select-none object-cover"
-                style={{ objectPosition: fotoAtual.foco ?? "50% 50%" }}
-                initial={{ opacity: 0, scale: 1.06 }}
+          {fotosEventos.map((f, i) => {
+            const d = desvio(i, atual);
+            const visivel = Math.abs(d) <= 1;
+            const ativa = d === 0;
+            return (
+              <motion.figure
+                key={f.id}
+                aria-hidden={!ativa}
+                className="absolute inset-0 m-0 flex items-center justify-center"
+                initial={false}
                 animate={{
-                  opacity: 1,
-                  scale: reduzido || pausado ? 1.04 : [1.04, 1.13],
+                  x: `${d * 46}%`,
+                  rotateY: d * -32,
+                  scale: ativa ? 1 : 0.78,
+                  opacity: visivel ? (ativa ? 1 : 0.55) : 0,
+                  filter: ativa ? "brightness(1)" : "brightness(0.6)",
+                  zIndex: ativa ? 3 : visivel ? 2 : 1,
                 }}
-                exit={{ opacity: 0, transition: { duration: 0.9, ease: "easeInOut" } }}
-                transition={{
-                  opacity: { duration: 1.1, ease: EASE_LUXO },
-                  scale: { duration: INTERVALO_FOTOS / 1000 + 1.4, ease: "linear" },
-                }}
-              />
-            )}
-            {revelada && videoAtual && (
-              <motion.video
-                key={chaveMidia}
-                src={videoAtual.src}
-                poster={videoAtual.poster}
-                className="absolute inset-0 h-full w-full object-cover"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                initial={{ opacity: 0, scale: 1.04 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, transition: { duration: 0.7 } }}
-                transition={{ duration: 1.1, ease: EASE_LUXO }}
-              />
-            )}
-          </AnimatePresence>
-          {/* Véus para a legenda e o botão lerem-se sobre qualquer foto */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(12,24,19,0.35) 0%, rgba(12,24,19,0) 30%, rgba(12,24,19,0) 55%, rgba(12,24,19,0.72) 100%)",
-            }}
-          />
+                transition={{ duration: reduzido ? 0 : 0.9, ease: EASE_LUXO }}
+                style={{ transformStyle: "preserve-3d", pointerEvents: ativa ? "auto" : "none" }}
+              >
+                <button
+                  type="button"
+                  tabIndex={ativa && revelada ? 0 : -1}
+                  aria-label={`Ver em tamanho real: ${f.legenda}`}
+                  onClick={() => {
+                    if (!arrastou.current) aoAbrirFoto(i);
+                  }}
+                  className="group/moldura relative block max-h-full max-w-[84%] cursor-zoom-in bg-[#FFF8E8] p-1.5 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.75)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E8CF8A] sm:p-2"
+                  style={{ aspectRatio: `${f.largura} / ${f.altura}`, height: f.altura >= f.largura ? "100%" : "auto", width: f.altura >= f.largura ? "auto" : "84%" }}
+                >
+                  <img
+                    src={f.src}
+                    alt={f.alt}
+                    draggable={false}
+                    loading={i < 3 ? "eager" : "lazy"}
+                    decoding="async"
+                    className="h-full w-full select-none object-cover"
+                  />
+                  <span
+                    aria-hidden="true"
+                    className="absolute bottom-3 right-3 inline-flex h-8 w-8 items-center justify-center bg-[#0F1F19]/60 text-[#FFF8E8] opacity-0 backdrop-blur transition-opacity duration-300 group-hover/moldura:opacity-100"
+                  >
+                    <Maximize2 className="h-3.5 w-3.5" />
+                  </span>
+                </button>
+              </motion.figure>
+            );
+          })}
         </div>
 
         {/* A campânula 3D — clicar nela também revela */}
@@ -295,9 +297,9 @@ export default function PalcoDaMesa({ aoRevelar }: Props) {
           </RedeDeSeguranca>
         </div>
 
-        {/* A frase da casa, no topo (só com a mesa coberta) */}
-        <AnimatePresence>
-          {!revelada && (
+        {/* A frase da casa, no topo */}
+        <AnimatePresence mode="wait">
+          {!revelada ? (
             <motion.p
               key="frase"
               initial={{ opacity: 0, y: 6 }}
@@ -309,6 +311,17 @@ export default function PalcoDaMesa({ aoRevelar }: Props) {
               Cada celebração começa
               <br />
               com um pequeno gesto.
+            </motion.p>
+          ) : (
+            <motion.p
+              key="rotulo"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="pointer-events-none absolute inset-x-6 top-[7.5%] text-center font-body text-[10px] uppercase tracking-[0.28em] text-[#E8CF8A] sm:text-[11px]"
+            >
+              Os nossos eventos
             </motion.p>
           )}
         </AnimatePresence>
@@ -322,13 +335,23 @@ export default function PalcoDaMesa({ aoRevelar }: Props) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6, delay: 0.5, ease: EASE_LUXO }}
-              className="pointer-events-none absolute inset-x-5 bottom-[19%] flex items-end justify-between gap-4 sm:inset-x-7"
-              aria-live="polite"
+              className="pointer-events-none absolute inset-x-5 bottom-[18.5%] flex items-baseline justify-between gap-4 sm:inset-x-7"
             >
-              <p className="font-display text-lg italic leading-tight text-[#FFF8E8] drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)] sm:text-xl md:text-2xl">
-                {legenda}
-              </p>
-              <span className="shrink-0 font-body text-[10px] tracking-[0.22em] text-[#E8CF8A]">{contador}</span>
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={foto.id}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.35 }}
+                  className="font-display text-base italic leading-tight text-[#FFF8E8] sm:text-lg md:text-xl"
+                >
+                  {foto.legenda}
+                </motion.p>
+              </AnimatePresence>
+              <span className="shrink-0 font-body text-[10px] tracking-[0.22em] text-[#E8CF8A]">
+                {String(atual + 1).padStart(2, "0")} / {String(N).padStart(2, "0")}
+              </span>
             </motion.div>
           )}
         </AnimatePresence>
@@ -374,7 +397,7 @@ export default function PalcoDaMesa({ aoRevelar }: Props) {
           aria-label="Fotos dos nossos eventos"
         >
           {fotosEventos.map((f, i) => {
-            const ativa = revelada && midia.tipo === "foto" && midia.indice === i;
+            const ativa = revelada && atual === i;
             return (
               <button
                 key={f.id}
@@ -382,7 +405,7 @@ export default function PalcoDaMesa({ aoRevelar }: Props) {
                 role="tab"
                 aria-selected={ativa}
                 aria-label={f.legenda}
-                onClick={() => irParaFoto(i)}
+                onClick={() => irPara(i)}
                 className={`relative h-11 w-11 shrink-0 overflow-hidden border transition-all duration-300 ${
                   ativa ? "border-[#A07830] opacity-100" : "border-transparent opacity-60 hover:opacity-100"
                 }`}
@@ -407,27 +430,21 @@ export default function PalcoDaMesa({ aoRevelar }: Props) {
 
       <div className="mt-2 h-px w-full bg-[#EADCC0]" aria-hidden="true" />
 
-      {/* Os vídeos, em fichas */}
+      {/* Os vídeos, em fichas — abrem em ecrã inteiro */}
       <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <span className="font-body text-[10px] uppercase tracking-[0.24em] text-[#8C6526]">Mesas com vida</span>
         <div className="flex gap-1">
-          {videosEventos.map((v, i) => {
-            const ativa = revelada && midia.tipo === "video" && midia.indice === i;
-            return (
-              <button
-                key={v.id}
-                type="button"
-                aria-pressed={ativa}
-                onClick={() => irParaVideo(i)}
-                className={`inline-flex min-h-[40px] items-center gap-1.5 px-2.5 font-body text-[12px] tracking-[0.02em] transition-colors duration-300 ${
-                  ativa ? "text-[#8C6526]" : "text-[#1A1A1A] hover:text-[#8C6526]"
-                }`}
-              >
-                <Play className={`h-3 w-3 ${ativa ? "fill-[#8C6526] text-[#8C6526]" : "text-[#A07830]"}`} />
-                {v.titulo}
-              </button>
-            );
-          })}
+          {videosEventos.map((v, i) => (
+            <button
+              key={v.id}
+              type="button"
+              onClick={() => aoAbrirVideo(i)}
+              className="inline-flex min-h-[40px] items-center gap-1.5 px-2.5 font-body text-[12px] tracking-[0.02em] text-[#1A1A1A] transition-colors duration-300 hover:text-[#8C6526]"
+            >
+              <Play className="h-3 w-3 fill-[#A07830] text-[#A07830]" />
+              {v.titulo}
+            </button>
+          ))}
         </div>
       </div>
     </div>

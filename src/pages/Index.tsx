@@ -5,9 +5,8 @@ import logo from "@/assets/logo.png";
 import MagneticButton from "@/components/MagneticButton";
 import PalcoDaMesa from "@/components/reforma/PalcoDaMesa";
 import GaleriaVida from "@/components/reforma/GaleriaVida";
-import CartaDaCasa from "@/components/reforma/CartaDaCasa";
-import GatilhoDaCarta from "@/components/reforma/GatilhoDaCarta";
-import ConhecerACasa from "@/components/reforma/ConhecerACasa";
+import Vitrine from "@/components/reforma/Vitrine";
+import { indiceNaVitrine, fotosEventos, videosEventos } from "@/data/eventos";
 import { INSTAGRAM_URL, hrefGuia, hrefOrcamento, useAlvoExterno } from "@/components/reforma/orcamento";
 import { useEmVista } from "@/hooks/use-em-vista";
 
@@ -95,9 +94,11 @@ function HaloDoCursor() {
 const Index = () => {
   const reduzido = useReducedMotion() ?? false;
   const alvo = useAlvoExterno();
-  const [cartaAberta, setCartaAberta] = useState(false);
-  const [jaViuCarta, setJaViuCarta] = useState(false);
-  const [escolhido, setEscolhido] = useState<string | null>(null);
+  // A vitrine (lightbox) é partilhada pelo palco e pela grelha
+  const [vitrine, setVitrine] = useState<number | null>(null);
+  const abrirFoto = useCallback((i: number) => setVitrine(indiceNaVitrine("foto", fotosEventos[i].id)), []);
+  const abrirVideo = useCallback((i: number) => setVitrine(indiceNaVitrine("video", videosEventos[i].id)), []);
+  const fecharVitrine = useCallback(() => setVitrine(null), []);
   const [rodapeRef, rodapeEmVista] = useEmVista<HTMLElement>("0px", 0.3);
   // A barra fixa só entra depois de os botões do topo terem
   // passado para cima do ecrã — nunca por cima do palco
@@ -127,16 +128,10 @@ const Index = () => {
     };
   }, []);
 
-  const abrirCarta = useCallback(() => setCartaAberta(true), []);
-  const fecharCarta = useCallback(() => {
-    setCartaAberta(false);
-    setJaViuCarta(true);
-  }, []);
-
-  const hrefOrc = hrefOrcamento({ pacote: escolhido, origem: "hero" });
+  const hrefOrc = hrefOrcamento({ origem: "hero" });
   const hrefJornada = hrefGuia({ origem: "hero" });
   // …e sai quando o rodapé (que tem os seus próprios) entra
-  const barraVisivel = ctaPassou && !rodapeEmVista && !cartaAberta;
+  const barraVisivel = ctaPassou && !rodapeEmVista && vitrine === null;
 
   return (
     <div className="pagina-luxo relative min-h-[100dvh] w-full overflow-x-hidden bg-[#FBF8F1] text-[#1A1A1A]">
@@ -245,7 +240,7 @@ const Index = () => {
             className="w-full lg:col-span-6 lg:row-span-2"
           >
             <div className="mx-auto w-full max-w-[560px] lg:max-w-[500px] xl:max-w-[540px]">
-              <PalcoDaMesa />
+              <PalcoDaMesa aoAbrirFoto={abrirFoto} aoAbrirVideo={abrirVideo} />
             </div>
           </motion.div>
 
@@ -258,18 +253,9 @@ const Index = () => {
           </div>
         </section>
 
-        {/* A carta e a casa — as duas portas opcionais */}
-        <section aria-label="A carta da casa e quem somos" className="mx-auto w-full max-w-[1400px] px-5 sm:px-8 lg:px-12">
-          <div className="flex flex-col items-center justify-center gap-2 border-y border-[#EADCC0] py-5 sm:flex-row sm:gap-8 sm:py-6">
-            <GatilhoDaCarta visivel aoAbrir={abrirCarta} jaViu={jaViuCarta} escolhido={escolhido} reduzido={reduzido} />
-            <span aria-hidden="true" className="hidden h-8 w-px bg-[#EADCC0] sm:block" />
-            <ConhecerACasa visivel reduzido={reduzido} />
-          </div>
-        </section>
-
         {/* Os eventos reais */}
-        <div className="pt-20 sm:pt-28">
-          <GaleriaVida />
+        <div className="border-t border-[#EADCC0] pt-16 sm:pt-24">
+          <GaleriaVida aoAbrir={setVitrine} />
         </div>
 
         {/* O convite final */}
@@ -301,7 +287,7 @@ const Index = () => {
               </p>
               <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
                 <MagneticButton
-                  href={hrefOrcamento({ pacote: escolhido, origem: "convite-final" })}
+                  href={hrefOrcamento({ origem: "convite-final" })}
                   target={alvo.target}
                   rel={alvo.rel}
                   className="group inline-flex min-h-[52px] w-full max-w-xs items-center justify-center gap-3 bg-[#E4C06A] px-8 py-3.5 font-body text-[13px] font-medium tracking-[0.04em] text-[#161210] shadow-[0_10px_30px_-10px_rgba(228,192,106,0.6)] transition-colors duration-300 hover:bg-[#F0D07E] sm:w-auto"
@@ -335,7 +321,7 @@ const Index = () => {
           </div>
           <nav aria-label="Ligações" className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-body text-[12px] tracking-[0.04em]">
             <a
-              href={hrefOrcamento({ pacote: escolhido, origem: "rodape" })}
+              href={hrefOrcamento({ origem: "rodape" })}
               target={alvo.target}
               rel={alvo.rel}
               className="border-b border-[#EADCC0] pb-0.5 text-[#1A1A1A] transition-colors hover:border-[#C9A84C] hover:text-[#8C6526]"
@@ -362,8 +348,8 @@ const Index = () => {
         </div>
       </footer>
 
-      {/* A carta, em folha */}
-      <CartaDaCasa aberta={cartaAberta} aoFechar={fecharCarta} aoEscolher={setEscolhido} escolhido={escolhido} />
+      {/* A vitrine: fotos e vídeos em tamanho real */}
+      <Vitrine indice={vitrine} aoFechar={fecharVitrine} aoNavegar={setVitrine} />
 
       {/* Barra fixa (telemóvel e tablet) — a ação nunca fica longe do polegar */}
       <AnimatePresence>
@@ -378,7 +364,7 @@ const Index = () => {
           >
             <div className="mx-auto flex max-w-lg items-stretch gap-2 border-t border-[#EADCC0] bg-[#FBF8F1]/92 px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] shadow-[0_-12px_40px_-20px_rgba(26,26,26,0.35)] backdrop-blur-md">
               <a
-                href={hrefOrcamento({ pacote: escolhido, origem: "barra" })}
+                href={hrefOrcamento({ origem: "barra" })}
                 target={alvo.target}
                 rel={alvo.rel}
                 className="inline-flex min-h-[50px] flex-1 items-center justify-center gap-2 bg-[#1A1A1A] px-5 font-body text-[13px] font-medium tracking-[0.04em] text-[#FBF8F1] active:bg-[#333]"

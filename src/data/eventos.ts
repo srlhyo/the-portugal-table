@@ -42,6 +42,9 @@ export interface FotoEvento {
   /** Legenda curta, em voz de casa. */
   legenda: string;
   orientacao: "retrato" | "paisagem";
+  /** Dimensões reais do ficheiro — para reservar o ratio certo sem cortes. */
+  largura: number;
+  altura: number;
   /** Ponto de interesse para o object-position (recortes em ecrãs estreitos). */
   foco?: string;
 }
@@ -54,6 +57,8 @@ export const fotosEventos: FotoEvento[] = [
     alt: "Mesa de finger food com flores secas, velas e canapés em suportes de madeira",
     legenda: "A mesa posta, antes dos convidados.",
     orientacao: "retrato",
+    largura: 787,
+    altura: 1400,
     foco: "50% 60%",
   },
   {
@@ -63,6 +68,8 @@ export const fotosEventos: FotoEvento[] = [
     alt: "Mini croissants com tomate cherry em espetos, numa tábua redonda",
     legenda: "Mini croissants, ainda mornos.",
     orientacao: "paisagem",
+    largura: 1400,
+    altura: 787,
   },
   {
     id: "copos-amora",
@@ -71,6 +78,8 @@ export const fotosEventos: FotoEvento[] = [
     alt: "Copos de sobremesa de amora em fila, com uma taça dourada de molho",
     legenda: "Sobremesas de amora, em fila.",
     orientacao: "paisagem",
+    largura: 1400,
+    altura: 787,
   },
   {
     id: "tabua-queijos",
@@ -79,6 +88,8 @@ export const fotosEventos: FotoEvento[] = [
     alt: "Tábua de queijos e enchidos com uvas, frutos vermelhos e brie",
     legenda: "Tábua de queijos e frutos.",
     orientacao: "retrato",
+    largura: 787,
+    altura: 1400,
   },
   {
     id: "dispensador",
@@ -87,6 +98,8 @@ export const fotosEventos: FotoEvento[] = [
     alt: "Dispensador de cristal com água aromatizada de limão e hortelã, e copos de cristal",
     legenda: "Água aromatizada, em cristal.",
     orientacao: "retrato",
+    largura: 787,
+    altura: 1400,
   },
   {
     id: "canapes",
@@ -95,6 +108,8 @@ export const fotosEventos: FotoEvento[] = [
     alt: "Canapés de ovo e bacon sobre pão tostado, dispostos em pedestais brancos",
     legenda: "Canapés de ovo e bacon.",
     orientacao: "retrato",
+    largura: 787,
+    altura: 1400,
   },
   {
     id: "molhos",
@@ -103,6 +118,8 @@ export const fotosEventos: FotoEvento[] = [
     alt: "Três taças douradas com molhos e patés",
     legenda: "Molhos da casa, em taças douradas.",
     orientacao: "paisagem",
+    largura: 1400,
+    altura: 787,
   },
   {
     id: "mesa-flores",
@@ -111,6 +128,8 @@ export const fotosEventos: FotoEvento[] = [
     alt: "Arranjo de flores secas junto a copos de sobremesa e uma tábua de queijos",
     legenda: "Flores secas e sobremesas.",
     orientacao: "retrato",
+    largura: 787,
+    altura: 1400,
   },
   {
     id: "mesa-canapes",
@@ -119,6 +138,8 @@ export const fotosEventos: FotoEvento[] = [
     alt: "Vista geral da mesa com canapés, copos de sobremesa e flores",
     legenda: "A mesa, de outro ângulo.",
     orientacao: "paisagem",
+    largura: 1083,
+    altura: 1400,
   },
   {
     id: "copo-marca",
@@ -127,6 +148,8 @@ export const fotosEventos: FotoEvento[] = [
     alt: "Copo de sobremesa de amora com o selo Do Luxo à Mesa",
     legenda: "Com o nosso selo.",
     orientacao: "retrato",
+    largura: 787,
+    altura: 1400,
   },
 ];
 
@@ -137,6 +160,8 @@ export interface VideoEvento {
   titulo: string;
   descricao: string;
   orientacao: "retrato" | "paisagem";
+  largura: number;
+  altura: number;
 }
 
 export const videosEventos: VideoEvento[] = [
@@ -147,6 +172,8 @@ export const videosEventos: VideoEvento[] = [
     titulo: "Em tons de rosa",
     descricao: "Velas altas, seda rosa e cartões de lugar à mão.",
     orientacao: "retrato",
+    largura: 464,
+    altura: 832,
   },
   {
     id: "ar-livre",
@@ -154,6 +181,30 @@ export const videosEventos: VideoEvento[] = [
     poster: videoArLivrePoster,
     titulo: "Ao ar livre",
     descricao: "Cristal e dourado, com o céu por teto.",
-    orientacao: "paisagem",
+    orientacao: "retrato",
+    largura: 576,
+    altura: 1024,
   },
 ];
+
+// ------------------------------------------------------------
+// A vitrine: fotos e vídeos numa só lista, para o lightbox e
+// para a grelha navegarem pelo mesmo índice.
+// ------------------------------------------------------------
+
+export type ItemVitrine =
+  | ({ tipo: "video" } & VideoEvento)
+  | ({ tipo: "foto" } & FotoEvento);
+
+/** Os vídeos primeiro — são o que mais conta a história — e depois as fotos. */
+export const itensVitrine: ItemVitrine[] = [
+  { tipo: "video", ...videosEventos[0] },
+  { tipo: "foto", ...fotosEventos[0] },
+  { tipo: "foto", ...fotosEventos[1] },
+  { tipo: "foto", ...fotosEventos[2] },
+  { tipo: "video", ...videosEventos[1] },
+  ...fotosEventos.slice(3).map((f) => ({ tipo: "foto" as const, ...f })),
+];
+
+export const indiceNaVitrine = (tipo: ItemVitrine["tipo"], id: string) =>
+  itensVitrine.findIndex((i) => i.tipo === tipo && i.id === id);
