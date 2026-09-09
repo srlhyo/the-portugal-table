@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import { ArrowUpRight, Compass } from "lucide-react";
 import logo from "@/assets/logo.png";
+import logoMarca from "@/assets/logo-marca.png";
 import MagneticButton from "@/components/MagneticButton";
 import PalcoDaMesa from "@/components/reforma/PalcoDaMesa";
 import GaleriaVida from "@/components/reforma/GaleriaVida";
@@ -148,7 +149,7 @@ const Index = () => {
       <HaloDoCursor />
 
       {/* Cabeçalho */}
-      <header className="relative z-20 mx-auto flex w-full max-w-[1400px] items-center justify-between px-5 pt-4 sm:px-8 sm:pt-5 lg:px-12">
+      <header className="relative z-20 mx-auto flex w-full max-w-[1400px] items-center justify-between px-5 pt-3 sm:px-8 sm:pt-4 lg:px-12">
         <motion.a
           href="/"
           aria-label="Do Luxo à Mesa — início"
@@ -157,12 +158,14 @@ const Index = () => {
           transition={{ duration: 0.9, ease: EASE_LUXO }}
           className="block"
         >
+          {/* A marca sem a margem transparente do PNG original — assim
+              o logo ocupa mesmo a altura que lhe damos */}
           <img
-            src={logo}
+            src={logoMarca}
             alt="Do Luxo à Mesa"
-            width={666}
-            height={375}
-            className="h-14 w-auto sm:h-16"
+            width={224}
+            height={262}
+            className="h-20 w-auto sm:h-24 lg:h-28"
             style={{ filter: "drop-shadow(0 2px 10px rgba(201,168,76,0.25))" }}
           />
         </motion.a>
