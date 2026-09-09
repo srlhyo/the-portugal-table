@@ -14,7 +14,10 @@ import { useEffect, useState } from "react";
 //   de falar de mesas. Nunca compete com o orçamento.
 // ============================================================
 
-export const QUOTE_URL = "https://celebra-doluxoamesa-teste.netlify.app/interesse";
+export const QUOTE_URL = "https://celebra-doluxoamesa.netlify.app/interesse/doluxoamesa";
+
+/** O Instagram da casa — a montra do dia a dia. */
+export const INSTAGRAM_URL = "https://instagram.com/doluxoamesa";
 
 /** O guia interativo — a "porta da casa", o nosso sobre. */
 export const GUIA_URL = "https://dlm-jornada.netlify.app/";
