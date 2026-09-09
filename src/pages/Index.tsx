@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import { ArrowUpRight, Compass } from "lucide-react";
-import logo from "@/assets/logo.png";
 import logoMarca from "@/assets/logo-marca.png";
 import MagneticButton from "@/components/MagneticButton";
 import PalcoDaMesa from "@/components/reforma/PalcoDaMesa";
@@ -317,7 +316,7 @@ const Index = () => {
       <footer ref={rodapeRef} className="relative z-10 mx-auto w-full max-w-[1400px] px-5 pb-10 pt-12 sm:px-8 sm:pb-12 sm:pt-16 lg:px-12">
         <div className="flex flex-col items-center gap-6 text-center sm:flex-row sm:justify-between sm:text-left">
           <div className="flex flex-col items-center gap-3 sm:items-start">
-            <img src={logo} alt="" aria-hidden="true" className="h-10 w-auto opacity-80" />
+            <img src={logoMarca} alt="" aria-hidden="true" width={224} height={262} className="h-16 w-auto opacity-90 sm:h-20" />
             <p className="font-body text-[10px] uppercase tracking-[0.25em] text-[#9CA3AF]">
               Do Luxo à Mesa · by Nádia Schultz
             </p>
