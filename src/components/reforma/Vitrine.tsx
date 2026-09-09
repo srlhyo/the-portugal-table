@@ -148,6 +148,8 @@ export default function Vitrine({ indice, aoFechar, aoNavegar }: Props) {
                     poster={item.poster}
                     controls
                     autoPlay
+                    muted
+                    loop
                     playsInline
                     preload="metadata"
                     className="h-full w-full bg-black object-contain shadow-[0_40px_100px_-30px_rgba(0,0,0,0.8)]"

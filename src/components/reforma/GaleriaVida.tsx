@@ -10,7 +10,7 @@ import { itensVitrine } from "@/data/eventos";
 // retrato, paisagem é paisagem, nada é cortado. Os dois vídeos
 // vivem entre as fotos com um selo de "play" e um poster; nada
 // toca aqui dentro: tocar em qualquer peça abre-a na vitrine,
-// em ecrã inteiro e com som.
+// em ecrã inteiro, sem som.
 //
 // Motion: as peças entram uma a uma ao rolar, e ao pairar a
 // imagem aproxima-se devagar dentro da moldura.
